@@ -44,5 +44,9 @@
 		<string>Montserrat-Light.ttf</string>
 		<string>Montserrat-Regular.ttf</string>
 	</array>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>Enable location services to ease adding the location of a activity</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Enable location services to ease adding the location of a activity</string>
 </dict>
 </plist>

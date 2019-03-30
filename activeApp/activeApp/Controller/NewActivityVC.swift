@@ -28,7 +28,7 @@ class NewActivityVC: UIViewController {
     let segmentControl = UISegmentedControl(items: ["local", "firebase"])
     
 //    let activitiesVC = ActivitiesVC()
-//    let mapVC = MapVC()
+    let mapVC = MapVC()
     
     let nextVCButton = UIButton()
     
@@ -48,7 +48,7 @@ class NewActivityVC: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
-//        locationTextLabel.text = "\(locationCoordinate.latitude) \(locationCoordinate.longitude)"
+        locationTextLabel.text = "\(locationCoordinate.latitude) \(locationCoordinate.longitude)"
     }
     
     private func addSegmentControl() {
@@ -143,11 +143,8 @@ class NewActivityVC: UIViewController {
         addSegmentControl()
     }
     
-    
-    
-    
     @objc func presentMapVC(_ sender: Any) {
-//        self.present(mapVC, animated: true, completion: nil)
+        self.present(mapVC, animated: true, completion: nil)
     }
     
     @objc private func timePickerValuedChanged(sender: TimePicker) {
