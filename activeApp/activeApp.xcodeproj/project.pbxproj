@@ -7,27 +7,53 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		762BFFD8224F5C8400EA01B9 /* Montserrat-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 762BFFD6224F5C8400EA01B9 /* Montserrat-Regular.ttf */; };
+		762BFFD9224F5C8400EA01B9 /* Montserrat-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 762BFFD7224F5C8400EA01B9 /* Montserrat-Light.ttf */; };
 		769BE7B12240DFFE009CD147 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 769BE7B02240DFFE009CD147 /* AppDelegate.swift */; };
-		769BE7B32240DFFE009CD147 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 769BE7B22240DFFE009CD147 /* ViewController.swift */; };
 		769BE7B92240DFFE009CD147 /* activeApp.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 769BE7B72240DFFE009CD147 /* activeApp.xcdatamodeld */; };
 		769BE7BB2240E001009CD147 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 769BE7BA2240E001009CD147 /* Assets.xcassets */; };
 		769BE7CE2240E3C8009CD147 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 769BE7CD2240E3C7009CD147 /* GoogleService-Info.plist */; };
 		BA53D314D983D37A7B8234DA /* Pods_activeApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3ECC7BBDCA8AEBC233228C83 /* Pods_activeApp.framework */; };
+		EA61534A2240F69300DA4A79 /* NewActivityVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA6153492240F69300DA4A79 /* NewActivityVC.swift */; };
+		EA61534C2241273700DA4A79 /* ActivityLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA61534B2241273700DA4A79 /* ActivityLabel.swift */; };
+		EA6153502241277900DA4A79 /* HeadlineLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA61534F2241277900DA4A79 /* HeadlineLabel.swift */; };
+		EA6153522241279A00DA4A79 /* ActivityTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA6153512241279A00DA4A79 /* ActivityTextField.swift */; };
+		EA615354224127DC00DA4A79 /* ActivityButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA615353224127DC00DA4A79 /* ActivityButton.swift */; };
+		EA6153562241280100DA4A79 /* TimePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA6153552241280100DA4A79 /* TimePicker.swift */; };
+		EA6153582241283F00DA4A79 /* HolderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA6153572241283F00DA4A79 /* HolderView.swift */; };
+		EA61535A2241288800DA4A79 /* ViewExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA6153592241288800DA4A79 /* ViewExt.swift */; };
+		EA61535C224128E800DA4A79 /* IntExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA61535B224128E800DA4A79 /* IntExt.swift */; };
+		EA61535E2241291D00DA4A79 /* Firebase.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA61535D2241291D00DA4A79 /* Firebase.swift */; };
+		EA6153602241292900DA4A79 /* Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA61535F2241292900DA4A79 /* Data.swift */; };
+		EA6153622241294A00DA4A79 /* ColorExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA6153612241294900DA4A79 /* ColorExt.swift */; };
+		EACE27A42243CB83004FCD65 /* Activity.swift in Sources */ = {isa = PBXBuildFile; fileRef = EACE27A32243CB83004FCD65 /* Activity.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		2C333B971DC9A2C1211B3D38 /* Pods-activeApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-activeApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-activeApp/Pods-activeApp.release.xcconfig"; sourceTree = "<group>"; };
 		3ECC7BBDCA8AEBC233228C83 /* Pods_activeApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_activeApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		762BFFD6224F5C8400EA01B9 /* Montserrat-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Montserrat-Regular.ttf"; path = "../../../fontFroActiveApp/Montserrat-Regular.ttf"; sourceTree = "<group>"; };
+		762BFFD7224F5C8400EA01B9 /* Montserrat-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Montserrat-Light.ttf"; path = "../Montserrat-Light.ttf"; sourceTree = "<group>"; };
 		769BE7AD2240DFFE009CD147 /* activeApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = activeApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		769BE7B02240DFFE009CD147 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		769BE7B22240DFFE009CD147 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		769BE7B82240DFFE009CD147 /* activeApp.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = activeApp.xcdatamodel; sourceTree = "<group>"; };
 		769BE7BA2240E001009CD147 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		769BE7BF2240E001009CD147 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		769BE7CB2240E2F2009CD147 /* Montserrat-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Regular.ttf"; sourceTree = "<group>"; };
-		769BE7CC2240E2F2009CD147 /* Montserrat-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Light.ttf"; sourceTree = "<group>"; };
 		769BE7CD2240E3C7009CD147 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		7EEDC381D2224E9EBB6F9711 /* Pods-activeApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-activeApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-activeApp/Pods-activeApp.debug.xcconfig"; sourceTree = "<group>"; };
+		EA6153492240F69300DA4A79 /* NewActivityVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewActivityVC.swift; sourceTree = "<group>"; };
+		EA61534B2241273700DA4A79 /* ActivityLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityLabel.swift; sourceTree = "<group>"; };
+		EA61534F2241277900DA4A79 /* HeadlineLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeadlineLabel.swift; sourceTree = "<group>"; };
+		EA6153512241279A00DA4A79 /* ActivityTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityTextField.swift; sourceTree = "<group>"; };
+		EA615353224127DC00DA4A79 /* ActivityButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityButton.swift; sourceTree = "<group>"; };
+		EA6153552241280100DA4A79 /* TimePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimePicker.swift; sourceTree = "<group>"; };
+		EA6153572241283F00DA4A79 /* HolderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HolderView.swift; sourceTree = "<group>"; };
+		EA6153592241288800DA4A79 /* ViewExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewExt.swift; sourceTree = "<group>"; };
+		EA61535B224128E800DA4A79 /* IntExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntExt.swift; sourceTree = "<group>"; };
+		EA61535D2241291D00DA4A79 /* Firebase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Firebase.swift; sourceTree = "<group>"; };
+		EA61535F2241292900DA4A79 /* Data.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Data.swift; sourceTree = "<group>"; };
+		EA6153612241294900DA4A79 /* ColorExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorExt.swift; sourceTree = "<group>"; };
+		EACE27A32243CB83004FCD65 /* Activity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Activity.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,18 +89,17 @@
 		769BE7AF2240DFFE009CD147 /* activeApp */ = {
 			isa = PBXGroup;
 			children = (
-				769BE7CA2240E293009CD147 /* fonts */,
 				769BE7C92240E285009CD147 /* Extensions */,
 				769BE7C82240E27C009CD147 /* Utilities */,
 				769BE7C72240E275009CD147 /* Model */,
 				769BE7C62240E270009CD147 /* View */,
 				769BE7C52240E261009CD147 /* Controller */,
 				769BE7B02240DFFE009CD147 /* AppDelegate.swift */,
-				769BE7B22240DFFE009CD147 /* ViewController.swift */,
 				769BE7BA2240E001009CD147 /* Assets.xcassets */,
 				769BE7BF2240E001009CD147 /* Info.plist */,
 				769BE7B72240DFFE009CD147 /* activeApp.xcdatamodeld */,
 				769BE7CD2240E3C7009CD147 /* GoogleService-Info.plist */,
+				769BE7CA2240E293009CD147 /* fonts */,
 			);
 			path = activeApp;
 			sourceTree = "<group>";
@@ -82,6 +107,7 @@
 		769BE7C52240E261009CD147 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				EA6153492240F69300DA4A79 /* NewActivityVC.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -89,6 +115,12 @@
 		769BE7C62240E270009CD147 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				EA61534B2241273700DA4A79 /* ActivityLabel.swift */,
+				EA6153512241279A00DA4A79 /* ActivityTextField.swift */,
+				EA61534F2241277900DA4A79 /* HeadlineLabel.swift */,
+				EA615353224127DC00DA4A79 /* ActivityButton.swift */,
+				EA6153552241280100DA4A79 /* TimePicker.swift */,
+				EA6153572241283F00DA4A79 /* HolderView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -96,6 +128,7 @@
 		769BE7C72240E275009CD147 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				EACE27A32243CB83004FCD65 /* Activity.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -103,6 +136,8 @@
 		769BE7C82240E27C009CD147 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				EA61535D2241291D00DA4A79 /* Firebase.swift */,
+				EA61535F2241292900DA4A79 /* Data.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -110,6 +145,9 @@
 		769BE7C92240E285009CD147 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				EA6153592241288800DA4A79 /* ViewExt.swift */,
+				EA61535B224128E800DA4A79 /* IntExt.swift */,
+				EA6153612241294900DA4A79 /* ColorExt.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -117,8 +155,8 @@
 		769BE7CA2240E293009CD147 /* fonts */ = {
 			isa = PBXGroup;
 			children = (
-				769BE7CC2240E2F2009CD147 /* Montserrat-Light.ttf */,
-				769BE7CB2240E2F2009CD147 /* Montserrat-Regular.ttf */,
+				762BFFD6224F5C8400EA01B9 /* Montserrat-Regular.ttf */,
+				762BFFD7224F5C8400EA01B9 /* Montserrat-Light.ttf */,
 			);
 			path = fonts;
 			sourceTree = "<group>";
@@ -200,6 +238,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				762BFFD9224F5C8400EA01B9 /* Montserrat-Light.ttf in Resources */,
+				762BFFD8224F5C8400EA01B9 /* Montserrat-Regular.ttf in Resources */,
 				769BE7BB2240E001009CD147 /* Assets.xcassets in Resources */,
 				769BE7CE2240E3C8009CD147 /* GoogleService-Info.plist in Resources */,
 			);
@@ -271,9 +311,21 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				769BE7B32240DFFE009CD147 /* ViewController.swift in Sources */,
+				EACE27A42243CB83004FCD65 /* Activity.swift in Sources */,
+				EA6153562241280100DA4A79 /* TimePicker.swift in Sources */,
 				769BE7B92240DFFE009CD147 /* activeApp.xcdatamodeld in Sources */,
+				EA61535A2241288800DA4A79 /* ViewExt.swift in Sources */,
+				EA61535C224128E800DA4A79 /* IntExt.swift in Sources */,
+				EA61534A2240F69300DA4A79 /* NewActivityVC.swift in Sources */,
+				EA6153582241283F00DA4A79 /* HolderView.swift in Sources */,
+				EA61535E2241291D00DA4A79 /* Firebase.swift in Sources */,
 				769BE7B12240DFFE009CD147 /* AppDelegate.swift in Sources */,
+				EA6153602241292900DA4A79 /* Data.swift in Sources */,
+				EA615354224127DC00DA4A79 /* ActivityButton.swift in Sources */,
+				EA6153502241277900DA4A79 /* HeadlineLabel.swift in Sources */,
+				EA6153522241279A00DA4A79 /* ActivityTextField.swift in Sources */,
+				EA61534C2241273700DA4A79 /* ActivityLabel.swift in Sources */,
+				EA6153622241294A00DA4A79 /* ColorExt.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
