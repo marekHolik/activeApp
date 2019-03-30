@@ -15,6 +15,8 @@
 		769BE7CE2240E3C8009CD147 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 769BE7CD2240E3C7009CD147 /* GoogleService-Info.plist */; };
 		76B8167E224F636300424B20 /* MapVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76B8167D224F636300424B20 /* MapVC.swift */; };
 		76B81680224F643200424B20 /* DroppablePin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76B8167F224F643200424B20 /* DroppablePin.swift */; };
+		76B81683224F682300424B20 /* ActivitiesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76B81682224F682300424B20 /* ActivitiesVC.swift */; };
+		76B81685224F68A900424B20 /* ActivityCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76B81684224F68A900424B20 /* ActivityCell.swift */; };
 		BA53D314D983D37A7B8234DA /* Pods_activeApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3ECC7BBDCA8AEBC233228C83 /* Pods_activeApp.framework */; };
 		EA61534A2240F69300DA4A79 /* NewActivityVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA6153492240F69300DA4A79 /* NewActivityVC.swift */; };
 		EA61534C2241273700DA4A79 /* ActivityLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA61534B2241273700DA4A79 /* ActivityLabel.swift */; };
@@ -44,6 +46,8 @@
 		769BE7CD2240E3C7009CD147 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		76B8167D224F636300424B20 /* MapVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapVC.swift; sourceTree = "<group>"; };
 		76B8167F224F643200424B20 /* DroppablePin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DroppablePin.swift; sourceTree = "<group>"; };
+		76B81682224F682300424B20 /* ActivitiesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivitiesVC.swift; sourceTree = "<group>"; };
+		76B81684224F68A900424B20 /* ActivityCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityCell.swift; sourceTree = "<group>"; };
 		7EEDC381D2224E9EBB6F9711 /* Pods-activeApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-activeApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-activeApp/Pods-activeApp.debug.xcconfig"; sourceTree = "<group>"; };
 		EA6153492240F69300DA4A79 /* NewActivityVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewActivityVC.swift; sourceTree = "<group>"; };
 		EA61534B2241273700DA4A79 /* ActivityLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityLabel.swift; sourceTree = "<group>"; };
@@ -113,6 +117,7 @@
 			children = (
 				EA6153492240F69300DA4A79 /* NewActivityVC.swift */,
 				76B8167D224F636300424B20 /* MapVC.swift */,
+				76B81682224F682300424B20 /* ActivitiesVC.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -127,6 +132,7 @@
 				EA6153552241280100DA4A79 /* TimePicker.swift */,
 				EA6153572241283F00DA4A79 /* HolderView.swift */,
 				76B8167F224F643200424B20 /* DroppablePin.swift */,
+				76B81684224F68A900424B20 /* ActivityCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -327,7 +333,9 @@
 				EA6153582241283F00DA4A79 /* HolderView.swift in Sources */,
 				EA61535E2241291D00DA4A79 /* Firebase.swift in Sources */,
 				769BE7B12240DFFE009CD147 /* AppDelegate.swift in Sources */,
+				76B81685224F68A900424B20 /* ActivityCell.swift in Sources */,
 				EA6153602241292900DA4A79 /* Data.swift in Sources */,
+				76B81683224F682300424B20 /* ActivitiesVC.swift in Sources */,
 				76B8167E224F636300424B20 /* MapVC.swift in Sources */,
 				EA615354224127DC00DA4A79 /* ActivityButton.swift in Sources */,
 				EA6153502241277900DA4A79 /* HeadlineLabel.swift in Sources */,

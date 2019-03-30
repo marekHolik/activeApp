@@ -27,7 +27,7 @@ class NewActivityVC: UIViewController {
     let bottomBase = HolderView()
     let segmentControl = UISegmentedControl(items: ["local", "firebase"])
     
-//    let activitiesVC = ActivitiesVC()
+    let activitiesVC = ActivitiesVC()
     let mapVC = MapVC()
     
     let nextVCButton = UIButton()
@@ -84,7 +84,7 @@ class NewActivityVC: UIViewController {
     }
     
     @objc func presentActivitiesVC() {
-//        self.present(activitiesVC, animated: true, completion: nil)
+        self.present(activitiesVC, animated: true, completion: nil)
     }
     
     private func addTopViews() {
