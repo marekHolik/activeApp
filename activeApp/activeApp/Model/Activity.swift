@@ -23,7 +23,7 @@ init(name: String, lenght: Int, locationName: String, locationCoordinate: CLLoca
     self.locationName = locationName
     self.locationCoordinate = locationCoordinate
     self.storage = storage
-}
+    }
 }
 
 enum Storage {

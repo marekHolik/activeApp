@@ -48,7 +48,9 @@ class NewActivityVC: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
+        let locationCoordinate = mapVC.getLocation()
         locationTextLabel.text = "\(locationCoordinate.latitude) \(locationCoordinate.longitude)"
+        print("longitude: \((locationCoordinate.longitude * 1000).rounded() / 1000) and latitude \((locationCoordinate.latitude * 1000).rounded() / 1000)")
     }
     
     private func addSegmentControl() {
@@ -63,7 +65,6 @@ class NewActivityVC: UIViewController {
         
         segmentControl.subviews[0].tintColor = BLUE
         segmentControl.subviews[1].tintColor = ORANGE
-        
     }
     
     private func addNextVCButton() {
@@ -80,7 +81,6 @@ class NewActivityVC: UIViewController {
         nextVCButton.layer.masksToBounds = true
         
         nextVCButton.addTarget(self, action: #selector(presentActivitiesVC), for: .touchUpInside)
-        
     }
     
     @objc func presentActivitiesVC() {
@@ -134,7 +134,23 @@ class NewActivityVC: UIViewController {
     }
     
     @objc func createNewActivity(_ handler: Bool) {
-        
+        createButton.isEnabled = false
+        let geoPoint = mapVC.getLocation()
+        Firestore.firestore().collection(ACTIVITIES_REF).addDocument(data: [
+            ACTIVITIES_NAME : nameTextField.text!,
+            ACTIVITIES_LENGHT : timePicker.getTime(),
+            ACTIVITIES_LOCATION_NAME : "testNameSofar",
+            ACTIVITIES_COORDINATE : GeoPoint(latitude: geoPoint.latitude, longitude: geoPoint.longitude),])
+        { (error) in
+    if let error = error {
+        debugPrint(error)
+    } else {
+        self.nameTextField.text = ""
+        self.lenghtTextField.text = ""
+        self.locationTextLabel.text = ""
+        self.createButton.isEnabled = true
+            }
+        }
     }
     override func viewWillLayoutSubviews() {
         addBaseViews()

@@ -10,10 +10,12 @@ import UIKit
 import MapKit
 import CoreLocation
 
-var locationCoordinate = CLLocationCoordinate2D()
+
 
 class MapVC: UIViewController {
 
+    var locationCoordinate = CLLocationCoordinate2D()
+    
     let topLabel = UILabel()
     let mapView = MKMapView()
     let backButton = UIButton()
@@ -42,6 +44,10 @@ class MapVC: UIViewController {
         getAuthorization()
     }
     
+    func getLocation() -> CLLocationCoordinate2D {
+        return self.locationCoordinate
+    }
+    
     func addPressGesture() {
         let pressGesture = UILongPressGestureRecognizer(target: self, action: #selector(dropPin(_:)))
         pressGesture.delegate = self
@@ -52,8 +58,8 @@ class MapVC: UIViewController {
     @objc func dropPin(_ gestureRecognizer: UILongPressGestureRecognizer) {
         if gestureRecognizer.state == .began {
             let locationTouch = gestureRecognizer.location(in: mapView)
-            locationCoordinate = mapView.convert(locationTouch, toCoordinateFrom: mapView)
-            print(locationCoordinate)
+            self.locationCoordinate = mapView.convert(locationTouch, toCoordinateFrom: mapView)
+            print("\(locationCoordinate.longitude) and \(locationCoordinate.latitude)")
             mapView.removeAnnotations(mapView.annotations)
             
             let annotation = DroppablePin(coordinate: locationCoordinate, identifier: "droppablePin")

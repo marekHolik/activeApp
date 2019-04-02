@@ -8,15 +8,17 @@
 
 import UIKit
 import MapKit
+import Firebase
 
 class ActivitiesVC: UIViewController {
 
-    let buttonSwitch = UIView()
-    let tableView = UITableView()
-    let segmentControl = UISegmentedControl(items: ["all", "local", "firebase"])
-    let backButton = UIButton()
+    private let buttonSwitch = UIView()
+    private let tableView = UITableView()
+    private let segmentControl = UISegmentedControl(items: ["all", "local", "firebase"])
+    private let backButton = UIButton()
     
-    let data = Data().getActivities()
+    private var firebaseCollection: CollectionReference!
+    private var data = Data().getActivities()
     
     
     override func viewDidLoad() {
@@ -30,6 +32,29 @@ class ActivitiesVC: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.separatorStyle = .none
+        firebaseCollection = Firestore.firestore().collection(ACTIVITIES_REF)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        firebaseCollection.getDocuments { (snapshot, error) in
+            if let error = error {
+                debugPrint("We have a problem \(error)")
+            } else {
+                guard let snapshot = snapshot else { return }
+                for document in snapshot.documents {
+                    let activityData = document.data()
+                    let name = activityData[ACTIVITIES_NAME] as? String ?? "Anonymous"
+                    let lenght = activityData[ACTIVITIES_LENGHT] as? Int ?? 13482
+                    let locationName = activityData[ACTIVITIES_LOCATION_NAME] as? String ?? "Home"
+                    let locationCoordinate = activityData[ACTIVITIES_COORDINATE] as? CLLocationCoordinate2D ?? CLLocationCoordinate2D(latitude: 24.24, longitude: 29.24)
+                    
+                    let newActivity = Activity(name: name, lenght: lenght, locationName: locationName, locationCoordinate: locationCoordinate, storage: .firebase)
+                    self.data.append(newActivity)
+                }
+            }
+        }
+        
     }
     
     func getActivities() -> [Activity] {
