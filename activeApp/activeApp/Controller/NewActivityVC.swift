@@ -140,7 +140,9 @@ class NewActivityVC: UIViewController {
             ACTIVITIES_NAME : nameTextField.text!,
             ACTIVITIES_LENGHT : timePicker.getTime(),
             ACTIVITIES_LOCATION_NAME : "testNameSofar",
-            ACTIVITIES_COORDINATE : GeoPoint(latitude: geoPoint.latitude, longitude: geoPoint.longitude),])
+            ACTIVITIES_COORDINATE : GeoPoint(latitude: geoPoint.latitude, longitude: geoPoint.longitude),
+            ACTIVITIES_DATE : FieldValue.serverTimestamp()
+            ])
         { (error) in
     if let error = error {
         debugPrint(error)

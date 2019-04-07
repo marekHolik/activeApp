@@ -18,9 +18,11 @@ class ActivitiesVC: UIViewController {
     private let backButton = UIButton()
     
     private var firebaseCollection: CollectionReference!
-    private var data = Data().getActivities()
+    private var data = [Activity]()
+    private var firebaseData = [Activity]()
+    private var localData = [Activity]()
     
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
@@ -37,26 +39,21 @@ class ActivitiesVC: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        firebaseCollection.getDocuments { (snapshot, error) in
+        data = Data().getActivities()
+        
+        firebaseCollection.order(by: ACTIVITIES_DATE, descending: true).getDocuments { (snapshot, error) in
             if let error = error {
                 debugPrint("We have a problem \(error)")
             } else {
-                guard let snapshot = snapshot else { return }
-                for document in snapshot.documents {
-                    let activityData = document.data()
-                    let name = activityData[ACTIVITIES_NAME] as? String ?? "Anonymous"
-                    let lenght = activityData[ACTIVITIES_LENGHT] as? Int ?? 13482
-                    let locationName = activityData[ACTIVITIES_LOCATION_NAME] as? String ?? "Home"
-                    let locationCoordinate = activityData[ACTIVITIES_COORDINATE] as? CLLocationCoordinate2D ?? CLLocationCoordinate2D(latitude: 24.24, longitude: 29.24)
-                    
-                    let newActivity = Activity(name: name, lenght: lenght, locationName: locationName, locationCoordinate: locationCoordinate, storage: .firebase)
-                    self.data.append(newActivity)
+                self.firebaseData = Activity.parseFirebase(snapshot: snapshot)
+                for activity in self.firebaseData {
+                    self.data.append(activity)
                 }
+                self.tableView.reloadData()
             }
         }
-        
     }
-    
+
     func getActivities() -> [Activity] {
         var filteredData = [Activity]()
         if segmentControl.selectedSegmentIndex == 1 {
@@ -150,7 +147,6 @@ extension ActivitiesVC: UITableViewDelegate, UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "activityCell", for: indexPath) as? ActivityCell else { return UITableViewCell()}
         
         cell.configureCell(viewToRelate: tableView, activity: getActivities()[indexPath.row])
-        
         return cell
     }
 }

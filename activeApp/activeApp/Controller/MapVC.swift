@@ -70,6 +70,7 @@ class MapVC: UIViewController {
         }
     }
     
+    
     func addCenterLocationButton() {
         self.view.addSubview(centerLocationButton)
         centerLocationButton.translatesAutoresizingMaskIntoConstraints = false
