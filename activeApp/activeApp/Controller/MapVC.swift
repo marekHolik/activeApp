@@ -20,6 +20,9 @@ class MapVC: UIViewController {
     let mapView = MKMapView()
     let backButton = UIButton()
     let centerLocationButton = UIButton()
+    let searchView = UIView()
+    let searchTextField = UITextField()
+    let searchButton = UIButton()
     
     var locationManager = CLLocationManager()
     let authorizationStatus = CLLocationManager.authorizationStatus()
@@ -38,9 +41,9 @@ class MapVC: UIViewController {
         addMapView()
         addBackButton()
         addCenterLocationButton()
+        addSearchContainer()
         
         addPressGesture()
-        
         getAuthorization()
     }
     
@@ -70,6 +73,35 @@ class MapVC: UIViewController {
         }
     }
     
+    func addSearchContainer() {
+        self.view.addSubview(searchView)
+        searchView.translatesAutoresizingMaskIntoConstraints = false
+        searchView.topAnchor.constraint(equalTo: centerLocationButton.topAnchor).isActive = true
+        searchView.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 20).isActive = true
+        searchView.trailingAnchor.constraint(equalTo: centerLocationButton.leadingAnchor, constant: -20).isActive = true
+        searchView.bottomAnchor.constraint(equalTo: centerLocationButton.bottomAnchor).isActive = true
+        searchView.layer.cornerRadius = 25
+        searchView.clipsToBounds = true
+        searchView.backgroundColor = .white
+        
+        searchView.addSubview(searchButton)
+        searchButton.translatesAutoresizingMaskIntoConstraints = false
+        searchButton.leadingAnchor.constraint(equalTo: searchView.leadingAnchor).isActive = true
+        searchButton.centerYAnchor.constraint(equalTo: searchView.centerYAnchor).isActive = true
+        searchButton.widthAnchor.constraint(equalToConstant: 50).isActive = true
+        searchButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        searchButton.backgroundColor = BLUE
+        searchButton.layer.cornerRadius = 25
+        
+        searchView.addSubview(searchTextField)
+        searchTextField.translatesAutoresizingMaskIntoConstraints = false
+        searchTextField.centerYAnchor.constraint(equalTo: searchView.centerYAnchor).isActive = true
+        searchTextField.leadingAnchor.constraint(equalTo: searchButton.trailingAnchor, constant: 10).isActive = true
+        searchTextField.trailingAnchor.constraint(equalTo: searchView.trailingAnchor, constant: -10).isActive = true
+        searchTextField.heightAnchor.constraint(equalToConstant: 25).isActive = true
+        searchTextField.font = UIFont(name: "Montserrat-Light", size: 20)
+        searchTextField.textColor = BLUE
+    }
     
     func addCenterLocationButton() {
         self.view.addSubview(centerLocationButton)
@@ -126,6 +158,10 @@ class MapVC: UIViewController {
         topLabel.textColor = .white
         topLabel.text = "press-tap to add a location"
         topLabel.textAlignment = .center
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        view.endEditing(true)
     }
 }
 
