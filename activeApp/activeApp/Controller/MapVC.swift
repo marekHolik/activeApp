@@ -10,11 +10,10 @@ import UIKit
 import MapKit
 import CoreLocation
 
-
-
 class MapVC: UIViewController {
 
     var locationCoordinate = CLLocationCoordinate2D()
+    var locationName = String()
     
     let topLabel = UILabel()
     let mapView = MKMapView()
@@ -47,10 +46,6 @@ class MapVC: UIViewController {
         getAuthorization()
     }
     
-    func getLocation() -> CLLocationCoordinate2D {
-        return self.locationCoordinate
-    }
-    
     func addPressGesture() {
         let pressGesture = UILongPressGestureRecognizer(target: self, action: #selector(dropPin(_:)))
         pressGesture.delegate = self
@@ -62,7 +57,6 @@ class MapVC: UIViewController {
         if gestureRecognizer.state == .began {
             let locationTouch = gestureRecognizer.location(in: mapView)
             self.locationCoordinate = mapView.convert(locationTouch, toCoordinateFrom: mapView)
-            print("\(locationCoordinate.longitude) and \(locationCoordinate.latitude)")
             mapView.removeAnnotations(mapView.annotations)
             
             let annotation = DroppablePin(coordinate: locationCoordinate, identifier: "droppablePin")
@@ -70,6 +64,33 @@ class MapVC: UIViewController {
             
             let coordinateRegion = MKCoordinateRegion(center: locationCoordinate, latitudinalMeters: 1000, longitudinalMeters: 1000)
             mapView.setRegion(coordinateRegion, animated: true)
+            
+            let location = CLLocation(latitude: locationCoordinate.latitude, longitude: locationCoordinate.longitude)
+            let geoCoder = CLGeocoder()
+            
+            geoCoder.reverseGeocodeLocation(location) { [weak self] (placemarks, error) in
+                if let _ = error {
+                    //TODO notify user
+                    return
+                }
+                guard let placemark = placemarks?.first else {
+                    //TODO
+                    return
+                }
+                
+                let streetName = placemark.thoroughfare
+                let places = placemark.areasOfInterest
+            
+                DispatchQueue.main.async {
+                    if (places!.count > 1) {
+                        self!.locationName = String(places![0])
+                        self!.searchTextField.text = self?.locationName
+                    } else {
+                        self!.locationName = "\(streetName!)"
+                        self!.searchTextField.text = self?.locationName
+                    }
+                }
+            }
         }
     }
     
@@ -82,7 +103,7 @@ class MapVC: UIViewController {
         searchView.bottomAnchor.constraint(equalTo: centerLocationButton.bottomAnchor).isActive = true
         searchView.layer.cornerRadius = 25
         searchView.clipsToBounds = true
-        searchView.backgroundColor = .white
+        searchView.backgroundColor = BLUE
         
         searchView.addSubview(searchButton)
         searchButton.translatesAutoresizingMaskIntoConstraints = false
@@ -90,8 +111,11 @@ class MapVC: UIViewController {
         searchButton.centerYAnchor.constraint(equalTo: searchView.centerYAnchor).isActive = true
         searchButton.widthAnchor.constraint(equalToConstant: 50).isActive = true
         searchButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
-        searchButton.backgroundColor = BLUE
+        searchButton.backgroundColor = .white
         searchButton.layer.cornerRadius = 25
+        searchButton.setImage(UIImage(named: "search"), for: .normal)
+        searchButton.imageEdgeInsets = UIEdgeInsets(top: 12.5, left: 12.5, bottom: 12.5, right: 12.5)
+        searchButton.addTarget(self, action: #selector(searchTapped), for: .touchUpInside)
         
         searchView.addSubview(searchTextField)
         searchTextField.translatesAutoresizingMaskIntoConstraints = false
@@ -100,7 +124,48 @@ class MapVC: UIViewController {
         searchTextField.trailingAnchor.constraint(equalTo: searchView.trailingAnchor, constant: -10).isActive = true
         searchTextField.heightAnchor.constraint(equalToConstant: 25).isActive = true
         searchTextField.font = UIFont(name: "Montserrat-Light", size: 20)
-        searchTextField.textColor = BLUE
+        searchTextField.textColor = .white
+    }
+    
+    @objc func searchTapped() {
+        UIApplication.shared.beginIgnoringInteractionEvents()
+        
+        let activityIndicator = UIActivityIndicatorView()
+        activityIndicator.style = .whiteLarge
+        activityIndicator.hidesWhenStopped = true
+        activityIndicator.startAnimating()
+        
+        searchTextField.endEditing(true)
+        
+        let searchRequest = MKLocalSearch.Request()
+        searchRequest.naturalLanguageQuery = searchTextField.text
+        
+        let activeSearch = MKLocalSearch(request: searchRequest)
+        
+        activeSearch.start { (response, error) in
+            if response == nil {
+                print(error)
+                UIApplication.shared.endIgnoringInteractionEvents()
+            } else {
+                activityIndicator.stopAnimating()
+                
+                self.mapView.removeAnnotations(self.mapView.annotations)
+                
+                let latitude = response?.boundingRegion.center.latitude
+                let longitude = response?.boundingRegion.center.longitude
+                
+                let annotation = MKPointAnnotation()
+                annotation.title = self.searchTextField.text
+                annotation.coordinate = CLLocationCoordinate2D(latitude: latitude!, longitude: longitude!)
+                self.mapView.addAnnotation(annotation)
+                
+                let coordinate = CLLocationCoordinate2D(latitude: latitude!, longitude: longitude!)
+                let region = MKCoordinateRegion(center: coordinate, latitudinalMeters: 1000, longitudinalMeters: 1000)
+                self.mapView.setRegion(region, animated: true)
+                
+                UIApplication.shared.endIgnoringInteractionEvents()
+            }
+        }
     }
     
     func addCenterLocationButton() {
