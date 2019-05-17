@@ -78,16 +78,20 @@ class MapVC: UIViewController {
                     return
                 }
                 
-                let streetName = placemark.thoroughfare
-                let places = placemark.areasOfInterest
+                guard let streetName = placemark.thoroughfare else { return }
+                guard let places = placemark.areasOfInterest else { return }
             
                 DispatchQueue.main.async {
-                    if (places!.count > 1) {
-                        self!.locationName = String(places![0])
+                    if (places.count > 1) {
+                        self!.locationName = String(places[0])
                         self!.searchTextField.text = self?.locationName
+                        for place in places {
+                            print("\(place) is an area of interests)")
+                        }
                     } else {
-                        self!.locationName = "\(streetName!)"
+                        self!.locationName = "\(streetName)"
                         self!.searchTextField.text = self?.locationName
+                        print(streetName)
                     }
                 }
             }
@@ -143,10 +147,11 @@ class MapVC: UIViewController {
         let activeSearch = MKLocalSearch(request: searchRequest)
         
         activeSearch.start { (response, error) in
-            if response == nil {
-                print(error)
+            if let error = error {
+                debugPrint(error)
                 UIApplication.shared.endIgnoringInteractionEvents()
-            } else {
+            }
+            if response != nil {
                 activityIndicator.stopAnimating()
                 
                 self.mapView.removeAnnotations(self.mapView.annotations)

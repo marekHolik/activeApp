@@ -296,6 +296,13 @@ class NewActivityVC: UIViewController {
         self.lenghtTextField.text = ""
         self.locationTextLabel.text = ""
         self.createButton.isEnabled = true
+        let numberOfComponents = self.timePicker.numberOfComponents(in: self.timePicker)
+        var i = 0
+        while (i < numberOfComponents) {
+            self.timePicker.selectRow(0, inComponent: i, animated: true)
+            i += 1
+        }
+        
             }
         }
     }
