@@ -21,8 +21,8 @@ class HeadlineLabel: UILabel {
         self.removeConstraints(self.constraints)
         super.configure(viewToRelate: view)
         
-        let superWidth = view.frame.size.width
-        let superHeight = view.frame.size.height
+//        _ = view.frame.size.width
+//        _ = view.frame.size.height
         self.topAnchor.constraint(equalTo: (view.safeAreaLayoutGuide?.topAnchor)!, constant: constant).isActive = true
         create(text: text)
     }
