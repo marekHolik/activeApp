@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		7628C800225F4957005FE43D /* NSLayoutConstraintExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7628C7FF225F4957005FE43D /* NSLayoutConstraintExt.swift */; };
 		762BFFD9224F5C8400EA01B9 /* Montserrat-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 762BFFD7224F5C8400EA01B9 /* Montserrat-Light.ttf */; };
+		766A386B22B3DEC7009F8DAF /* ContainerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 766A386A22B3DEC7009F8DAF /* ContainerVC.swift */; };
+		766A386D22B3E056009F8DAF /* NavigationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 766A386C22B3E056009F8DAF /* NavigationVC.swift */; };
+		766A386F22B3E515009F8DAF /* Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 766A386E22B3E515009F8DAF /* Protocols.swift */; };
 		768DF72022B39141007F94E0 /* CoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 768DF71F22B39141007F94E0 /* CoreData.swift */; };
 		769BE7B12240DFFE009CD147 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 769BE7B02240DFFE009CD147 /* AppDelegate.swift */; };
 		769BE7B92240DFFE009CD147 /* activeApp.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 769BE7B72240DFFE009CD147 /* activeApp.xcdatamodeld */; };
@@ -41,6 +44,9 @@
 		3ECC7BBDCA8AEBC233228C83 /* Pods_activeApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_activeApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7628C7FF225F4957005FE43D /* NSLayoutConstraintExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSLayoutConstraintExt.swift; sourceTree = "<group>"; };
 		762BFFD7224F5C8400EA01B9 /* Montserrat-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Montserrat-Light.ttf"; path = "../Montserrat-Light.ttf"; sourceTree = "<group>"; };
+		766A386A22B3DEC7009F8DAF /* ContainerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerVC.swift; sourceTree = "<group>"; };
+		766A386C22B3E056009F8DAF /* NavigationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationVC.swift; sourceTree = "<group>"; };
+		766A386E22B3E515009F8DAF /* Protocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Protocols.swift; sourceTree = "<group>"; };
 		768DF71F22B39141007F94E0 /* CoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreData.swift; sourceTree = "<group>"; };
 		769BE7AD2240DFFE009CD147 /* activeApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = activeApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		769BE7B02240DFFE009CD147 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -124,6 +130,8 @@
 				EA6153492240F69300DA4A79 /* NewActivityVC.swift */,
 				76B8167D224F636300424B20 /* MapVC.swift */,
 				76B81682224F682300424B20 /* ActivitiesVC.swift */,
+				766A386A22B3DEC7009F8DAF /* ContainerVC.swift */,
+				766A386C22B3E056009F8DAF /* NavigationVC.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -158,6 +166,7 @@
 				EA61535F2241292900DA4A79 /* Data.swift */,
 				76C6E6B82250B888007D3E51 /* Constants.swift */,
 				768DF71F22B39141007F94E0 /* CoreData.swift */,
+				766A386E22B3E515009F8DAF /* Protocols.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -334,8 +343,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				EACE27A42243CB83004FCD65 /* Activity.swift in Sources */,
+				766A386D22B3E056009F8DAF /* NavigationVC.swift in Sources */,
 				EA6153562241280100DA4A79 /* TimePicker.swift in Sources */,
+				766A386B22B3DEC7009F8DAF /* ContainerVC.swift in Sources */,
 				769BE7B92240DFFE009CD147 /* activeApp.xcdatamodeld in Sources */,
+				766A386F22B3E515009F8DAF /* Protocols.swift in Sources */,
 				76B81680224F643200424B20 /* DroppablePin.swift in Sources */,
 				EA61535A2241288800DA4A79 /* ViewExt.swift in Sources */,
 				7628C800225F4957005FE43D /* NSLayoutConstraintExt.swift in Sources */,

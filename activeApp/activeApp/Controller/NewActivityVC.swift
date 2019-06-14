@@ -32,16 +32,14 @@ class NewActivityVC: UIViewController {
     
     let nextVCButton = UIButton()
     
+    var delegate: NewActivityVCDelegate?
+    
     //constraint of holderViews
-//    var portraitTopBase = NSLayoutConstraint()
-//    var landscapeTopBase = NSLayoutConstraint()
     var portraitTopBaseWidth = NSLayoutConstraint()
     var portraitTopBaseHeight = NSLayoutConstraint()
     var landscapeTopBaseWidth = NSLayoutConstraint()
     var landscapeTopBaseHeight = NSLayoutConstraint()
-    
-//    var portraitBottomBase = NSLayoutConstraint()
-//    var landscapeBottomBase = NSLayoutConstraint()
+
     var portraitBottomBaseWidth = NSLayoutConstraint()
     var portraitBottomBaseHeight = NSLayoutConstraint()
     var landscapeBottomBaseWidth = NSLayoutConstraint()
@@ -63,6 +61,8 @@ class NewActivityVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        navigationController?.navigationBar.isHidden = true
+        
         pixelWidth = UIScreen.main.nativeBounds.width < UIScreen.main.nativeBounds.height ? UIScreen.main.nativeBounds.width : UIScreen.main.nativeBounds.height
         pixelHeight = UIScreen.main.nativeBounds.height > UIScreen.main.nativeBounds.width ? UIScreen.main.nativeBounds.height : UIScreen.main.nativeBounds.width
         pointWidth = pixelWidth / UIScreen.main.nativeScale
@@ -77,9 +77,6 @@ class NewActivityVC: UIViewController {
         locationTextLabel.configure(viewToRelate: self.topBase)
         portraitTextLbl = locationTextLabel.bottomAnchor.constraint(equalTo: topBase.bottomAnchor, constant: -30)
         landscapeTextLbl = locationTextLabel.bottomAnchor.constraint(equalTo: topBase.bottomAnchor, constant: (75 - (pointWidth / 2)))
-        
-        portraitTextLbl.identifier = "31"
-        landscapeTextLbl.identifier = "32"
         
         lenghtLabel.configure(viewToRelate: self.bottomBase)
         lenghtLabel.create(text: "lenght")
@@ -198,7 +195,7 @@ class NewActivityVC: UIViewController {
         view.addSubview(nextVCButton)
         nextVCButton.translatesAutoresizingMaskIntoConstraints = false
         nextVCButton.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 20).isActive = true
-        nextVCButton.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor, constant: -20).isActive = true
+        nextVCButton.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 20).isActive = true
         nextVCButton.widthAnchor.constraint(equalToConstant: 30).isActive = true
         nextVCButton.heightAnchor.constraint(equalToConstant: 30).isActive = true
         
@@ -206,7 +203,7 @@ class NewActivityVC: UIViewController {
         nextVCButton.layer.cornerRadius = 5
         nextVCButton.layer.masksToBounds = true
         
-        nextVCButton.addTarget(self, action: #selector(presentActivitiesVC), for: .touchUpInside)
+        nextVCButton.addTarget(self, action: #selector(menuToggle), for: .touchUpInside)
     }
     
     @objc func presentActivitiesVC() {
@@ -340,6 +337,10 @@ class NewActivityVC: UIViewController {
     
     @objc func presentMapVC(_ sender: Any) {
         self.present(mapVC, animated: true, completion: nil)
+    }
+    
+    @objc func menuToggle() {
+        delegate?.menuToggle()
     }
     
     @objc private func timePickerValuedChanged(sender: TimePicker) {
