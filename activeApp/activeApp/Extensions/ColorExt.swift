@@ -14,3 +14,4 @@ let ORANGE = #colorLiteral(red: 0.9921568627, green: 0.6039215686, blue: 0.14509
 let LIGHT_ORAGE = #colorLiteral(red: 0.9803921569, green: 0.6823529412, blue: 0.3254901961, alpha: 1)
 let GREEN = #colorLiteral(red: 0.6, green: 0.9176470588, blue: 0.4823529412, alpha: 1)
 let LIGHT_GREEN = #colorLiteral(red: 0.7176470588, green: 0.9490196078, blue: 0.631372549, alpha: 1)
+let RED = #colorLiteral(red: 1, green: 0.1425506162, blue: 0.08263644366, alpha: 1)

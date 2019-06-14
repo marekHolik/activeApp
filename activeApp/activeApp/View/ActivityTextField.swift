@@ -22,6 +22,13 @@ class ActivityTextField: UITextField {
         self.leftViewMode = .always
     }
     
+    func red() {
+        self.layer.borderColor = RED.cgColor
+    }
+    func blue() {
+        self.layer.borderColor = BLUE.cgColor
+    }
+    
     func configureFromTop(viewToRelate view: AnyObject, itemToRelate item: AnyObject, constant: CGFloat) {
         super.configureFromTopView(viewToRelate: view, itemToRelate: item, constant: constant)
         create()

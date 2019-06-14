@@ -78,7 +78,6 @@ class NewActivityVC: UIViewController {
         portraitTextLbl = locationTextLabel.bottomAnchor.constraint(equalTo: topBase.bottomAnchor, constant: -30)
         landscapeTextLbl = locationTextLabel.bottomAnchor.constraint(equalTo: topBase.bottomAnchor, constant: (75 - (pointWidth / 2)))
         
-        
         portraitTextLbl.identifier = "31"
         landscapeTextLbl.identifier = "32"
         
@@ -86,9 +85,6 @@ class NewActivityVC: UIViewController {
         lenghtLabel.create(text: "lenght")
         portraitLenghtLbl = lenghtLabel.topAnchor.constraint(equalTo: bottomBase.topAnchor, constant: 0)
         landscapeLenghtLbl = lenghtLabel.topAnchor.constraint(equalTo: bottomBase.topAnchor, constant: ((pointWidth / 2) - 75))
-        
-//        portraitLenghtLbl.identifier = "41"
-//        landscapeLenghtLbl.identifier = "42"
         
         //topBase's constraints
         if (self.view.frame.size.height > self.view.frame.size.width) {
@@ -135,6 +131,7 @@ class NewActivityVC: UIViewController {
             //topView's label
             landscapeTextLbl.isActive = false
             portraitTextLbl.isActive = true
+            
             //bottomView's label
             landscapeLenghtLbl.isActive = false
             portraitLenghtLbl.isActive = true
@@ -156,7 +153,6 @@ class NewActivityVC: UIViewController {
     private func addBaseViews() {
 
         self.view.addSubview(topBase)
-//        topBase.configureLeft(viewToRelate: self.view)
         topBase.translatesAutoresizingMaskIntoConstraints = false
         topBase.topAnchor.constraint(equalTo: self.view.topAnchor).isActive = true
         topBase.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
@@ -165,14 +161,8 @@ class NewActivityVC: UIViewController {
         landscapeTopBaseHeight = topBase.heightAnchor.constraint(equalToConstant: pointWidth)
         portraitTopBaseWidth = topBase.widthAnchor.constraint(equalToConstant: pointWidth)
         portraitTopBaseHeight = topBase.heightAnchor.constraint(equalToConstant: pointHeight / 2)
-
-//        portraitTopBaseWidth.identifier = "11"
-//        portraitTopBaseHeight.identifier = "12"
-//        landscapeTopBaseWidth.identifier = "13"
-//        landscapeTopBaseHeight.identifier = "14"
         
         self.view.addSubview(bottomBase)
-//        bottomBase.configureRight(viewToRelate: self.view)
         bottomBase.translatesAutoresizingMaskIntoConstraints = false
         bottomBase.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
         bottomBase.trailingAnchor.constraint(equalTo: self.view.trailingAnchor).isActive = true
@@ -181,11 +171,6 @@ class NewActivityVC: UIViewController {
         landscapeBottomBaseHeight = bottomBase.heightAnchor.constraint(equalToConstant: pointWidth)
         portraitBottomBaseWidth = bottomBase.widthAnchor.constraint(equalToConstant: pointWidth)
         portraitBottomBaseHeight = bottomBase.heightAnchor.constraint(equalToConstant: pointHeight / 2)
-        
-//        portraitBottomBaseWidth.identifier = "21"
-//        portraitBottomBaseHeight.identifier = "22"
-//        landscapeBottomBaseWidth.identifier = "23"
-//        landscapeBottomBaseHeight.identifier = "24"
         
     }
     
@@ -231,11 +216,8 @@ class NewActivityVC: UIViewController {
     private func addTopViews() {
         
         topBase.addSubview(locationTextLabel)
-//        locationTextLabel.configureAsBottom(viewToRelate: topBase, text: "")
         locationTextLabel.createAsTextField()
         locationTextLabel.create(text: "")
-//        locationTextLabel.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 15, height: self.frame.height))
-//        locationTextLabel.leftViewMode = .always
         locationTextLabel.padding = UIEdgeInsets(top: 0, left: 15, bottom: 0, right: 0)
         locationTextLabel.font = UIFont(name: "Montserrat-Regular", size: 20)
         
@@ -262,7 +244,6 @@ class NewActivityVC: UIViewController {
     private func addBottomViews() {
         
         bottomBase.addSubview(lenghtLabel)
-//        lenghtLabel.configureAsTop(viewToRelate: bottomBase, text: "lenght")
         
         bottomBase.addSubview(lenghtTextField)
         lenghtTextField.configureFromTop(viewToRelate: bottomBase, itemToRelate: lenghtLabel, constant: 0)
@@ -288,20 +269,27 @@ class NewActivityVC: UIViewController {
         let time = NSDate().timeIntervalSince1970
         let myTimeInterval = TimeInterval(time)
         let timestamp = NSDate(timeIntervalSince1970: TimeInterval(myTimeInterval))
-        if (segmentControl.selectedSegmentIndex == 1) {
-            Firebase.createActivity(name: name, lenght: lenght, locationName: locationName, geoPoint: geoPoint, timestamp: timestamp as Date) { (complete) in
-                if (complete) {
-                    self.resetData()
-                } else {
-                    print("Connection with firebase went down")
+        
+        nameTextField.text == "" ? nameRed() : nameBlue()
+        lenghtTextField.text == "" ? lenghtRed() : lenghtBlue()
+        locationTextLabel.text == "" ? locationRed() : locationBlue()
+            
+        if (nameTextField.text != "" && lenghtTextField.text != "" && locationTextLabel.text != "") {
+            if (segmentControl.selectedSegmentIndex == 1) {
+                Firebase.createActivity(name: name, lenght: lenght, locationName: locationName, geoPoint: geoPoint, timestamp: timestamp as Date) { (complete) in
+                    if (complete) {
+                        self.resetData()
+                    } else {
+                        print("Connection with firebase went down")
+                    }
                 }
-            }
-        } else {
-            CoreData.createActivity(name: name, lenght: lenght, locationName: locationName, geoPoint: geoPoint, timestamp: timestamp as Date) { (complete) in
-                if (complete) {
-                    self.resetData()
-                } else {
-                    print("Something went wrong with coreData")
+            } else {
+                CoreData.createActivity(name: name, lenght: lenght, locationName: locationName, geoPoint: geoPoint, timestamp: timestamp as Date) { (complete) in
+                    if (complete) {
+                        self.resetData()
+                    } else {
+                        print("Something went wrong with coreData")
+                    }
                 }
             }
         }
@@ -319,8 +307,35 @@ class NewActivityVC: UIViewController {
             i += 1
         }
     }
-    override func viewWillLayoutSubviews() {
-
+    
+    func nameRed() {
+        nameLabel.red()
+        nameTextField.red()
+    }
+    
+    func nameBlue() {
+        nameLabel.blue()
+        nameTextField.blue()
+    }
+    
+    func locationRed() {
+        locationLabel.red()
+        locationTextLabel.layer.borderColor = RED.cgColor
+    }
+    
+    func locationBlue() {
+        locationLabel.blue()
+        locationTextLabel.layer.borderColor = BLUE.cgColor
+    }
+    
+    func lenghtRed() {
+        lenghtLabel.red()
+        lenghtTextField.red()
+    }
+    
+    func lenghtBlue() {
+        lenghtLabel.blue()
+        lenghtTextField.blue()
     }
     
     @objc func presentMapVC(_ sender: Any) {

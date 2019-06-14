@@ -26,13 +26,7 @@ class CoreData {
         activity.latitude = geoPoint.latitude
         activity.longitude = geoPoint.longitude
         activity.timestamp = timestamp
-    
-//        activity.setValue(name, forKey: "name")
-//        activity.setValue(Int32(lenght), forKey: "lenght")
-//        activity.setValue(locationName, forKey: "locationName")
-//        activity.setValue(geoPoint.latitude, forKey: "latitude")
-//        activity.setValue(geoPoint.longitude, forKey: "longitude")
-//        activity.setValue(timestamp, forKey: "timestamp")
+
         do {
             try managedContext.save()
             completion(true)

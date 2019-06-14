@@ -17,6 +17,13 @@ class ActivityLabel: UILabel {
         
     }
     
+    func red() {
+        self.textColor = RED
+    }
+    func blue() {
+        self.textColor = BLUE
+    }
+    
     func configureAsTop(viewToRelate view: AnyObject, text: String) {
         super.configureAsTopView(viewToRelate: view)
         create(text: text)
