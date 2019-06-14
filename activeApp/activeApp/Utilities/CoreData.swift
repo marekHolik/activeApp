@@ -42,7 +42,7 @@ class CoreData {
         }
     }
     
-    class func fetch(completion: (_ finished: Bool) -> ()) -> [Activity] {
+    class func fetch() -> [Activity] {
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return [Activity]() }
         let managedContext = appDelegate.persistentContainer.viewContext
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "CActivity")

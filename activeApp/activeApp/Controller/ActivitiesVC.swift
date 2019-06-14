@@ -39,7 +39,7 @@ class ActivitiesVC: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        data = Data().getActivities()
+        data = CoreData.fetch().reversed()
         
         firebaseCollection.order(by: ACTIVITIES_DATE, descending: true).getDocuments { (snapshot, error) in
             if let error = error {
