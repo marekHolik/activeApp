@@ -57,7 +57,7 @@ class CoreData {
         }
         
         for activity in fetchedActivities {
-            let activity = Activity(name: activity.name!, lenght: Int(activity.lenght), locationName: activity.locationName!, locationCoordinate: CLLocationCoordinate2DMake(activity.latitude, activity.longitude), timestamp: activity.timestamp!, storage: Storage.local)
+            let activity = Activity(name: activity.name!, lenght: Int(activity.lenght), locationName: activity.locationName!, latitude: activity.latitude, longitude: activity.longitude, timestamp: activity.timestamp!, storage: Storage.local)
             activities.append(activity)
         }
         

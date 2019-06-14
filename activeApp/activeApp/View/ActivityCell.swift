@@ -22,7 +22,6 @@ class ActivityCell: UITableViewCell {
     
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-        
     }
     
     func configureCell(viewToRelate view: Any, activity: Activity) {
@@ -37,7 +36,8 @@ class ActivityCell: UITableViewCell {
         self.activityLabel.text = activity.name
         self.timeLabel.text = activity.lenght?.formatToTime()
         self.locationLabel.text = activity.locationName
-        self.map.setRegion(MKCoordinateRegion(center: activity.locationCoordinate!, latitudinalMeters: 2000, longitudinalMeters: 2000), animated: false)
+        let locationCoordinate = CLLocationCoordinate2D(latitude: activity.latitude!, longitude: activity.longitude!)
+        self.map.setRegion(MKCoordinateRegion(center: locationCoordinate, latitudinalMeters: 2000, longitudinalMeters: 2000), animated: false)
         
         let formatter = DateFormatter()
         formatter.dateFormat = "MMM d"
