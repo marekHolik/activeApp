@@ -9,5 +9,5 @@
 import Foundation
 
 protocol NewActivityVCDelegate {
-    func menuToggle()
+    func menuToggle(forOption option: NavigationOption)
 }

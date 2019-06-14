@@ -13,6 +13,8 @@
 		766A386D22B3E056009F8DAF /* NavigationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 766A386C22B3E056009F8DAF /* NavigationVC.swift */; };
 		766A386F22B3E515009F8DAF /* Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 766A386E22B3E515009F8DAF /* Protocols.swift */; };
 		768DF72022B39141007F94E0 /* CoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 768DF71F22B39141007F94E0 /* CoreData.swift */; };
+		7699AD4022B3F782006571F9 /* NavigationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7699AD3F22B3F782006571F9 /* NavigationCell.swift */; };
+		7699AD4222B3FE39006571F9 /* NavigationOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7699AD4122B3FE39006571F9 /* NavigationOption.swift */; };
 		769BE7B12240DFFE009CD147 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 769BE7B02240DFFE009CD147 /* AppDelegate.swift */; };
 		769BE7B92240DFFE009CD147 /* activeApp.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 769BE7B72240DFFE009CD147 /* activeApp.xcdatamodeld */; };
 		769BE7BB2240E001009CD147 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 769BE7BA2240E001009CD147 /* Assets.xcassets */; };
@@ -48,6 +50,8 @@
 		766A386C22B3E056009F8DAF /* NavigationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationVC.swift; sourceTree = "<group>"; };
 		766A386E22B3E515009F8DAF /* Protocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Protocols.swift; sourceTree = "<group>"; };
 		768DF71F22B39141007F94E0 /* CoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreData.swift; sourceTree = "<group>"; };
+		7699AD3F22B3F782006571F9 /* NavigationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationCell.swift; sourceTree = "<group>"; };
+		7699AD4122B3FE39006571F9 /* NavigationOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationOption.swift; sourceTree = "<group>"; };
 		769BE7AD2240DFFE009CD147 /* activeApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = activeApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		769BE7B02240DFFE009CD147 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		769BE7B82240DFFE009CD147 /* activeApp.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = activeApp.xcdatamodel; sourceTree = "<group>"; };
@@ -147,6 +151,7 @@
 				EA6153572241283F00DA4A79 /* HolderView.swift */,
 				76B8167F224F643200424B20 /* DroppablePin.swift */,
 				76B81684224F68A900424B20 /* ActivityCell.swift */,
+				7699AD3F22B3F782006571F9 /* NavigationCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -155,6 +160,7 @@
 			isa = PBXGroup;
 			children = (
 				EACE27A32243CB83004FCD65 /* Activity.swift */,
+				7699AD4122B3FE39006571F9 /* NavigationOption.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -345,6 +351,7 @@
 				EACE27A42243CB83004FCD65 /* Activity.swift in Sources */,
 				766A386D22B3E056009F8DAF /* NavigationVC.swift in Sources */,
 				EA6153562241280100DA4A79 /* TimePicker.swift in Sources */,
+				7699AD4022B3F782006571F9 /* NavigationCell.swift in Sources */,
 				766A386B22B3DEC7009F8DAF /* ContainerVC.swift in Sources */,
 				769BE7B92240DFFE009CD147 /* activeApp.xcdatamodeld in Sources */,
 				766A386F22B3E515009F8DAF /* Protocols.swift in Sources */,
@@ -362,6 +369,7 @@
 				76B8167E224F636300424B20 /* MapVC.swift in Sources */,
 				EA615354224127DC00DA4A79 /* ActivityButton.swift in Sources */,
 				76C6E6B92250B888007D3E51 /* Constants.swift in Sources */,
+				7699AD4222B3FE39006571F9 /* NavigationOption.swift in Sources */,
 				EA6153502241277900DA4A79 /* HeadlineLabel.swift in Sources */,
 				EA6153522241279A00DA4A79 /* ActivityTextField.swift in Sources */,
 				EA61534C2241273700DA4A79 /* ActivityLabel.swift in Sources */,
