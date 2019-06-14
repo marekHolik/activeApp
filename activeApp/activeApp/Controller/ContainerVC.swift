@@ -12,6 +12,7 @@ class ContainerVC: UIViewController {
 
     var navigationVC: NavigationVC!
     var centerVC: UIViewController!
+    var activitiesVC: ActivitiesVC!
     var isExpanded = false
     
     
@@ -36,29 +37,48 @@ class ContainerVC: UIViewController {
             view.insertSubview(navigationVC.view, at: 0)
             addChild(navigationVC)
             navigationVC.didMove(toParent: self)
+            navigationVC.delegate = self
             print("Added navigationVC")
         }
     }
     
-    func showNavigationVC(shouldExpand: Bool) {
+    func showNavigationVC(shouldExpand: Bool, navigationOption: NavigationOption?) {
         if(shouldExpand) {
             UIView.animate(withDuration: 0.3, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: .curveEaseOut, animations: {
                 self.centerVC.view.frame.origin.x = self.centerVC.view.frame.width - 80
             }, completion: nil)
         } else {
             UIView.animate(withDuration: 0.3, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: .curveEaseOut, animations: {
-                self.centerVC.view.frame.origin.x = 0
+                
             }, completion: nil)
+            UIView.animate(withDuration: 0.3, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: .curveEaseInOut, animations: {
+                self.centerVC.view.frame.origin.x = 0
+            }) { (_) in
+                self.didSelectNavigationOption(navigationOption: navigationOption!)
+            }
+        }
+    }
+    
+    func didSelectNavigationOption(navigationOption: NavigationOption) {
+        switch navigationOption {
+        case .NewActivity:
+            print("Show new activity")
+        case .Activities:
+            if (activitiesVC == nil) {
+                activitiesVC = ActivitiesVC()
+            }
+            self.present(activitiesVC, animated: true, completion: nil)
         }
     }
 }
 
 extension ContainerVC: NewActivityVCDelegate {
-    func menuToggle() {
+    func menuToggle(forOption option: NavigationOption) {
         if (!isExpanded) {
             configureNavigationVC()
         }
         isExpanded = !isExpanded
-        showNavigationVC(shouldExpand: isExpanded)
+        showNavigationVC(shouldExpand: isExpanded, navigationOption: option)
     }
+
 }

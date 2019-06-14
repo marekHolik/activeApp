@@ -340,7 +340,7 @@ class NewActivityVC: UIViewController {
     }
     
     @objc func menuToggle() {
-        delegate?.menuToggle()
+        delegate?.menuToggle(forOption: .NewActivity)
     }
     
     @objc private func timePickerValuedChanged(sender: TimePicker) {
