@@ -281,17 +281,24 @@ class NewActivityVC: UIViewController {
     @objc func createNewActivity(_ handler: Bool) {
         createButton.isEnabled = false
         let geoPoint = mapVC.locationCoordinate
-        Firestore.firestore().collection(ACTIVITIES_REF).addDocument(data: [
-            ACTIVITIES_NAME : nameTextField.text!,
-            ACTIVITIES_LENGHT : timePicker.getTime(),
-            ACTIVITIES_LOCATION_NAME : mapVC.locationName,
-            ACTIVITIES_COORDINATE : GeoPoint(latitude: geoPoint.latitude, longitude: geoPoint.longitude),
-            ACTIVITIES_DATE : FieldValue.serverTimestamp()
-            ])
-        { (error) in
-    if let error = error {
-        debugPrint(error)
-    } else {
+        let name = nameTextField.text!
+        let lenght = timePicker.getTime()
+        let locationName = mapVC.locationName
+        
+        let time = NSDate().timeIntervalSince1970
+        let myTimeInterval = TimeInterval(time)
+        let timestamp = NSDate(timeIntervalSince1970: TimeInterval(myTimeInterval))
+        
+        Firebase.createActivity(name: name, lenght: lenght, locationName: locationName, geoPoint: geoPoint, timestamp: timestamp as Date) { (complete) in
+            if (complete) {
+                self.resetData()
+            } else {
+                print("Connection with firebase went down")
+            }
+        }
+    }
+    
+    func resetData() {
         self.nameTextField.text = ""
         self.lenghtTextField.text = ""
         self.locationTextLabel.text = ""
@@ -301,9 +308,6 @@ class NewActivityVC: UIViewController {
         while (i < numberOfComponents) {
             self.timePicker.selectRow(0, inComponent: i, animated: true)
             i += 1
-        }
-        
-            }
         }
     }
     override func viewWillLayoutSubviews() {
