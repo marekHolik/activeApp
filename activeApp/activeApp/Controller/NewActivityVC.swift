@@ -288,21 +288,30 @@ class NewActivityVC: UIViewController {
         let time = NSDate().timeIntervalSince1970
         let myTimeInterval = TimeInterval(time)
         let timestamp = NSDate(timeIntervalSince1970: TimeInterval(myTimeInterval))
-        
-        Firebase.createActivity(name: name, lenght: lenght, locationName: locationName, geoPoint: geoPoint, timestamp: timestamp as Date) { (complete) in
-            if (complete) {
-                self.resetData()
-            } else {
-                print("Connection with firebase went down")
+        if (segmentControl.selectedSegmentIndex == 1) {
+            Firebase.createActivity(name: name, lenght: lenght, locationName: locationName, geoPoint: geoPoint, timestamp: timestamp as Date) { (complete) in
+                if (complete) {
+                    self.resetData()
+                } else {
+                    print("Connection with firebase went down")
+                }
+            }
+        } else {
+            CoreData.createActivity(name: name, lenght: lenght, locationName: locationName, geoPoint: geoPoint, timestamp: timestamp as Date) { (complete) in
+                if (complete) {
+                    self.resetData()
+                } else {
+                    print("Something went wrong with coreData")
+                }
             }
         }
+        self.createButton.isEnabled = true
     }
     
     func resetData() {
         self.nameTextField.text = ""
         self.lenghtTextField.text = ""
         self.locationTextLabel.text = ""
-        self.createButton.isEnabled = true
         let numberOfComponents = self.timePicker.numberOfComponents(in: self.timePicker)
         var i = 0
         while (i < numberOfComponents) {

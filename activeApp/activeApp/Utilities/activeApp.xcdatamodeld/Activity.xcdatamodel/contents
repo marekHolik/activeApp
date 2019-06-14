@@ -9,6 +9,6 @@
         <attribute name="timestamp" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
     </entity>
     <elements>
-        <element name="CActivity" positionX="-54" positionY="-9" width="128" height="135"/>
+        <element name="CActivity" positionX="-63" positionY="-18" width="128" height="135"/>
     </elements>
 </model>
