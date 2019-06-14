@@ -41,4 +41,26 @@ class CoreData {
             completion(false)
         }
     }
+    
+    class func fetch(completion: (_ finished: Bool) -> ()) -> [Activity] {
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return [Activity]() }
+        let managedContext = appDelegate.persistentContainer.viewContext
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "CActivity")
+
+        var fetchedActivities: [CActivity] = []
+        var activities: [Activity] = []
+        
+        do {
+            fetchedActivities = try managedContext.fetch(fetchRequest) as! [CActivity]
+        } catch {
+            debugPrint(error)
+        }
+        
+        for activity in fetchedActivities {
+            let activity = Activity(name: activity.name!, lenght: Int(activity.lenght), locationName: activity.locationName!, locationCoordinate: CLLocationCoordinate2DMake(activity.latitude, activity.longitude), timestamp: activity.timestamp!, storage: Storage.local)
+            activities.append(activity)
+        }
+        
+        return activities
+    }
 }
