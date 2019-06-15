@@ -8,6 +8,6 @@
 
 import Foundation
 
-protocol NewActivityVCDelegate {
+protocol NavigationVCDelegate {
     func menuToggle(forOption option: NavigationOption)
 }

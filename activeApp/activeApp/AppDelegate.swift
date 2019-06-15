@@ -21,7 +21,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.window = self.window ?? UIWindow()
         window?.makeKeyAndVisible()
         
-        let newActivityVC = NewActivityVC()
+//        let newActivityVC = NewActivityVC()
         let contrainerVC = ContainerVC()
         
 //        window?.rootViewController = newActivityVC

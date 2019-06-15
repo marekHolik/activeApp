@@ -13,17 +13,17 @@ class ContainerVC: UIViewController {
     var navigationVC: NavigationVC!
     var centerVC: UIViewController!
     var activitiesVC: ActivitiesVC!
+    var newActivityVC: NewActivityVC!
     var isExpanded = false
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = BLUE
         configureNewActivityVC()
     }
     
     func configureNewActivityVC() {
-        let newActivityVC = NewActivityVC()
+        newActivityVC = NewActivityVC()
         centerVC = UINavigationController(rootViewController: newActivityVC)
         newActivityVC.delegate = self
         view.addSubview(centerVC.view)
@@ -38,7 +38,6 @@ class ContainerVC: UIViewController {
             addChild(navigationVC)
             navigationVC.didMove(toParent: self)
             navigationVC.delegate = self
-            print("Added navigationVC")
         }
     }
     
@@ -48,9 +47,6 @@ class ContainerVC: UIViewController {
                 self.centerVC.view.frame.origin.x = self.centerVC.view.frame.width - 80
             }, completion: nil)
         } else {
-            UIView.animate(withDuration: 0.3, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: .curveEaseOut, animations: {
-                
-            }, completion: nil)
             UIView.animate(withDuration: 0.3, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: .curveEaseInOut, animations: {
                 self.centerVC.view.frame.origin.x = 0
             }) { (_) in
@@ -64,21 +60,25 @@ class ContainerVC: UIViewController {
         case .NewActivity:
             print("Show new activity")
         case .Activities:
-            if (activitiesVC == nil) {
-                activitiesVC = ActivitiesVC()
-            }
-            self.present(activitiesVC, animated: true, completion: nil)
+            activitiesVC = ActivitiesVC()
+            activitiesVC.delegate = self
+            centerVC = UINavigationController(rootViewController: activitiesVC)
+            view.addSubview(centerVC.view)
+            addChild(centerVC)
+            newActivityVC.removeFromParent()
         }
     }
 }
 
-extension ContainerVC: NewActivityVCDelegate {
+extension ContainerVC: NavigationVCDelegate {
     func menuToggle(forOption option: NavigationOption) {
         if (!isExpanded) {
             configureNavigationVC()
+            print("Expanding")
         }
         isExpanded = !isExpanded
         showNavigationVC(shouldExpand: isExpanded, navigationOption: option)
+        print("Closing")
     }
 
 }

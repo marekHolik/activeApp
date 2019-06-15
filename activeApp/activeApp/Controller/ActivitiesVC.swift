@@ -22,6 +22,7 @@ class ActivitiesVC: UIViewController {
     private var firebaseData = [Activity]()
     private var localData = [Activity]()
     
+    var delegate: NavigationVCDelegate!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,6 +36,7 @@ class ActivitiesVC: UIViewController {
         tableView.dataSource = self
         tableView.separatorStyle = .none
         firebaseCollection = Firestore.firestore().collection(ACTIVITIES_REF)
+        navigationController?.navigationBar.isHidden = true
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -87,11 +89,11 @@ class ActivitiesVC: UIViewController {
         backButton.layer.cornerRadius = 5
         backButton.layer.masksToBounds = true
         
-        backButton.addTarget(self, action: #selector(dismissActivitiesVC), for: .touchUpInside)
+        backButton.addTarget(self, action: #selector(menuToggle), for: .touchUpInside)
     }
     
-    @objc func dismissActivitiesVC() {
-        self.dismiss(animated: true, completion: nil)
+    @objc func menuToggle() {
+        delegate?.menuToggle(forOption: .NewActivity)
     }
     
     func addSegmentControl() {

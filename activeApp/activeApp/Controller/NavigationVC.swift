@@ -13,7 +13,7 @@ class NavigationVC: UIViewController {
     private let reuseIdentifier = "NavigationCell"
     
     var tableView: UITableView!
-    var delegate: NewActivityVCDelegate!
+    var delegate: NavigationVCDelegate!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,7 +35,6 @@ class NavigationVC: UIViewController {
         tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
         tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-        
     }
 }
 
@@ -54,5 +53,4 @@ extension NavigationVC: UITableViewDelegate, UITableViewDataSource {
         let navigationOption = NavigationOption(rawValue: indexPath.row)!
         delegate?.menuToggle(forOption: navigationOption)
     }
-    
 }

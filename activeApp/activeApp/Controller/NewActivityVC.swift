@@ -32,7 +32,7 @@ class NewActivityVC: UIViewController {
     
     let nextVCButton = UIButton()
     
-    var delegate: NewActivityVCDelegate?
+    var delegate: NavigationVCDelegate!
     
     //constraint of holderViews
     var portraitTopBaseWidth = NSLayoutConstraint()
@@ -341,6 +341,7 @@ class NewActivityVC: UIViewController {
     
     @objc func menuToggle() {
         delegate?.menuToggle(forOption: .NewActivity)
+        
     }
     
     @objc private func timePickerValuedChanged(sender: TimePicker) {
