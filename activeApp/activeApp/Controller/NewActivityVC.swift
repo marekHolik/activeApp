@@ -10,7 +10,7 @@ import UIKit
 import Firebase
 import MapKit
 
-class NewActivityVC: UIViewController {
+class NewActivityVC: SlidableVC {
 
     let trainingView = UIView()
     let headlineLabel = HeadlineLabel()
@@ -33,15 +33,11 @@ class NewActivityVC: UIViewController {
     let nextVCButton = UIButton()
     
     //constraint of holderViews
-//    var portraitTopBase = NSLayoutConstraint()
-//    var landscapeTopBase = NSLayoutConstraint()
     var portraitTopBaseWidth = NSLayoutConstraint()
     var portraitTopBaseHeight = NSLayoutConstraint()
     var landscapeTopBaseWidth = NSLayoutConstraint()
     var landscapeTopBaseHeight = NSLayoutConstraint()
-    
-//    var portraitBottomBase = NSLayoutConstraint()
-//    var landscapeBottomBase = NSLayoutConstraint()
+
     var portraitBottomBaseWidth = NSLayoutConstraint()
     var portraitBottomBaseHeight = NSLayoutConstraint()
     var landscapeBottomBaseWidth = NSLayoutConstraint()
@@ -62,6 +58,11 @@ class NewActivityVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        super.button.isEnabled = true
+//        super.button.addTarget(self, action: #selector(move), for: .touchUpInside)
+        self.view.addSubview(super.button)
+        self.view.bringSubviewToFront(super.button)
+        super.button.addTarget(self, action: #selector(printMeeee), for: .touchUpInside)
         
         pixelWidth = UIScreen.main.nativeBounds.width < UIScreen.main.nativeBounds.height ? UIScreen.main.nativeBounds.width : UIScreen.main.nativeBounds.height
         pixelHeight = UIScreen.main.nativeBounds.height > UIScreen.main.nativeBounds.width ? UIScreen.main.nativeBounds.height : UIScreen.main.nativeBounds.width
@@ -102,6 +103,11 @@ class NewActivityVC: UIViewController {
             landscapeBottomBaseWidth.isActive = true
             landscapeBottomBaseHeight.isActive = true
         }
+    }
+    
+    @objc func printMeeee() {
+        print("Hit")
+        self.move()
     }
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
@@ -206,7 +212,7 @@ class NewActivityVC: UIViewController {
         nextVCButton.layer.cornerRadius = 5
         nextVCButton.layer.masksToBounds = true
         
-        nextVCButton.addTarget(self, action: #selector(presentActivitiesVC), for: .touchUpInside)
+        nextVCButton.addTarget(self, action: #selector(printMeeee), for: .touchUpInside)
     }
     
     @objc func presentActivitiesVC() {
@@ -349,6 +355,11 @@ class NewActivityVC: UIViewController {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         view.endEditing(true)
     }
+    
+//    @objc override func move() {
+//        super.move()
+//    }
+    
 }
 
 extension NewActivityVC: UITextFieldDelegate, UIGestureRecognizerDelegate {

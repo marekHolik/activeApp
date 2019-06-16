@@ -10,7 +10,7 @@ import UIKit
 import MapKit
 import Firebase
 
-class ActivitiesVC: UIViewController {
+class ActivitiesVC: SlidableVC {
 
     private let buttonSwitch = UIView()
     private let tableView = UITableView()

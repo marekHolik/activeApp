@@ -6,7 +6,7 @@
 //  Copyright © 2019 marek holik. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 //firebase constants
 let ACTIVITIES_REF = "activities"
@@ -15,3 +15,6 @@ let ACTIVITIES_LENGHT = "lenght"
 let ACTIVITIES_LOCATION_NAME = "locationName"
 let ACTIVITIES_COORDINATE = "locationCoordinate"
 let ACTIVITIES_DATE = "timestamp"
+
+//imageContants
+let BURGER = UIImage(named: "burger1aafff")
