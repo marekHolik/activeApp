@@ -12,43 +12,41 @@ import MapKit
 
 class NewActivityVC: SlidableVC {
 
-    let trainingView = UIView()
-    let headlineLabel = HeadlineLabel()
-    let nameLabel = ActivityLabel()
-    let nameTextField = ActivityTextField()
-    let locationLabel = ActivityLabel()
-    let locationTextLabel = ActivityLabel()
-    let lenghtLabel = ActivityLabel()
-    let lenghtTextField = ActivityTextField()
-    let timePicker = TimePicker()
-    let storeLabel = ActivityLabel()
-    let createButton = ActivityButton()
-    let topBase = HolderView()
-    let bottomBase = HolderView()
-    let segmentControl = UISegmentedControl(items: ["local", "firebase"])
+    var trainingView: UIView!
+    var headlineLabel: HeadlineLabel!
+    var nameLabel: ActivityLabel!
+    var nameTextField: ActivityTextField!
+    var locationLabel: ActivityLabel!
+    var locationTextLabel: ActivityLabel!
+    var lenghtLabel: ActivityLabel!
+    var lenghtTextField: ActivityTextField!
+    var timePicker: TimePicker!
+    var storeLabel: ActivityLabel!
+    var createButton: ActivityButton!
+    var topBase: HolderView!
+    var bottomBase: HolderView!
+    var segmentControl: UISegmentedControl!
     
-    let activitiesVC = ActivitiesVC()
-    var mapVC = MapVC()
-    
-    let superButton = NavigationButton()
+    var activitiesVC: ActivitiesVC!
+    var mapVC: MapVC!
     
     //constraint of holderViews
-    var portraitTopBaseWidth = NSLayoutConstraint()
-    var portraitTopBaseHeight = NSLayoutConstraint()
-    var landscapeTopBaseWidth = NSLayoutConstraint()
-    var landscapeTopBaseHeight = NSLayoutConstraint()
+    var portraitTopBaseWidth: NSLayoutConstraint!
+    var portraitTopBaseHeight: NSLayoutConstraint!
+    var landscapeTopBaseWidth: NSLayoutConstraint!
+    var landscapeTopBaseHeight: NSLayoutConstraint!
 
-    var portraitBottomBaseWidth = NSLayoutConstraint()
-    var portraitBottomBaseHeight = NSLayoutConstraint()
-    var landscapeBottomBaseWidth = NSLayoutConstraint()
-    var landscapeBottomBaseHeight = NSLayoutConstraint()
+    var portraitBottomBaseWidth: NSLayoutConstraint!
+    var portraitBottomBaseHeight: NSLayoutConstraint!
+    var landscapeBottomBaseWidth: NSLayoutConstraint!
+    var landscapeBottomBaseHeight: NSLayoutConstraint!
     
     //constraints
-    var portraitTextLbl = NSLayoutConstraint()
-    var landscapeTextLbl = NSLayoutConstraint()
+    var portraitTextLbl: NSLayoutConstraint!
+    var landscapeTextLbl: NSLayoutConstraint!
     
-    var portraitLenghtLbl = NSLayoutConstraint()
-    var landscapeLenghtLbl = NSLayoutConstraint()
+    var portraitLenghtLbl: NSLayoutConstraint!
+    var landscapeLenghtLbl: NSLayoutConstraint!
     
     //measures
     var pixelWidth = CGFloat()
@@ -58,12 +56,10 @@ class NewActivityVC: SlidableVC {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        pixelWidth = UIScreen.main.nativeBounds.width < UIScreen.main.nativeBounds.height ? UIScreen.main.nativeBounds.width : UIScreen.main.nativeBounds.height
-        pixelHeight = UIScreen.main.nativeBounds.height > UIScreen.main.nativeBounds.width ? UIScreen.main.nativeBounds.height : UIScreen.main.nativeBounds.width
-        pointWidth = pixelWidth / UIScreen.main.nativeScale
-        pointHeight = pixelHeight / UIScreen.main.nativeScale
+        baseConstraintsAndMeasures()
         
         view.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+        baseSetup()
         addBaseViews()
         addTopViews()
         addBottomViews()
@@ -97,6 +93,58 @@ class NewActivityVC: SlidableVC {
             landscapeBottomBaseWidth.isActive = true
             landscapeBottomBaseHeight.isActive = true
         }
+    }
+    
+    func baseConstraintsAndMeasures() {
+        //constraint of holderViews
+        portraitTopBaseWidth = NSLayoutConstraint()
+        portraitTopBaseHeight = NSLayoutConstraint()
+        landscapeTopBaseWidth = NSLayoutConstraint()
+        landscapeTopBaseHeight = NSLayoutConstraint()
+        
+        portraitBottomBaseWidth = NSLayoutConstraint()
+        portraitBottomBaseHeight = NSLayoutConstraint()
+        landscapeBottomBaseWidth = NSLayoutConstraint()
+        landscapeBottomBaseHeight = NSLayoutConstraint()
+        
+        //constraints
+        portraitTextLbl = NSLayoutConstraint()
+        landscapeTextLbl = NSLayoutConstraint()
+        
+        portraitLenghtLbl = NSLayoutConstraint()
+        landscapeLenghtLbl = NSLayoutConstraint()
+        
+        //measures
+        pixelWidth = CGFloat()
+        pixelHeight = CGFloat()
+        pointWidth = CGFloat()
+        pointHeight = CGFloat()
+        
+        pixelWidth = UIScreen.main.nativeBounds.width < UIScreen.main.nativeBounds.height ? UIScreen.main.nativeBounds.width : UIScreen.main.nativeBounds.height
+        pixelHeight = UIScreen.main.nativeBounds.height > UIScreen.main.nativeBounds.width ? UIScreen.main.nativeBounds.height : UIScreen.main.nativeBounds.width
+        pointWidth = pixelWidth / UIScreen.main.nativeScale
+        pointHeight = pixelHeight / UIScreen.main.nativeScale
+    }
+    
+    func baseSetup() {
+        trainingView = UIView()
+        headlineLabel = HeadlineLabel()
+        nameLabel = ActivityLabel()
+        nameTextField = ActivityTextField()
+        locationLabel = ActivityLabel()
+        locationTextLabel = ActivityLabel()
+        lenghtLabel = ActivityLabel()
+        lenghtTextField = ActivityTextField()
+        timePicker = TimePicker()
+        storeLabel = ActivityLabel()
+        createButton = ActivityButton()
+        topBase = HolderView()
+        bottomBase = HolderView()
+        segmentControl = UISegmentedControl(items: ["local", "firebase"])
+        
+        activitiesVC = ActivitiesVC()
+        mapVC = MapVC()
+
     }
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
@@ -182,17 +230,7 @@ class NewActivityVC: SlidableVC {
         segmentControl.subviews[0].tintColor = BLUE
         segmentControl.subviews[1].tintColor = ORANGE
     }
-    
-    private func addNextVCButton() {
-        view.addSubview(superButton)
-        superButton.translatesAutoresizingMaskIntoConstraints = false
-        superButton.centerYAnchor.constraint(equalTo: headlineLabel.centerYAnchor).isActive = true
-        superButton.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor, constant: -20).isActive = true
-        superButton.widthAnchor.constraint(equalToConstant: 30).isActive = true
-        superButton.heightAnchor.constraint(equalToConstant: 30).isActive = true
-        superButton.layer.cornerRadius = 5
-        superButton.layer.masksToBounds = true
-    }
+
     
     @objc func presentActivitiesVC() {
         self.present(activitiesVC, animated: true, completion: nil)
