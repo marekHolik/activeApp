@@ -231,10 +231,10 @@ class NewActivityVC: SlidableVC {
         segmentControl.subviews[1].tintColor = ORANGE
     }
 
-    
-    @objc func presentActivitiesVC() {
-        self.present(activitiesVC, animated: true, completion: nil)
-    }
+//
+//    @objc func presentActivitiesVC() {
+//        self.present(activitiesVC, animated: true, completion: nil)
+//    }
     
     private func addTopViews() {
         
@@ -271,7 +271,6 @@ class NewActivityVC: SlidableVC {
     
     private func reconfigureNavigationButton() {
         self.topBase.addSubview(super.button)
-//        super.button.removeConstraints(button.constraints)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.widthAnchor.constraint(equalToConstant: 30).isActive = true
         button.heightAnchor.constraint(equalToConstant: 20).isActive = true

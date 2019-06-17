@@ -12,20 +12,23 @@ import Firebase
 
 class ActivitiesVC: SlidableVC {
 
-    private let buttonSwitch = UIView()
-    private let tableView = UITableView()
-    private let segmentControl = UISegmentedControl(items: ["all", "local", "firebase"])
-//    private let backButton = NavigationButton()
+    private var buttonSwitch: UIView!
+    private var tableView: UITableView!
+    private var segmentControl: UISegmentedControl!
     
     private var firebaseCollection: CollectionReference!
-    private var data = [Activity]()
-    private var firebaseData = [Activity]()
-    private var localData = [Activity]()
+    private var localData: [Activity]!
+    private var firebaseData: [Activity]!
     
 
     override func viewDidLoad() {
         super.viewDidLoad()
-//        super.button.removeFromSuperview()
+        buttonSwitch = UIView()
+        tableView = UITableView()
+        segmentControl = UISegmentedControl(items: ["all", "local", "firebase"])
+        localData = [Activity]()
+        firebaseData = [Activity]()
+        
         view.backgroundColor = .white
         addButtonSwitch()
         addTableView()
@@ -40,7 +43,7 @@ class ActivitiesVC: SlidableVC {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        data = CoreData.fetch().reversed()
+        localData = CoreData.fetch().reversed()
         
         firebaseCollection.order(by: ACTIVITIES_DATE, descending: true).getDocuments { (snapshot, error) in
             if let error = error {
@@ -48,7 +51,7 @@ class ActivitiesVC: SlidableVC {
             } else {
                 self.firebaseData = Activity.parseFirebase(snapshot: snapshot)
                 for activity in self.firebaseData {
-                    self.data.append(activity)
+                    self.localData.append(activity)
                 }
                 self.tableView.reloadData()
             }
@@ -58,44 +61,40 @@ class ActivitiesVC: SlidableVC {
     func getActivities() -> [Activity] {
         var filteredData = [Activity]()
         if segmentControl.selectedSegmentIndex == 1 {
-            for activity in data {
+            for activity in localData {
                 if activity.storage == .local {
                     filteredData.append(activity)
                 }
             }
         } else if (segmentControl.selectedSegmentIndex == 2) {
-            for activity in data {
+            for activity in localData {
                 if activity.storage == .firebase {
                     filteredData.append(activity)
                 }
             }
         } else {
-            filteredData = data
+            filteredData = localData
         }
         return filteredData
     }
     
     func addBackButton() {
-        buttonSwitch.addSubview(super.button)
+        self.view.addSubview(super.button)
         super.button.translatesAutoresizingMaskIntoConstraints = false
         super.button.heightAnchor.constraint(equalToConstant: 15).isActive = true
-        super.button.widthAnchor.constraint(equalToConstant: 20).isActive = true
+        super.button.widthAnchor.constraint(equalToConstant: 22).isActive = true
         super.button.centerYAnchor.constraint(equalTo: segmentControl.centerYAnchor).isActive = true
-        super.button.leadingAnchor.constraint(equalTo: buttonSwitch.leadingAnchor, constant: 10).isActive = true
-    }
-    
-    @objc func dismissActivitiesVC() {
-        self.dismiss(animated: true, completion: nil)
+        super.button.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 10).isActive = true
     }
     
     func addSegmentControl() {
-        buttonSwitch.addSubview(segmentControl)
+        self.view.addSubview(segmentControl)
         
         segmentControl.translatesAutoresizingMaskIntoConstraints = false
-        segmentControl.widthAnchor.constraint(equalToConstant: 300).isActive = true
+        segmentControl.widthAnchor.constraint(equalTo: self.view.widthAnchor, constant: -60).isActive = true
         segmentControl.heightAnchor.constraint(equalToConstant: 30).isActive = true
-        segmentControl.centerXAnchor.constraint(equalTo: buttonSwitch.centerXAnchor).isActive = true
-        segmentControl.centerYAnchor.constraint(equalTo: buttonSwitch.centerYAnchor).isActive = true
+        segmentControl.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
+        segmentControl.centerYAnchor.constraint(equalTo: self.view.centerYAnchor).isActive = true
         
         segmentControl.setTitleTextAttributes([NSAttributedString.Key.font: UIFont(name: "Montserrat-Light", size: 15)!], for: .normal)
         segmentControl.subviews[0].tintColor = GREEN
@@ -127,7 +126,6 @@ class ActivitiesVC: SlidableVC {
         tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
         tableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor).isActive = true
         tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor).isActive = true
-        
     }
 }
 

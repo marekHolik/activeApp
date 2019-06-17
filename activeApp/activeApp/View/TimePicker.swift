@@ -35,13 +35,6 @@ class TimePicker: UIPickerView {
     }
     
     func addLabels(viewToRelate view: UIView) {
-        //        let subviews: [UIView] = self.subviews
-        //        print(subviews.count)
-        //        if (subviews.count != 3) {
-        //            for subview in subviews {
-        //                subview.removeFromSuperview()
-        //            }
-        //        }
         let labels = ["hours", "min", "sec"]
         for index in 0..<(labels.count) {
             let labelWidth = self.bounds.size.width / CGFloat(labels.count)
