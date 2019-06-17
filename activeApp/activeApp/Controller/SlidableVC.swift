@@ -23,13 +23,13 @@ class SlidableVC: UIViewController {
     
     func addButton() {
         button = UIButton()
-        self.view.addSubview(button)
-        button.translatesAutoresizingMaskIntoConstraints = false
         button.setImage(BURGER, for: .normal)
-        button.widthAnchor.constraint(equalToConstant: 30).isActive = true
-        button.heightAnchor.constraint(equalToConstant: 20).isActive = true
-        button.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 10).isActive = true
-        button.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 50).isActive = true
+//        self.view.addSubview(button)
+//        button.translatesAutoresizingMaskIntoConstraints = false
+//        button.widthAnchor.constraint(equalToConstant: 30).isActive = true
+//        button.heightAnchor.constraint(equalToConstant: 20).isActive = true
+//        button.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 10).isActive = true
+//        button.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 50).isActive = true
         button.addTarget(self, action: #selector(move), for: .touchUpInside)
     }
     

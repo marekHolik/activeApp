@@ -22,8 +22,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         FirebaseApp.configure()
         self.window = self.window ?? UIWindow()
         
-        let newActivityVC = NewActivityVC()
-        
         let navigationNC = NavigationNC()
         window?.makeKeyAndVisible()
         window?.rootViewController = navigationNC

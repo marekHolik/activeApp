@@ -15,7 +15,7 @@ class ActivitiesVC: SlidableVC {
     private let buttonSwitch = UIView()
     private let tableView = UITableView()
     private let segmentControl = UISegmentedControl(items: ["all", "local", "firebase"])
-    private let backButton = UIButton()
+//    private let backButton = NavigationButton()
     
     private var firebaseCollection: CollectionReference!
     private var data = [Activity]()
@@ -25,6 +25,7 @@ class ActivitiesVC: SlidableVC {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+//        super.button.removeFromSuperview()
         view.backgroundColor = .white
         addButtonSwitch()
         addTableView()
@@ -75,19 +76,12 @@ class ActivitiesVC: SlidableVC {
     }
     
     func addBackButton() {
-        buttonSwitch.addSubview(backButton)
-        backButton.translatesAutoresizingMaskIntoConstraints = false
-        backButton.heightAnchor.constraint(equalToConstant: 20).isActive = true
-        backButton.widthAnchor.constraint(equalToConstant: 20).isActive = true
-        //        backButton.centerYAnchor.constraint(equalTo: buttonSwitch.centerYAnchor).isActive = true
-        backButton.topAnchor.constraint(equalTo: buttonSwitch.topAnchor, constant: 15).isActive = true
-        backButton.leadingAnchor.constraint(equalTo: buttonSwitch.leadingAnchor, constant: 10).isActive = true
-        
-        backButton.backgroundColor = BLUE
-        backButton.layer.cornerRadius = 5
-        backButton.layer.masksToBounds = true
-        
-        backButton.addTarget(self, action: #selector(dismissActivitiesVC), for: .touchUpInside)
+        buttonSwitch.addSubview(super.button)
+        super.button.translatesAutoresizingMaskIntoConstraints = false
+        super.button.heightAnchor.constraint(equalToConstant: 15).isActive = true
+        super.button.widthAnchor.constraint(equalToConstant: 20).isActive = true
+        super.button.centerYAnchor.constraint(equalTo: segmentControl.centerYAnchor).isActive = true
+        super.button.leadingAnchor.constraint(equalTo: buttonSwitch.leadingAnchor, constant: 10).isActive = true
     }
     
     @objc func dismissActivitiesVC() {

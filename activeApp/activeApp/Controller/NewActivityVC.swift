@@ -28,9 +28,9 @@ class NewActivityVC: SlidableVC {
     let segmentControl = UISegmentedControl(items: ["local", "firebase"])
     
     let activitiesVC = ActivitiesVC()
-    let mapVC = MapVC()
+    var mapVC = MapVC()
     
-    let nextVCButton = UIButton()
+    let superButton = NavigationButton()
     
     //constraint of holderViews
     var portraitTopBaseWidth = NSLayoutConstraint()
@@ -58,12 +58,6 @@ class NewActivityVC: SlidableVC {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        super.button.isEnabled = true
-//        super.button.addTarget(self, action: #selector(move), for: .touchUpInside)
-        self.view.addSubview(super.button)
-        self.view.bringSubviewToFront(super.button)
-        super.button.addTarget(self, action: #selector(printMeeee), for: .touchUpInside)
-        
         pixelWidth = UIScreen.main.nativeBounds.width < UIScreen.main.nativeBounds.height ? UIScreen.main.nativeBounds.width : UIScreen.main.nativeBounds.height
         pixelHeight = UIScreen.main.nativeBounds.height > UIScreen.main.nativeBounds.width ? UIScreen.main.nativeBounds.height : UIScreen.main.nativeBounds.width
         pointWidth = pixelWidth / UIScreen.main.nativeScale
@@ -75,12 +69,12 @@ class NewActivityVC: SlidableVC {
         addBottomViews()
         addSegmentControl()
         
+        mapVC.labelToFill = locationTextLabel
+        
         locationTextLabel.configure(viewToRelate: self.topBase)
         portraitTextLbl = locationTextLabel.bottomAnchor.constraint(equalTo: topBase.bottomAnchor, constant: -30)
         landscapeTextLbl = locationTextLabel.bottomAnchor.constraint(equalTo: topBase.bottomAnchor, constant: (75 - (pointWidth / 2)))
         
-        portraitTextLbl.identifier = "31"
-        landscapeTextLbl.identifier = "32"
         
         lenghtLabel.configure(viewToRelate: self.bottomBase)
         lenghtLabel.create(text: "lenght")
@@ -103,11 +97,6 @@ class NewActivityVC: SlidableVC {
             landscapeBottomBaseWidth.isActive = true
             landscapeBottomBaseHeight.isActive = true
         }
-    }
-    
-    @objc func printMeeee() {
-        print("Hit")
-        self.move()
     }
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
@@ -180,11 +169,6 @@ class NewActivityVC: SlidableVC {
         
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(true)
-        locationTextLabel.text = mapVC.locationName
-    }
-    
     private func addSegmentControl() {
         bottomBase.addSubview(segmentControl)
         segmentControl.translatesAutoresizingMaskIntoConstraints = false
@@ -200,19 +184,14 @@ class NewActivityVC: SlidableVC {
     }
     
     private func addNextVCButton() {
-        
-        view.addSubview(nextVCButton)
-        nextVCButton.translatesAutoresizingMaskIntoConstraints = false
-        nextVCButton.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 20).isActive = true
-        nextVCButton.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor, constant: -20).isActive = true
-        nextVCButton.widthAnchor.constraint(equalToConstant: 30).isActive = true
-        nextVCButton.heightAnchor.constraint(equalToConstant: 30).isActive = true
-        
-        nextVCButton.backgroundColor = BLUE
-        nextVCButton.layer.cornerRadius = 5
-        nextVCButton.layer.masksToBounds = true
-        
-        nextVCButton.addTarget(self, action: #selector(printMeeee), for: .touchUpInside)
+        view.addSubview(superButton)
+        superButton.translatesAutoresizingMaskIntoConstraints = false
+        superButton.centerYAnchor.constraint(equalTo: headlineLabel.centerYAnchor).isActive = true
+        superButton.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor, constant: -20).isActive = true
+        superButton.widthAnchor.constraint(equalToConstant: 30).isActive = true
+        superButton.heightAnchor.constraint(equalToConstant: 30).isActive = true
+        superButton.layer.cornerRadius = 5
+        superButton.layer.masksToBounds = true
     }
     
     @objc func presentActivitiesVC() {
@@ -242,9 +221,24 @@ class NewActivityVC: SlidableVC {
         nameLabel.configureFromBottom(viewToRelate: topBase, itemToRelate: nameTextField, constant: 0, text: "name")
         
         self.view.addSubview(headlineLabel)
-        headlineLabel.configureAsTop(viewToRelate: view, constant: 30, text: "newActivity")
+        headlineLabel.translatesAutoresizingMaskIntoConstraints = false
+        headlineLabel.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 40).isActive = true
+        headlineLabel.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
+        headlineLabel.heightAnchor.constraint(equalToConstant: 35).isActive = true
+        headlineLabel.widthAnchor.constraint(equalToConstant: 250).isActive = true
+        headlineLabel.create(text: "newActivity")
         
-        addNextVCButton()
+        reconfigureNavigationButton()
+    }
+    
+    private func reconfigureNavigationButton() {
+        self.topBase.addSubview(super.button)
+//        super.button.removeConstraints(button.constraints)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.widthAnchor.constraint(equalToConstant: 30).isActive = true
+        button.heightAnchor.constraint(equalToConstant: 20).isActive = true
+        button.centerYAnchor.constraint(equalTo: headlineLabel.centerYAnchor).isActive = true
+        button.leadingAnchor.constraint(equalTo: topBase.leadingAnchor, constant: 30).isActive = true
     }
     
     private func addBottomViews() {
@@ -280,7 +274,7 @@ class NewActivityVC: SlidableVC {
         lenghtTextField.text == "" ? lenghtRed() : lenghtBlue()
         locationTextLabel.text == "" ? locationRed() : locationBlue()
             
-        if (nameTextField.text != "" && lenghtTextField.text != "" && locationTextLabel.text != "") {
+        if (nameTextField.text != "" && lenghtTextField.text != "" && mapVC.locationName != "") {
             if (segmentControl.selectedSegmentIndex == 1) {
                 Firebase.createActivity(name: name, lenght: lenght, locationName: locationName, geoPoint: geoPoint, timestamp: timestamp as Date) { (complete) in
                     if (complete) {
@@ -355,10 +349,6 @@ class NewActivityVC: SlidableVC {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         view.endEditing(true)
     }
-    
-//    @objc override func move() {
-//        super.move()
-//    }
     
 }
 

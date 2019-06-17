@@ -23,6 +23,8 @@ class MapVC: UIViewController {
     let searchTextField = UITextField()
     let searchButton = UIButton()
     
+    var labelToFill = ActivityLabel()
+    
     var locationManager = CLLocationManager()
     let authorizationStatus = CLLocationManager.authorizationStatus()
     
@@ -85,17 +87,23 @@ class MapVC: UIViewController {
                     if (places.count > 1) {
                         self!.locationName = String(places[0])
                         self!.searchTextField.text = self?.locationName
-                        for place in places {
-                            print("\(place) is an area of interests)")
-                        }
                     } else {
-                        self!.locationName = "\(streetName)"
-                        self!.searchTextField.text = self?.locationName
-                        print(streetName)
+                        if (self!.locationName == "") {
+                            self!.locationName = "\(streetName)"
+                            self!.searchTextField.text = self?.locationName
+                        }
                     }
                 }
             }
         }
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(true)
+        if (locationName == "" && searchTextField.text != "") {
+            locationName = searchTextField.text!
+        }
+        labelToFill.text = locationName
     }
     
     func addSearchContainer() {
