@@ -12,6 +12,8 @@ class TimePicker: UIPickerView {
 
     let data = [Data().getHours(), Data().getSeconds(), Data().getSeconds()]
     
+    var labelView: UIView!
+    
     var seconds = Int()
     var minutes = Int()
     var hours = Int()
@@ -31,20 +33,32 @@ class TimePicker: UIPickerView {
         self.backgroundColor = BLUE
         self.dataSource = self
         self.delegate = self
-        addLabels(viewToRelate: view)
+        addLabels()
     }
     
-    func addLabels(viewToRelate view: UIView) {
-        let labels = ["hours", "min", "sec"]
-        for index in 0..<(labels.count) {
-            let labelWidth = self.bounds.size.width / CGFloat(labels.count)
-            let label = UILabel(frame: CGRect(x: CGFloat(labelWidth / 2) + 20 + labelWidth * CGFloat(index), y: (self.frame.size.height / 2) - 10, width: labelWidth, height: 20))
-            label.text = labels[index]
-            label.font = UIFont(name: "Montserrat-Light", size: 18)
+    func addLabels() {
+        let labelWidth = CGFloat(40)
+        let labelHeight = CGFloat(20)
+        let label1 = UILabel()
+        let label2 = UILabel()
+        let label3 = UILabel()
+        let labels = [label1, label2, label3]
+        label1.text = "hours"
+        label2.text = "min"
+        label3.text = "sec"
+        for label in labels {
+            self.addSubview(label)
+            label.font = UIFont(name: "Montserrat-Light", size: 12)
             label.textAlignment = .left
             label.textColor = .white
-            self.addSubview(label)
+            label.translatesAutoresizingMaskIntoConstraints = false
+            label.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
+            label.widthAnchor.constraint(equalToConstant: labelWidth).isActive = true
+            label.heightAnchor.constraint(equalToConstant: labelHeight).isActive = true
         }
+        label1.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: self.frame.width * 0.1 + labelWidth + 7).isActive = true
+        label2.centerXAnchor.constraint(equalTo: self.centerXAnchor, constant: labelWidth).isActive = true
+        label3.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: self.frame.width * 0.9 + labelWidth + 5).isActive = true
     }
 }
 
