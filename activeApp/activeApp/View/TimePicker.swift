@@ -17,11 +17,20 @@ class TimePicker: UIPickerView {
     var seconds = Int()
     var minutes = Int()
     var hours = Int()
+
+    var label1: UILabel!
+    var label2: UILabel!
+    var label3: UILabel!
+   
+    var constraint1P: NSLayoutConstraint!
+    var constraint1L: NSLayoutConstraint!
+    var constraint2P: NSLayoutConstraint!
+    var constraint2L: NSLayoutConstraint!
+    var constraint3P: NSLayoutConstraint!
+    var constraint3L: NSLayoutConstraint!
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        
-    }
+    let labelWidth = CGFloat(40)
+    let labelHeight = CGFloat(20)
     
     func getTime() -> Int {
         let time = hours * 3600 + minutes * 60 + seconds
@@ -34,31 +43,68 @@ class TimePicker: UIPickerView {
         self.dataSource = self
         self.delegate = self
         addLabels()
+        setupConstraints()
+    }
+    
+    func setupConstraints() {
+        let portraitRatioS = CGFloat(0.1)
+        let portraitRatioH = CGFloat(0.4)
+        constraint1P = label1.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: self.frame.height * portraitRatioH)
+        constraint2P = label2.centerXAnchor.constraint(equalTo: self.centerXAnchor, constant: labelWidth)
+        constraint3P = label3.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -self.frame.height * portraitRatioS)
+        
+        let landscapeRatio = CGFloat(0.6)
+        constraint1L = label1.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: self.frame.height * landscapeRatio)
+        constraint2L = label2.centerXAnchor.constraint(equalTo: self.centerXAnchor, constant: labelWidth)
+        constraint3L = label3.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -self.frame.height * landscapeRatio)
+    }
+    
+    func activatePortraitConstraints() {
+        
+//        if (label1.constraints.count > 3) {
+//            label1.removeConstraint(constraint1L)
+//            label2.removeConstraint(constraint2L)
+//            label3.removeConstraint(constraint3L)
+//        }
+//        label1.addConstraint(constraint1P)
+//        label2.addConstraint(constraint2P)
+//        label3.addConstraint(constraint3P)
+        NSLayoutConstraint.deactivate([constraint1L, constraint2L, constraint3L])
+        NSLayoutConstraint.activate([constraint1P, constraint2P, constraint3P])
+        print("Portraint constraints activated")
+    }
+    
+    func activateLandscapeConstraints() {
+//        label1.removeConstraint(constraint1P)
+//        label2.removeConstraint(constraint2P)
+//        label3.removeConstraint(constraint3P)
+//        label1.addConstraint(constraint1L)
+//        label2.addConstraint(constraint2L)
+//        label3.addConstraint(constraint3L)
+        NSLayoutConstraint.deactivate([constraint1P, constraint2P, constraint3P])
+        NSLayoutConstraint.activate([constraint1L, constraint2L, constraint3L])
+        print("Landscape constraints activated")
     }
     
     func addLabels() {
-        let labelWidth = CGFloat(40)
-        let labelHeight = CGFloat(20)
-        let label1 = UILabel()
-        let label2 = UILabel()
-        let label3 = UILabel()
+        label1 = UILabel()
+        label2 = UILabel()
+        label3 = UILabel()
         let labels = [label1, label2, label3]
         label1.text = "hours"
         label2.text = "min"
         label3.text = "sec"
         for label in labels {
-            self.addSubview(label)
-            label.font = UIFont(name: "Montserrat-Light", size: 12)
-            label.textAlignment = .left
-            label.textColor = .white
-            label.translatesAutoresizingMaskIntoConstraints = false
-            label.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
-            label.widthAnchor.constraint(equalToConstant: labelWidth).isActive = true
-            label.heightAnchor.constraint(equalToConstant: labelHeight).isActive = true
+            self.addSubview(label!)
+            label!.font = UIFont(name: "Montserrat-Light", size: 12)
+            label!.textAlignment = .left
+            label!.textColor = .white
+            label!.translatesAutoresizingMaskIntoConstraints = false
+            label!.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
+            label!.widthAnchor.constraint(equalToConstant: labelWidth).isActive = true
+            label!.heightAnchor.constraint(equalToConstant: labelHeight).isActive = true
         }
-        label1.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: self.frame.width * 0.1 + labelWidth + 7).isActive = true
-        label2.centerXAnchor.constraint(equalTo: self.centerXAnchor, constant: labelWidth).isActive = true
-        label3.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: self.frame.width * 0.9 + labelWidth + 5).isActive = true
+        label3.textAlignment = .right
     }
 }
 

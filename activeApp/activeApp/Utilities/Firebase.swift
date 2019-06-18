@@ -23,7 +23,6 @@ class Firebase {
             ])
         { (error) in
             if let error = error {
-                debugPrint(error)
                 completion(false)
             } else {
                 completion(true)

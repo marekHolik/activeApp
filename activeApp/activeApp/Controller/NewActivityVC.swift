@@ -85,6 +85,7 @@ class NewActivityVC: SlidableVC {
             portraitTopBaseHeight.isActive = true
             portraitBottomBaseWidth.isActive = true
             portraitBottomBaseHeight.isActive = true
+            timePicker.activatePortraitConstraints()
         } else {
             landscapeTextLbl.isActive = true
             landscapeLenghtLbl.isActive = true
@@ -92,6 +93,7 @@ class NewActivityVC: SlidableVC {
             landscapeTopBaseHeight.isActive = true
             landscapeBottomBaseWidth.isActive = true
             landscapeBottomBaseHeight.isActive = true
+            timePicker.activateLandscapeConstraints()
         }
     }
     
@@ -149,7 +151,7 @@ class NewActivityVC: SlidableVC {
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
-
+        
         if (UIDevice.current.orientation.isLandscape) {
             //topView's label
             portraitTextLbl.isActive = false
@@ -169,6 +171,8 @@ class NewActivityVC: SlidableVC {
             portraitBottomBaseHeight.isActive = false
             landscapeBottomBaseWidth.isActive = true
             landscapeBottomBaseHeight.isActive = true
+            
+            timePicker.activateLandscapeConstraints()
             
         } else {
             //topView's label
@@ -190,6 +194,8 @@ class NewActivityVC: SlidableVC {
             landscapeBottomBaseHeight.isActive = false
             portraitBottomBaseWidth.isActive = true
             portraitBottomBaseHeight.isActive = true
+            
+            timePicker.activatePortraitConstraints()
         }
     }
     
@@ -230,11 +236,6 @@ class NewActivityVC: SlidableVC {
         segmentControl.subviews[0].tintColor = BLUE
         segmentControl.subviews[1].tintColor = ORANGE
     }
-
-//
-//    @objc func presentActivitiesVC() {
-//        self.present(activitiesVC, animated: true, completion: nil)
-//    }
     
     private func addTopViews() {
         
