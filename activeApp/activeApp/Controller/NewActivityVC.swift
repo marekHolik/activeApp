@@ -77,6 +77,8 @@ class NewActivityVC: SlidableVC {
         portraitLenghtLbl = lenghtLabel.topAnchor.constraint(equalTo: bottomBase.topAnchor, constant: 0)
         landscapeLenghtLbl = lenghtLabel.topAnchor.constraint(equalTo: bottomBase.topAnchor, constant: ((pointWidth / 2) - 75))
         
+        
+        
         //topBase's constraints
         if (self.view.frame.size.height > self.view.frame.size.width) {
             portraitTextLbl.isActive = true
@@ -96,6 +98,8 @@ class NewActivityVC: SlidableVC {
             timePicker.activateLandscapeConstraints()
         }
     }
+    
+
     
     func baseConstraintsAndMeasures() {
         //constraint of holderViews
@@ -277,6 +281,11 @@ class NewActivityVC: SlidableVC {
         button.heightAnchor.constraint(equalToConstant: 20).isActive = true
         button.centerYAnchor.constraint(equalTo: headlineLabel.centerYAnchor).isActive = true
         button.leadingAnchor.constraint(equalTo: topBase.leadingAnchor, constant: 30).isActive = true
+        button.addTarget(self, action: #selector(hideKeyboard), for: .touchUpInside)
+    }
+    
+    @objc func hideKeyboard() {
+        view.endEditing(true)
     }
     
     private func addBottomViews() {

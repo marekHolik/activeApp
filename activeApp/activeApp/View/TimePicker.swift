@@ -61,7 +61,8 @@ class TimePicker: UIPickerView {
     
     func setupConstraints() {
         var portraitRatioS = CGFloat(0.05)
-        var portraitRatioH = CGFloat(0.225)
+        let portraitRatioH = CGFloat(0.225)
+        //special adjustment for iphone 5s
         if (deviceWidth == 320) {
             portraitRatioS = CGFloat(0.03)
         }
@@ -69,7 +70,7 @@ class TimePicker: UIPickerView {
         constraint2P = label2.centerXAnchor.constraint(equalTo: self.centerXAnchor, constant: labelWidth + 5)
         constraint3P = label3.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -deviceWidth * portraitRatioS)
         
-        var landscapeRatio = CGFloat(0.2)
+        let landscapeRatio = CGFloat(0.2)
         constraint1L = label1.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: deviceHeight * landscapeRatio)
         constraint2L = label2.centerXAnchor.constraint(equalTo: self.centerXAnchor, constant: labelWidth)
         constraint3L = label3.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -deviceHeight * landscapeRatio)

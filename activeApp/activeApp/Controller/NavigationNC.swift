@@ -22,10 +22,8 @@ class NavigationNC: UINavigationController {
         configureStartingVC()
         configureActivitesVC()
         slideControllers = [landingVC, activitiesVC]
-//        configureAdditionalVC(names: ["activities", "Options", "Matrix", "Reloaded", "Revolutions"])
         chosenVC = slideControllers[0]
         navigationVC.addButtons(navigationNC: self, controllers: slideControllers)
-//        print(view.subviews.count)
     }
     
     func configureActivitesVC() {

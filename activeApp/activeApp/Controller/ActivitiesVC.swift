@@ -19,7 +19,6 @@ class ActivitiesVC: SlidableVC {
     private var firebaseCollection: CollectionReference!
     private var localData: [Activity]!
     private var firebaseData: [Activity]!
-    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,9 +29,9 @@ class ActivitiesVC: SlidableVC {
         firebaseData = [Activity]()
         
         view.backgroundColor = .white
-        addButtonSwitch()
-        addTableView()
         addSegmentControl()
+        addTableView()
+        
         addBackButton()
         tableView.register(ActivityCell.self, forCellReuseIdentifier: "activityCell")
         tableView.delegate = self
@@ -94,7 +93,7 @@ class ActivitiesVC: SlidableVC {
         segmentControl.widthAnchor.constraint(equalTo: self.view.widthAnchor, constant: -60).isActive = true
         segmentControl.heightAnchor.constraint(equalToConstant: 30).isActive = true
         segmentControl.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
-        segmentControl.centerYAnchor.constraint(equalTo: self.view.centerYAnchor).isActive = true
+        segmentControl.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 30).isActive = true
         
         segmentControl.setTitleTextAttributes([NSAttributedString.Key.font: UIFont(name: "Montserrat-Light", size: 15)!], for: .normal)
         segmentControl.subviews[0].tintColor = GREEN
@@ -102,27 +101,17 @@ class ActivitiesVC: SlidableVC {
         segmentControl.subviews[2].tintColor = ORANGE
         segmentControl.selectedSegmentIndex = 0
         segmentControl.addTarget(self, action: #selector(reloadTable), for: .valueChanged)
-        
     }
     
     @objc func reloadTable() {
         self.tableView.reloadData()
     }
     
-    func addButtonSwitch() {
-        view.addSubview(buttonSwitch)
-        buttonSwitch.translatesAutoresizingMaskIntoConstraints = false
-        buttonSwitch.widthAnchor.constraint(equalToConstant: view.frame.size.width).isActive = true
-        buttonSwitch.heightAnchor.constraint(equalToConstant: 50).isActive = true
-        buttonSwitch.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        buttonSwitch.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
-    }
-    
     func addTableView() {
         view.addSubview(tableView)
         tableView.rowHeight = 120
         tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.topAnchor.constraint(equalTo: buttonSwitch.bottomAnchor).isActive = true
+        tableView.topAnchor.constraint(equalTo: segmentControl.bottomAnchor, constant: 10).isActive = true
         tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
         tableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor).isActive = true
         tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor).isActive = true

@@ -21,7 +21,6 @@ class NavigationButton: UIButton {
     }
     
     @objc func toggle() {
-        print("At least this hit")
         if (controllerBehind == navigationNC.chosenVC) {
             controllerBehind.move()
             print(navigationNC.view.subviews.count)

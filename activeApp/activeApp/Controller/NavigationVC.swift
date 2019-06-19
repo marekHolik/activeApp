@@ -10,13 +10,24 @@ import UIKit
 
 class NavigationVC: UIViewController {
 
-    var activeController: SlidableVC!
+    var navigationNC: NavigationNC!
     var controllers: [SlidableVC]!
     var buttons: [NavigationButton]!
+    
+    override func viewDidLoad() {
+        let swipeLeft = UISwipeGestureRecognizer(target: self, action: #selector(hideNavigation))
+        swipeLeft.direction = .left
+        view.addGestureRecognizer(swipeLeft)
+    }
+    
+    @objc func hideNavigation() {
+        navigationNC.chosenVC.move()
+    }
     
     func addButtons(navigationNC: NavigationNC, controllers: [SlidableVC]) {
         var topAnchor = 200
         buttons = [NavigationButton]()
+        self.navigationNC = navigationNC
         self.controllers = controllers
         for controller in controllers {
             let button = NavigationButton()
@@ -31,5 +42,4 @@ class NavigationVC: UIViewController {
             buttons.append(button)
         }
     }
-
 }

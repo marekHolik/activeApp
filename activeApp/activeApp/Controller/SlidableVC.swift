@@ -18,6 +18,15 @@ class SlidableVC: UIViewController {
         super.viewDidLoad()
         addButton()
         slided = false
+        let swipeLeft = UISwipeGestureRecognizer(target: self, action: #selector(showMenu))
+        swipeLeft.direction = .right
+        self.view.addGestureRecognizer(swipeLeft)
+    }
+    
+    @objc func showMenu() {
+        if (!self.slided) {
+            self.move()
+        }
     }
     
     func addButton() {
