@@ -15,27 +15,33 @@ class NavigationNC: UINavigationController {
     var slideControllers: [SlidableVC]!
     var navigationVC: NavigationVC!
     var chosenVC: SlidableVC!
+    var deviceWidth: CGFloat!
+    var slideConstant: CGFloat!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        deviceWidth = self.view.frame.height > self.view.frame.width ? self.view.frame.width : self.view.frame.height
+        slideConstant = 0.8
         configureNavigationVC()
         configureStartingVC()
         configureActivitesVC()
         slideControllers = [landingVC, activitiesVC]
         chosenVC = slideControllers[0]
         navigationVC.addButtons(navigationNC: self, controllers: slideControllers)
+        
     }
     
     func configureActivitesVC() {
-        activitiesVC = ActivitiesVC()
+        activitiesVC = ActivitiesVC(deviceWidth: deviceWidth, slideConstant: slideConstant)
         activitiesVC.name = "activities"
+        activitiesVC.deviceWidth = self.deviceWidth
         addChild(activitiesVC)
         activitiesVC.prepare()
     }
     
     func configureAdditionalVC(names: [String]) {
         for name in names {
-            let controller = SlidableVC()
+            let controller = SlidableVC(deviceWidth: deviceWidth, slideConstant: slideConstant)
             controller.name = name
             addChild(controller)
             controller.prepare()
@@ -51,7 +57,7 @@ class NavigationNC: UINavigationController {
     }
     
     func configureStartingVC() {
-        landingVC = NewActivityVC()
+        landingVC = NewActivityVC(deviceWidth: deviceWidth, slideConstant: slideConstant)
         addChild(landingVC)
         self.view.addSubview(landingVC.view)
         landingVC.name = "new activity"
@@ -61,6 +67,4 @@ class NavigationNC: UINavigationController {
         addChild(controller)
         self.view.addSubview(controller.view)
     }
-
-
 }

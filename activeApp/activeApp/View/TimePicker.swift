@@ -60,20 +60,18 @@ class TimePicker: UIPickerView {
     }
     
     func setupConstraints() {
-        var portraitRatioS = CGFloat(0.05)
+        let portraitRatioS = CGFloat(0.875)
         let portraitRatioH = CGFloat(0.225)
-        //special adjustment for iphone 5s
-        if (deviceWidth == 320) {
-            portraitRatioS = CGFloat(0.03)
-        }
+
         constraint1P = label1.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: deviceWidth * portraitRatioH)
-        constraint2P = label2.centerXAnchor.constraint(equalTo: self.centerXAnchor, constant: labelWidth + 5)
-        constraint3P = label3.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -deviceWidth * portraitRatioS)
+        constraint2P = label2.centerXAnchor.constraint(equalTo: self.centerXAnchor, constant: labelWidth)
+        constraint3P = label3.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: deviceWidth * portraitRatioS)
         
-        let landscapeRatio = CGFloat(0.2)
-        constraint1L = label1.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: deviceHeight * landscapeRatio)
+        let landscapeRatioH = CGFloat(0.2)
+        let landscapeRatioS = CGFloat(0.875)
+        constraint1L = label1.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: deviceHeight * landscapeRatioH)
         constraint2L = label2.centerXAnchor.constraint(equalTo: self.centerXAnchor, constant: labelWidth)
-        constraint3L = label3.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -deviceHeight * landscapeRatio)
+        constraint3L = label3.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: deviceHeight * landscapeRatioS)
     }
     
     func activatePortraitConstraints() {
@@ -101,14 +99,14 @@ class TimePicker: UIPickerView {
         for label in labels {
             self.addSubview(label!)
             label!.font = UIFont(name: "Montserrat-Light", size: 12)
-            label!.textAlignment = .left
+            label!.textAlignment = .center
             label!.textColor = .white
             label!.translatesAutoresizingMaskIntoConstraints = false
             label!.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
             label!.widthAnchor.constraint(equalToConstant: labelWidth).isActive = true
             label!.heightAnchor.constraint(equalToConstant: labelHeight).isActive = true
         }
-        label3.textAlignment = .right
+//        label3.textAlignment = .right
     }
 }
 

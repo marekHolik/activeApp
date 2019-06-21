@@ -13,18 +13,39 @@ class SlidableVC: UIViewController {
     var button: UIButton!
     var slided: Bool!
     var name: String!
+    var deviceWidth: CGFloat!
+    var slideConstant: CGFloat!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         addButton()
         slided = false
-        let swipeLeft = UISwipeGestureRecognizer(target: self, action: #selector(showMenu))
-        swipeLeft.direction = .right
+        let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(showMenu))
+        swipeRight.direction = .right
+        self.view.addGestureRecognizer(swipeRight)
+        let swipeLeft = UISwipeGestureRecognizer(target: self, action: #selector(hideMenu))
+        swipeLeft.direction = .left
         self.view.addGestureRecognizer(swipeLeft)
+    }
+    
+    init(deviceWidth: CGFloat, slideConstant: CGFloat) {
+        super.init(nibName: nil, bundle: nil)
+        self.deviceWidth = deviceWidth
+        self.slideConstant = slideConstant
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     @objc func showMenu() {
         if (!self.slided) {
+            self.move()
+        }
+    }
+    
+    @objc func hideMenu() {
+        if (self.slided) {
             self.move()
         }
     }
@@ -36,7 +57,7 @@ class SlidableVC: UIViewController {
     }
     
     @objc func move() {
-        let distance = self.view.frame.size.width - 80
+        let distance = deviceWidth * slideConstant
         UIView.animate(withDuration: 0.3, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: .curveEaseInOut, animations: {
             self.view.frame.origin.x = self.view.frame.origin.x + (self.slided ? -distance : distance)
         }, completion: nil)

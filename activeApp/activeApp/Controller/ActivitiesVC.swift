@@ -41,21 +41,11 @@ class ActivitiesVC: SlidableVC {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        print("View has just appeared")
         super.viewWillAppear(animated)
-        localData = CoreData.fetch().reversed()
-        
-        firebaseCollection.order(by: ACTIVITIES_DATE, descending: true).getDocuments { (snapshot, error) in
-            if let error = error {
-                debugPrint("We have a problem \(error)")
-            } else {
-                self.firebaseData = Activity.parseFirebase(snapshot: snapshot)
-                for activity in self.firebaseData {
-                    self.localData.append(activity)
-                }
-                self.tableView.reloadData()
-            }
-        }
     }
+    
+    
 
     func getActivities() -> [Activity] {
         var filteredData = [Activity]()
@@ -77,6 +67,22 @@ class ActivitiesVC: SlidableVC {
         return filteredData
     }
     
+    func fetchAllData() {
+        localData = CoreData.fetch().reversed()
+        
+        firebaseCollection.order(by: ACTIVITIES_DATE, descending: true).getDocuments { (snapshot, error) in
+            if let error = error {
+                debugPrint("We have a problem \(error)")
+            } else {
+                self.firebaseData = Activity.parseFirebase(snapshot: snapshot)
+                for activity in self.firebaseData {
+                    self.localData.append(activity)
+                }
+                self.tableView.reloadData()
+            }
+        }
+    }
+    
     func addBackButton() {
         self.view.addSubview(super.button)
         super.button.translatesAutoresizingMaskIntoConstraints = false
@@ -90,7 +96,7 @@ class ActivitiesVC: SlidableVC {
         self.view.addSubview(segmentControl)
         
         segmentControl.translatesAutoresizingMaskIntoConstraints = false
-        segmentControl.widthAnchor.constraint(equalTo: self.view.widthAnchor, constant: -60).isActive = true
+        segmentControl.widthAnchor.constraint(equalTo: self.view.widthAnchor, constant: -75).isActive = true
         segmentControl.heightAnchor.constraint(equalToConstant: 30).isActive = true
         segmentControl.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
         segmentControl.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 30).isActive = true

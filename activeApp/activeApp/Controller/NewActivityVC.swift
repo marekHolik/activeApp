@@ -27,7 +27,7 @@ class NewActivityVC: SlidableVC {
     var bottomBase: HolderView!
     var segmentControl: UISegmentedControl!
     
-    var activitiesVC: ActivitiesVC!
+//    var activitiesVC: ActivitiesVC!
     var mapVC: MapVC!
     
     //constraint of holderViews
@@ -148,7 +148,7 @@ class NewActivityVC: SlidableVC {
         bottomBase = HolderView()
         segmentControl = UISegmentedControl(items: ["local", "firebase"])
         
-        activitiesVC = ActivitiesVC()
+//        activitiesVC = ActivitiesVC()
         mapVC = MapVC()
 
     }

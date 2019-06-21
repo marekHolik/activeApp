@@ -25,21 +25,32 @@ class NavigationVC: UIViewController {
     }
     
     func addButtons(navigationNC: NavigationNC, controllers: [SlidableVC]) {
-        var topAnchor = 200
+        var topAnchor = 120
         buttons = [NavigationButton]()
         self.navigationNC = navigationNC
         self.controllers = controllers
+        let width = CGFloat(170)
+        let height = CGFloat(40)
+        
         for controller in controllers {
             let button = NavigationButton()
             self.view.addSubview(button)
+            let deviceWidth = controller.deviceWidth!
+            let slideConstant = controller.slideConstant
             button.configure(navigationNC: navigationNC, controller: controller, text: controller.name)
             button.translatesAutoresizingMaskIntoConstraints = false
-            button.widthAnchor.constraint(equalToConstant: 250).isActive = true
-            button.heightAnchor.constraint(equalToConstant: 40).isActive = true
+            button.widthAnchor.constraint(equalToConstant: width).isActive = true
+            button.heightAnchor.constraint(equalToConstant: height).isActive = true
             button.topAnchor.constraint(equalTo: self.view.topAnchor, constant: CGFloat(topAnchor)).isActive = true
-            button.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 20).isActive = true
+            button.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: (deviceWidth * slideConstant! / 2) - (width / 2)).isActive = true
             topAnchor += 50
             buttons.append(button)
         }
+        buttons[1].addTarget(self, action: #selector(reloadActivitiesVC), for: .touchUpInside)
+    }
+    
+    @objc func reloadActivitiesVC() {
+        let controller = controllers[1] as! ActivitiesVC
+        controller.fetchAllData()
     }
 }
