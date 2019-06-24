@@ -11,12 +11,12 @@ import MapKit
 
 class ActivityCell: UITableViewCell {
 
-    let background = UIView()
-    let activityLabel = UILabel()
-    let timeLabel = UILabel()
-    let locationLabel = UILabel()
-    let map = MKMapView()
-    let dateLabel = UILabel()
+    var background: UIView!
+    var activityLabel: UILabel!
+    var timeLabel: UILabel!
+    var locationLabel: UILabel!
+    var map: MKMapView!
+    var dateLabel: UILabel!
     
     let labelsWidth: CGFloat = 150
     
@@ -26,10 +26,11 @@ class ActivityCell: UITableViewCell {
     
     func configureCell(viewToRelate view: Any, activity: Activity) {
         addBackground()
+        addMap()
+        
         addActivityLabel()
         addTimeLabel()
         addLocationLabel()
-        addMap()
         addDateLabel()
         
         self.background.backgroundColor = setBackgroundColor(type: activity.storage!)
@@ -46,6 +47,7 @@ class ActivityCell: UITableViewCell {
     }
     
     func addDateLabel() {
+        dateLabel = UILabel()
         background.addSubview(dateLabel)
         dateLabel.translatesAutoresizingMaskIntoConstraints = false
         dateLabel.leadingAnchor.constraint(equalTo: self.locationLabel.leadingAnchor).isActive = true
@@ -57,6 +59,7 @@ class ActivityCell: UITableViewCell {
     }
     
     func addMap() {
+        map = MKMapView()
         background.addSubview(map)
         map.translatesAutoresizingMaskIntoConstraints = false
         map.centerYAnchor.constraint(equalTo: background.centerYAnchor).isActive = true
@@ -64,10 +67,11 @@ class ActivityCell: UITableViewCell {
         map.widthAnchor.constraint(equalToConstant: 80).isActive = true
         map.heightAnchor.constraint(equalToConstant: 80).isActive = true
         map.layer.cornerRadius = 15
-        
+        map.isScrollEnabled = false
     }
     
     func addLocationLabel() {
+        locationLabel = UILabel()
         background.addSubview(locationLabel)
         locationLabel.font = UIFont(name: "Montserrat-Light", size: 15)
         locationLabel.textColor = .white
@@ -79,6 +83,7 @@ class ActivityCell: UITableViewCell {
     }
     
     func addTimeLabel() {
+        timeLabel = UILabel()
         background.addSubview(timeLabel)
         timeLabel.font = UIFont(name: "Montserrat-Light", size: 20)
         timeLabel.textColor = .white
@@ -90,18 +95,19 @@ class ActivityCell: UITableViewCell {
     }
     
     func addActivityLabel() {
+        activityLabel = UILabel()
         background.addSubview(activityLabel)
         activityLabel.font = UIFont(name: "Montserrat-Regular", size: 25)
         activityLabel.textColor = .white
         activityLabel.translatesAutoresizingMaskIntoConstraints = false
-//        activityLabel.widthAnchor.constraint(equalToConstant: labelsWidth).isActive = true
-        activityLabel.trailingAnchor.constraint(equalTo: map.leadingAnchor, constant: -30)
+        activityLabel.trailingAnchor.constraint(equalTo: map.leadingAnchor, constant: -30).isActive = true
         activityLabel.heightAnchor.constraint(equalToConstant: 30).isActive = true
         activityLabel.leadingAnchor.constraint(equalTo: background.leadingAnchor, constant: 15).isActive = true
         activityLabel.topAnchor.constraint(equalTo: background.topAnchor, constant: 10).isActive = true
     }
     
     func addBackground() {
+        background = UIView()
         self.addSubview(background)
         background.translatesAutoresizingMaskIntoConstraints = false
         background.topAnchor.constraint(equalTo: self.topAnchor, constant: 10).isActive = true

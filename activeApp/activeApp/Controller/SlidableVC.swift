@@ -28,10 +28,11 @@ class SlidableVC: UIViewController {
         self.view.addGestureRecognizer(swipeLeft)
     }
     
-    init(deviceWidth: CGFloat, slideConstant: CGFloat) {
+    init(deviceWidth: CGFloat, slideConstant: CGFloat, name: String) {
         super.init(nibName: nil, bundle: nil)
         self.deviceWidth = deviceWidth
         self.slideConstant = slideConstant
+        self.name = name
     }
     
     required init?(coder aDecoder: NSCoder) {

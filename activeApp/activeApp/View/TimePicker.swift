@@ -99,14 +99,13 @@ class TimePicker: UIPickerView {
         for label in labels {
             self.addSubview(label!)
             label!.font = UIFont(name: "Montserrat-Light", size: 12)
-            label!.textAlignment = .center
+            label!.textAlignment = .left
             label!.textColor = .white
             label!.translatesAutoresizingMaskIntoConstraints = false
             label!.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
             label!.widthAnchor.constraint(equalToConstant: labelWidth).isActive = true
             label!.heightAnchor.constraint(equalToConstant: labelHeight).isActive = true
         }
-//        label3.textAlignment = .right
     }
 }
 
