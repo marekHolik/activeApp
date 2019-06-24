@@ -323,7 +323,7 @@ class NewActivityVC: SlidableVC {
             
         if (nameTextField.text != "" && lenghtTextField.text != "" && mapVC.locationName != "") {
             if (segmentControl.selectedSegmentIndex == 1) {
-                Firebase.createActivity(name: name, lenght: lenght, locationName: locationName, geoPoint: geoPoint, timestamp: timestamp as Date) { (complete) in
+                Firebase.createActivity(name: name, lenght: lenght, locationName: locationName!, geoPoint: geoPoint!, timestamp: timestamp as Date) { (complete) in
                     if (complete) {
                         self.resetData()
                     } else {
@@ -331,7 +331,7 @@ class NewActivityVC: SlidableVC {
                     }
                 }
             } else {
-                CoreData.createActivity(name: name, lenght: lenght, locationName: locationName, geoPoint: geoPoint, timestamp: timestamp as Date) { (complete) in
+                CoreData.createActivity(name: name, lenght: lenght, locationName: locationName!, geoPoint: geoPoint!, timestamp: timestamp as Date) { (complete) in
                     if (complete) {
                         self.resetData()
                     } else {

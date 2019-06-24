@@ -14,7 +14,7 @@ let ACTIVITIES_NAME = "name"
 let ACTIVITIES_LENGHT = "lenght"
 let ACTIVITIES_LOCATION_NAME = "locationName"
 let ACTIVITIES_COORDINATE = "locationCoordinate"
-let ACTIVITIES_DATE = "timestamp"
+let ACTIVITIES_TIMESTAMP = "timestamp"
 
 //imageContants
 let BURGER = UIImage(named: "burger1aafff")

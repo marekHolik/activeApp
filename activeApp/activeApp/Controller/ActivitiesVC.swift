@@ -44,8 +44,6 @@ class ActivitiesVC: SlidableVC {
         print("View has just appeared")
         super.viewWillAppear(animated)
     }
-    
-    
 
     func getActivities() -> [Activity] {
         var filteredData = [Activity]()
@@ -70,7 +68,7 @@ class ActivitiesVC: SlidableVC {
     func fetchAllData() {
         localData = CoreData.fetch().reversed()
         
-        firebaseCollection.order(by: ACTIVITIES_DATE, descending: true).getDocuments { (snapshot, error) in
+        firebaseCollection.order(by: ACTIVITIES_TIMESTAMP, descending: true).getDocuments { (snapshot, error) in
             if let error = error {
                 debugPrint("We have a problem \(error)")
             } else {
@@ -78,7 +76,11 @@ class ActivitiesVC: SlidableVC {
                 for activity in self.firebaseData {
                     self.localData.append(activity)
                 }
+                self.localData = self.localData.sorted(by: { $0.timestamp > $1.timestamp })
                 self.tableView.reloadData()
+                for activity in self.localData {
+                    print(activity.timestamp)
+                }
             }
         }
     }
@@ -121,6 +123,7 @@ class ActivitiesVC: SlidableVC {
         tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
         tableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor).isActive = true
         tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor).isActive = true
+        tableView.allowsSelection = false
     }
 }
 

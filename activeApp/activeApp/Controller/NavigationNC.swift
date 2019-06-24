@@ -37,11 +37,10 @@ class NavigationNC: UINavigationController {
     func configureAdditionalVC(controllers: [SlidableVC]) {
         for controller in controllers {
             addChild(controller)
-            controller.prepare()
             slideControllers.append(controller)
+            controller.prepare()
         }
     }
-    
     
     func configureNavigationVC() {
         navigationVC = NavigationVC()

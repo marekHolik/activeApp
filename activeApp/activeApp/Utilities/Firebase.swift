@@ -19,7 +19,7 @@ class Firebase {
             ACTIVITIES_LENGHT : lenght,
             ACTIVITIES_LOCATION_NAME : locationName,
             ACTIVITIES_COORDINATE : GeoPoint(latitude: geoPoint.latitude, longitude: geoPoint.longitude),
-            ACTIVITIES_DATE : timestamp
+            ACTIVITIES_TIMESTAMP : timestamp
             ])
         { (error) in
             if let error = error {

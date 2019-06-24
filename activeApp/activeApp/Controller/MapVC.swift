@@ -11,32 +11,33 @@ import MapKit
 import CoreLocation
 
 class MapVC: UIViewController {
-
-    var locationCoordinate = CLLocationCoordinate2D()
-    var locationName = String()
     
-    let topLabel = UILabel()
-    let mapView = MKMapView()
-    let backButton = UIButton()
-    let centerLocationButton = UIButton()
-    let searchView = UIView()
-    let searchTextField = UITextField()
-    let searchButton = UIButton()
-    
-    var labelToFill = ActivityLabel()
-    
-    var locationManager = CLLocationManager()
+    let locationManager = CLLocationManager()
     let authorizationStatus = CLLocationManager.authorizationStatus()
+
+    var locationCoordinate: CLLocationCoordinate2D!
+    var locationName: String!
+    
+    var topLabel: UILabel!
+    var mapView: MKMapView!
+    var backButton: UIButton!
+    var centerLocationButton: UIButton!
+    var searchView: UIView!
+    var searchTextField: UITextField!
+    var searchButton: UIButton!
+    
+    var labelToFill: ActivityLabel!
+    
+    
+    var keyboardHeight: CGFloat!
+    var searchBarOrigin: CGFloat!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = BLUE
         
-        mapView.delegate = self
-        locationManager.delegate = self
-        
-        mapView.showsUserLocation = true
-        centerMapOnUserLocation()
+        locationCoordinate = CLLocationCoordinate2D()
+        locationName = String()
         
         addTopLabel()
         addMapView()
@@ -44,8 +45,20 @@ class MapVC: UIViewController {
         addCenterLocationButton()
         addSearchContainer()
         
+        mapView.delegate = self
+        locationManager.delegate = self
+        
         addPressGesture()
         getAuthorization()
+        
+        mapView.showsUserLocation = true
+//        print("User's coordinate vaules \(mapView.userLocation.coordinate)")
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+        
+        searchBarOrigin = searchView.frame.origin.y
+        centerMapOnUserLocation()
     }
     
     func addPressGesture() {
@@ -107,7 +120,8 @@ class MapVC: UIViewController {
     }
     
     func addSearchContainer() {
-        self.view.addSubview(searchView)
+        searchView = UIView()
+        self.mapView.addSubview(searchView)
         searchView.translatesAutoresizingMaskIntoConstraints = false
         searchView.topAnchor.constraint(equalTo: centerLocationButton.topAnchor).isActive = true
         searchView.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 20).isActive = true
@@ -117,6 +131,7 @@ class MapVC: UIViewController {
         searchView.clipsToBounds = true
         searchView.backgroundColor = BLUE
         
+        searchButton = UIButton()
         searchView.addSubview(searchButton)
         searchButton.translatesAutoresizingMaskIntoConstraints = false
         searchButton.leadingAnchor.constraint(equalTo: searchView.leadingAnchor).isActive = true
@@ -129,6 +144,7 @@ class MapVC: UIViewController {
         searchButton.imageEdgeInsets = UIEdgeInsets(top: 12.5, left: 12.5, bottom: 12.5, right: 12.5)
         searchButton.addTarget(self, action: #selector(searchTapped), for: .touchUpInside)
         
+        searchTextField = UITextField()
         searchView.addSubview(searchTextField)
         searchTextField.translatesAutoresizingMaskIntoConstraints = false
         searchTextField.centerYAnchor.constraint(equalTo: searchView.centerYAnchor).isActive = true
@@ -182,10 +198,11 @@ class MapVC: UIViewController {
     }
     
     func addCenterLocationButton() {
-        self.view.addSubview(centerLocationButton)
+        centerLocationButton = UIButton()
+        self.mapView.addSubview(centerLocationButton)
         centerLocationButton.translatesAutoresizingMaskIntoConstraints = false
-        centerLocationButton.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor, constant: -20).isActive = true
-        centerLocationButton.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: -20).isActive = true
+        centerLocationButton.trailingAnchor.constraint(equalTo: self.mapView.safeAreaLayoutGuide.trailingAnchor, constant: -20).isActive = true
+        centerLocationButton.bottomAnchor.constraint(equalTo: self.mapView.bottomAnchor, constant: -20).isActive = true
         centerLocationButton.widthAnchor.constraint(equalToConstant: 50).isActive = true
         centerLocationButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
         centerLocationButton.setImage(UIImage(named: "location"), for: .normal)
@@ -198,6 +215,7 @@ class MapVC: UIViewController {
     }
     
     func addBackButton() {
+        backButton = UIButton()
         self.view.addSubview(backButton)
         backButton.translatesAutoresizingMaskIntoConstraints = false
         backButton.centerYAnchor.constraint(equalTo: topLabel.centerYAnchor).isActive = true
@@ -205,7 +223,6 @@ class MapVC: UIViewController {
         backButton.widthAnchor.constraint(equalToConstant: 15).isActive = true
         backButton.heightAnchor.constraint(equalToConstant: 25).isActive = true
         backButton.setImage(UIImage(named: "backArrow"), for: .normal)
-        
         backButton.addTarget(self, action: #selector(self.dismissMapVC(_:)), for: .touchUpInside)
     }
     
@@ -214,16 +231,17 @@ class MapVC: UIViewController {
     }
     
     func addMapView() {
+        mapView = MKMapView()
         self.view.addSubview(mapView)
         mapView.translatesAutoresizingMaskIntoConstraints = false
         mapView.topAnchor.constraint(equalTo: topLabel.bottomAnchor).isActive = true
         mapView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
         mapView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor).isActive = true
         mapView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
-        
     }
     
     func addTopLabel() {
+        topLabel = UILabel()
         self.view.addSubview(topLabel)
         topLabel.translatesAutoresizingMaskIntoConstraints = false
         topLabel.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor).isActive = true
@@ -238,19 +256,34 @@ class MapVC: UIViewController {
         topLabel.textAlignment = .center
     }
     
+    @objc func keyboardWillShow(notification: NSNotification) {
+        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
+            self.mapView.frame.origin.y -= keyboardSize.height
+//            self.searchView.frame.origin.y -= keyboardSize.height
+        }
+    }
+    
+    @objc func keyboardWillHide(notification: NSNotification) {
+        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
+            self.mapView.frame.origin.y += keyboardSize.height
+//            self.searchView.frame.origin.y += keyboardSize.height
+        }
+    }
+    
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         view.endEditing(true)
     }
 }
 
 extension MapVC: UIGestureRecognizerDelegate {
-    
 }
 
 extension MapVC: MKMapViewDelegate {
     func centerMapOnUserLocation() {
         let region = MKCoordinateRegion(center: mapView.userLocation.coordinate, latitudinalMeters: 1000, longitudinalMeters: 1000)
         mapView.setRegion(region, animated: true)
+        print(mapView.userLocation.coordinate)
+        print("Centering on user")
     }
 }
 
@@ -259,5 +292,10 @@ extension MapVC: CLLocationManagerDelegate {
         if authorizationStatus == .notDetermined {
             locationManager.requestWhenInUseAuthorization()
         }
+//        centerMapOnUserLocation()
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+//        centerMapOnUserLocation()
     }
 }
