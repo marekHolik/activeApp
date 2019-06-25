@@ -33,6 +33,8 @@ class MapVC: UIViewController {
     var keyboardHeight: CGFloat!
     var searchBarOrigin: CGFloat!
     
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = BLUE
@@ -60,14 +62,32 @@ class MapVC: UIViewController {
         searchBarOrigin = searchView.frame.origin.y
         centerMapOnUserLocation()
         
-        print("MapVC is being loaded")
     }
     
-    func addPressGesture() {
-        let pressGesture = UILongPressGestureRecognizer(target: self, action: #selector(dropPin(_:)))
-        pressGesture.delegate = self
-        
-        mapView.addGestureRecognizer(pressGesture)
+    //objc methods
+    
+    @objc func centerLocation() {
+        centerMapOnUserLocation()
+    }
+    
+    @objc func dismissMapVC(_ sender: Any) {
+        slide()
+        if (locationName == "" && searchTextField.text != "") {
+            locationName = searchTextField.text!
+        }
+        labelToFill.text = locationName
+    }
+    
+    @objc func keyboardWillShow(notification: NSNotification) {
+        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
+            self.mapView.frame.origin.y -= keyboardSize.height
+        }
+    }
+    
+    @objc func keyboardWillHide(notification: NSNotification) {
+        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
+            self.mapView.frame.origin.y += keyboardSize.height
+        }
     }
     
     @objc func dropPin(_ gestureRecognizer: UILongPressGestureRecognizer) {
@@ -87,17 +107,16 @@ class MapVC: UIViewController {
             
             geoCoder.reverseGeocodeLocation(location) { [weak self] (placemarks, error) in
                 if let _ = error {
-                    //TODO notify user
+                    self!.createAlert(title: "Error", message: "There has been an error while finding tapped location")
                     return
                 }
                 guard let placemark = placemarks?.first else {
-                    //TODO
                     return
                 }
                 
                 guard let streetName = placemark.thoroughfare else { return }
                 guard let places = placemark.areasOfInterest else { return }
-            
+                
                 DispatchQueue.main.async {
                     if (places.count > 1) {
                         self!.locationName = String(places[0])
@@ -111,65 +130,6 @@ class MapVC: UIViewController {
                 }
             }
         }
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(true)
-
-    }
-    
-    func prepare() {
-        parent?.view.addSubview(self.view)
-        view.frame.origin.x = view.frame.size.width
-    }
-    
-    func remove() {
-        view.removeFromSuperview()
-    }
-    
-    func slide() {
-        let distance = self.view.frame.size.width
-        UIView.animate(withDuration: 0.3, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: .curveEaseInOut, animations: {
-            self.view.frame.origin.x = self.view.frame.origin.x + (self.slided ? -distance : distance)
-        }, completion: nil)
-        slided = !slided
-        print("sliding mapVC!")
-    }
-    
-    func addSearchContainer() {
-        searchView = UIView()
-        self.mapView.addSubview(searchView)
-        searchView.translatesAutoresizingMaskIntoConstraints = false
-        searchView.topAnchor.constraint(equalTo: centerLocationButton.topAnchor).isActive = true
-        searchView.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 20).isActive = true
-        searchView.trailingAnchor.constraint(equalTo: centerLocationButton.leadingAnchor, constant: -20).isActive = true
-        searchView.bottomAnchor.constraint(equalTo: centerLocationButton.bottomAnchor).isActive = true
-        searchView.layer.cornerRadius = 25
-        searchView.clipsToBounds = true
-        searchView.backgroundColor = BLUE
-        
-        searchButton = UIButton()
-        searchView.addSubview(searchButton)
-        searchButton.translatesAutoresizingMaskIntoConstraints = false
-        searchButton.leadingAnchor.constraint(equalTo: searchView.leadingAnchor).isActive = true
-        searchButton.centerYAnchor.constraint(equalTo: searchView.centerYAnchor).isActive = true
-        searchButton.widthAnchor.constraint(equalToConstant: 50).isActive = true
-        searchButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
-        searchButton.backgroundColor = .white
-        searchButton.layer.cornerRadius = 25
-        searchButton.setImage(UIImage(named: "search"), for: .normal)
-        searchButton.imageEdgeInsets = UIEdgeInsets(top: 12.5, left: 12.5, bottom: 12.5, right: 12.5)
-        searchButton.addTarget(self, action: #selector(searchTapped), for: .touchUpInside)
-        
-        searchTextField = UITextField()
-        searchView.addSubview(searchTextField)
-        searchTextField.translatesAutoresizingMaskIntoConstraints = false
-        searchTextField.centerYAnchor.constraint(equalTo: searchView.centerYAnchor).isActive = true
-        searchTextField.leadingAnchor.constraint(equalTo: searchButton.trailingAnchor, constant: 10).isActive = true
-        searchTextField.trailingAnchor.constraint(equalTo: searchView.trailingAnchor, constant: -10).isActive = true
-        searchTextField.heightAnchor.constraint(equalToConstant: 25).isActive = true
-        searchTextField.font = UIFont(name: "Montserrat-Light", size: 20)
-        searchTextField.textColor = .white
     }
     
     @objc func searchTapped() {
@@ -214,6 +174,83 @@ class MapVC: UIViewController {
         }
     }
     
+    //UX methods
+    
+    func createAlert(title: String, message: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { (action) in
+            alert.dismiss(animated: true, completion: nil)
+        }))
+        self.present(alert, animated: true, completion: nil)
+        print("Alerting user!!!")
+    }
+    
+    func addPressGesture() {
+        let pressGesture = UILongPressGestureRecognizer(target: self, action: #selector(dropPin(_:)))
+        pressGesture.delegate = self
+        mapView.addGestureRecognizer(pressGesture)
+    }
+    
+    func prepare() {
+        parent?.view.addSubview(self.view)
+        view.frame.origin.x = view.frame.size.width
+    }
+    
+    func remove() {
+        view.removeFromSuperview()
+    }
+    
+    func slide() {
+        let distance = self.view.frame.size.width
+        UIView.animate(withDuration: 0.3, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: .curveEaseInOut, animations: {
+            self.view.frame.origin.x = self.view.frame.origin.x + (self.slided ? -distance : distance)
+        }, completion: nil)
+        slided = !slided
+        print("sliding mapVC!")
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        view.endEditing(true)
+    }
+    
+    //UI methods
+    
+    func addSearchContainer() {
+        searchView = UIView()
+        self.mapView.addSubview(searchView)
+        searchView.translatesAutoresizingMaskIntoConstraints = false
+        searchView.topAnchor.constraint(equalTo: centerLocationButton.topAnchor).isActive = true
+        searchView.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 20).isActive = true
+        searchView.trailingAnchor.constraint(equalTo: centerLocationButton.leadingAnchor, constant: -20).isActive = true
+        searchView.bottomAnchor.constraint(equalTo: centerLocationButton.bottomAnchor).isActive = true
+        searchView.layer.cornerRadius = 25
+        searchView.clipsToBounds = true
+        searchView.backgroundColor = BLUE
+        
+        searchButton = UIButton()
+        searchView.addSubview(searchButton)
+        searchButton.translatesAutoresizingMaskIntoConstraints = false
+        searchButton.leadingAnchor.constraint(equalTo: searchView.leadingAnchor).isActive = true
+        searchButton.centerYAnchor.constraint(equalTo: searchView.centerYAnchor).isActive = true
+        searchButton.widthAnchor.constraint(equalToConstant: 50).isActive = true
+        searchButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        searchButton.backgroundColor = .white
+        searchButton.layer.cornerRadius = 25
+        searchButton.setImage(UIImage(named: "search"), for: .normal)
+        searchButton.imageEdgeInsets = UIEdgeInsets(top: 12.5, left: 12.5, bottom: 12.5, right: 12.5)
+        searchButton.addTarget(self, action: #selector(searchTapped), for: .touchUpInside)
+        
+        searchTextField = UITextField()
+        searchView.addSubview(searchTextField)
+        searchTextField.translatesAutoresizingMaskIntoConstraints = false
+        searchTextField.centerYAnchor.constraint(equalTo: searchView.centerYAnchor).isActive = true
+        searchTextField.leadingAnchor.constraint(equalTo: searchButton.trailingAnchor, constant: 10).isActive = true
+        searchTextField.trailingAnchor.constraint(equalTo: searchView.trailingAnchor, constant: -10).isActive = true
+        searchTextField.heightAnchor.constraint(equalToConstant: 25).isActive = true
+        searchTextField.font = UIFont(name: "Montserrat-Light", size: 20)
+        searchTextField.textColor = .white
+    }
+    
     func addCenterLocationButton() {
         centerLocationButton = UIButton()
         self.mapView.addSubview(centerLocationButton)
@@ -227,9 +264,6 @@ class MapVC: UIViewController {
         centerLocationButton.addTarget(self, action: #selector(centerLocation), for: .touchUpInside)
     }
     
-    @objc func centerLocation() {
-        centerMapOnUserLocation()
-    }
     
     func addBackButton() {
         backButton = UIButton()
@@ -243,13 +277,6 @@ class MapVC: UIViewController {
         backButton.addTarget(self, action: #selector(self.dismissMapVC(_:)), for: .touchUpInside)
     }
     
-    @objc func dismissMapVC(_ sender: Any) {
-        slide()
-        if (locationName == "" && searchTextField.text != "") {
-            locationName = searchTextField.text!
-        }
-        labelToFill.text = locationName
-    }
     
     func addMapView() {
         mapView = MKMapView()
@@ -283,21 +310,6 @@ class MapVC: UIViewController {
         topLabel.textAlignment = .center
     }
     
-    @objc func keyboardWillShow(notification: NSNotification) {
-        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
-            self.mapView.frame.origin.y -= keyboardSize.height
-        }
-    }
-    
-    @objc func keyboardWillHide(notification: NSNotification) {
-        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
-            self.mapView.frame.origin.y += keyboardSize.height
-        }
-    }
-    
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        view.endEditing(true)
-    }
 }
 
 extension MapVC: UIGestureRecognizerDelegate {
@@ -317,10 +329,8 @@ extension MapVC: CLLocationManagerDelegate {
         if authorizationStatus == .notDetermined {
             locationManager.requestWhenInUseAuthorization()
         }
-//        centerMapOnUserLocation()
     }
     
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
-//        centerMapOnUserLocation()
     }
 }
