@@ -19,6 +19,7 @@ class MapVC: UIViewController {
     var locationName: String!
     
     var topLabel: UILabel!
+    var topView: UIView!
     var mapView: MKMapView!
     var backButton: UIButton!
     var centerLocationButton: UIButton!
@@ -233,7 +234,7 @@ class MapVC: UIViewController {
         self.view.addSubview(backButton)
         backButton.translatesAutoresizingMaskIntoConstraints = false
         backButton.centerYAnchor.constraint(equalTo: topLabel.centerYAnchor).isActive = true
-        backButton.leadingAnchor.constraint(equalTo: topLabel.leadingAnchor, constant: 20).isActive = true
+        backButton.leadingAnchor.constraint(equalTo: topView.leadingAnchor, constant: 20).isActive = true
         backButton.widthAnchor.constraint(equalToConstant: 15).isActive = true
         backButton.heightAnchor.constraint(equalToConstant: 25).isActive = true
         backButton.setImage(UIImage(named: "backArrow"), for: .normal)
@@ -241,8 +242,6 @@ class MapVC: UIViewController {
     }
     
     @objc func dismissMapVC(_ sender: Any) {
-//        self.dismiss(animated: true, completion: nil)
-//        self.view.isHidden = true
         slideMapVC()
     }
     
@@ -250,22 +249,28 @@ class MapVC: UIViewController {
         mapView = MKMapView()
         self.view.addSubview(mapView)
         mapView.translatesAutoresizingMaskIntoConstraints = false
-        mapView.topAnchor.constraint(equalTo: topLabel.bottomAnchor).isActive = true
+        mapView.topAnchor.constraint(equalTo: topView.bottomAnchor).isActive = true
         mapView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
         mapView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor).isActive = true
         mapView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
     }
     
     func addTopLabel() {
-        topLabel = UILabel()
-        self.view.addSubview(topLabel)
-        topLabel.translatesAutoresizingMaskIntoConstraints = false
-        topLabel.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor).isActive = true
-        topLabel.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
-        topLabel.widthAnchor.constraint(equalToConstant: self.view.frame.size.width).isActive = true
-        topLabel.heightAnchor.constraint(equalToConstant: 80).isActive = true
+        topView = UIView()
+        self.view.addSubview(topView)
+        topView.translatesAutoresizingMaskIntoConstraints = false
+        topView.topAnchor.constraint(equalTo: self.view.topAnchor).isActive = true
+        topView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
+        topView.widthAnchor.constraint(equalTo: self.view.widthAnchor).isActive = true
+        topView.heightAnchor.constraint(equalToConstant: 80).isActive = true
+        topView.backgroundColor = BLUE
         
-        topLabel.backgroundColor = BLUE
+        topLabel = UILabel()
+        self.topView.addSubview(topLabel)
+        topLabel.translatesAutoresizingMaskIntoConstraints = false
+        topLabel.centerXAnchor.constraint(equalTo: topView.centerXAnchor).isActive = true
+        topLabel.centerYAnchor.constraint(equalTo: topView.centerYAnchor, constant: 10).isActive = true
+        
         topLabel.font = UIFont(name: "Montserrat-Regular", size: 20)
         topLabel.textColor = .white
         topLabel.text = "press-tap to add a location"
