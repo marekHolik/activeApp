@@ -41,23 +41,23 @@ class SlidableVC: UIViewController {
     
     @objc func showMenu() {
         if (!self.slided) {
-            self.move()
+            self.slide()
         }
     }
     
     @objc func hideMenu() {
         if (self.slided) {
-            self.move()
+            self.slide()
         }
     }
     
     func addButton() {
         button = UIButton()
         button.setImage(BURGER, for: .normal)
-        button.addTarget(self, action: #selector(move), for: .touchUpInside)
+        button.addTarget(self, action: #selector(slide), for: .touchUpInside)
     }
     
-    @objc func move() {
+    @objc func slide() {
         let distance = deviceWidth * slideConstant
         UIView.animate(withDuration: 0.3, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: .curveEaseInOut, animations: {
             self.view.frame.origin.x = self.view.frame.origin.x + (self.slided ? -distance : distance)
@@ -76,7 +76,7 @@ class SlidableVC: UIViewController {
     
     func prepare() {
         parent?.view.addSubview(self.view)
-        self.move()
+        self.slide()
         self.view.isHidden = true
     }
     

@@ -123,9 +123,14 @@ class MapVC: UIViewController {
     
     func prepare() {
         parent?.view.addSubview(self.view)
+        view.frame.origin.x = view.frame.size.width
     }
     
-    func slideMapVC() {
+    func remove() {
+        view.removeFromSuperview()
+    }
+    
+    func slide() {
         let distance = self.view.frame.size.width
         UIView.animate(withDuration: 0.3, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: .curveEaseInOut, animations: {
             self.view.frame.origin.x = self.view.frame.origin.x + (self.slided ? -distance : distance)
@@ -242,7 +247,7 @@ class MapVC: UIViewController {
     }
     
     @objc func dismissMapVC(_ sender: Any) {
-        slideMapVC()
+        slide()
     }
     
     func addMapView() {

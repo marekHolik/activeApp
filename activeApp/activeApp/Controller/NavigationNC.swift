@@ -35,7 +35,7 @@ class NavigationNC: UINavigationController {
         
         mapVC = MapVC()
         mapVC.prepare()
-        mapVC.slideMapVC()
+        mapVC.slide()
         addChild(mapVC)
         landingVC.mapVC = mapVC
     }
@@ -45,7 +45,7 @@ class NavigationNC: UINavigationController {
     }
     
     func prepareMapVC() {
-        mapVC.slideMapVC()
+        mapVC.slide()
     }
     
     func configureAdditionalVC(controllers: [SlidableVC]) {

@@ -21,7 +21,7 @@ class NavigationVC: UIViewController {
     }
     
     @objc func hideNavigation() {
-        navigationNC.chosenVC.move()
+        navigationNC.chosenVC.slide()
     }
     
     func addButtons(navigationNC: NavigationNC, controllers: [SlidableVC]) {
@@ -46,7 +46,14 @@ class NavigationVC: UIViewController {
             topAnchor += 50
             buttons.append(button)
         }
+        buttons[0].addTarget(self, action: #selector(reloadNewActivityVC), for: .touchUpInside)
         buttons[1].addTarget(self, action: #selector(reloadActivitiesVC), for: .touchUpInside)
+    }
+    
+    @objc func reloadNewActivityVC() {
+        let controller = controllers[0] as! NewActivityVC
+        controller.mapVC.remove()
+        controller.mapVC.prepare()
     }
     
     @objc func reloadActivitiesVC() {

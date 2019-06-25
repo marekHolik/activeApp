@@ -22,11 +22,11 @@ class NavigationButton: UIButton {
     
     @objc func toggle() {
         if (controllerBehind == navigationNC.chosenVC) {
-            controllerBehind.move()
+            controllerBehind.slide()
             print(navigationNC.view.subviews.count)
         } else {
             controllerBehind.show()
-            controllerBehind.move()
+            controllerBehind.slide()
             navigationNC.chosenVC.hide()
             navigationNC.chosenVC = controllerBehind
         }

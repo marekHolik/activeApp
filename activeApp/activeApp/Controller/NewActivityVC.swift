@@ -153,6 +153,11 @@ class NewActivityVC: SlidableVC {
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
         
+        if (mapVC.view.frame.origin.x != 0) {
+            mapVC.remove()
+            mapVCPrepared = false
+        }
+        
         if (UIDevice.current.orientation.isLandscape) {
             //topView's label
             portraitTextLbl.isActive = false
@@ -386,10 +391,10 @@ class NewActivityVC: SlidableVC {
         if (!mapVCPrepared) {
             mapVC.prepare()
             mapVCPrepared = true
+            mapVC.slide()
         } else {
-        mapVC.slideMapVC()
+        mapVC.slide()
         }
-//        mapVC.view.isHidden = false
     }
     
     @objc private func timePickerValuedChanged(sender: TimePicker) {
