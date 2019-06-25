@@ -27,7 +27,7 @@ class MapVC: UIViewController {
     var searchButton: UIButton!
     
     var labelToFill: ActivityLabel!
-    
+    var slided = false
     
     var keyboardHeight: CGFloat!
     var searchBarOrigin: CGFloat!
@@ -52,13 +52,14 @@ class MapVC: UIViewController {
         getAuthorization()
         
         mapView.showsUserLocation = true
-//        print("User's coordinate vaules \(mapView.userLocation.coordinate)")
         
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
         
         searchBarOrigin = searchView.frame.origin.y
         centerMapOnUserLocation()
+        
+        print("MapVC is being loaded")
     }
     
     func addPressGesture() {
@@ -117,6 +118,19 @@ class MapVC: UIViewController {
             locationName = searchTextField.text!
         }
         labelToFill.text = locationName
+    }
+    
+    func prepare() {
+        parent?.view.addSubview(self.view)
+    }
+    
+    func slideMapVC() {
+        let distance = self.view.frame.size.width
+        UIView.animate(withDuration: 0.3, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: .curveEaseInOut, animations: {
+            self.view.frame.origin.x = self.view.frame.origin.x + (self.slided ? -distance : distance)
+        }, completion: nil)
+        slided = !slided
+        print("sliding mapVC!")
     }
     
     func addSearchContainer() {
@@ -227,7 +241,9 @@ class MapVC: UIViewController {
     }
     
     @objc func dismissMapVC(_ sender: Any) {
-        self.dismiss(animated: true, completion: nil)
+//        self.dismiss(animated: true, completion: nil)
+//        self.view.isHidden = true
+        slideMapVC()
     }
     
     func addMapView() {
@@ -259,14 +275,12 @@ class MapVC: UIViewController {
     @objc func keyboardWillShow(notification: NSNotification) {
         if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
             self.mapView.frame.origin.y -= keyboardSize.height
-//            self.searchView.frame.origin.y -= keyboardSize.height
         }
     }
     
     @objc func keyboardWillHide(notification: NSNotification) {
         if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
             self.mapView.frame.origin.y += keyboardSize.height
-//            self.searchView.frame.origin.y += keyboardSize.height
         }
     }
     

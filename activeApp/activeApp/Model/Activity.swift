@@ -41,10 +41,6 @@ class Activity {
             let locationName = activityData[ACTIVITIES_LOCATION_NAME] as? String ?? "Home"
             let geoPoint = activityData[ACTIVITIES_COORDINATE] as? GeoPoint
             let timestamp = activityData[ACTIVITIES_TIMESTAMP] as? Timestamp
-            print("/////////////////////")
-            print(activityData[ACTIVITIES_TIMESTAMP])
-            print(timestamp)
-            print("/////////////////////")
             let newActivity = Activity(name: name, lenght: lenght, locationName: locationName,
                                        latitude: geoPoint!.latitude, longitude: geoPoint!.longitude, timestamp: (timestamp?.dateValue())!, storage: .firebase)
             activities.append(newActivity)

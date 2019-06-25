@@ -17,6 +17,7 @@ class NavigationNC: UINavigationController {
     var chosenVC: SlidableVC!
     var deviceWidth: CGFloat!
     var slideConstant: CGFloat!
+    var mapVC: MapVC!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,9 +30,22 @@ class NavigationNC: UINavigationController {
         activitiesVC = ActivitiesVC(deviceWidth: deviceWidth, slideConstant: slideConstant, name: "activitites")
         configureAdditionalVC(controllers: [activitiesVC])
         
-        
         chosenVC = slideControllers[0]
         navigationVC.addButtons(navigationNC: self, controllers: slideControllers)
+        
+        mapVC = MapVC()
+        mapVC.prepare()
+        mapVC.slideMapVC()
+        addChild(mapVC)
+        landingVC.mapVC = mapVC
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+    }
+    
+    func prepareMapVC() {
+        mapVC.slideMapVC()
     }
     
     func configureAdditionalVC(controllers: [SlidableVC]) {

@@ -29,6 +29,7 @@ class NewActivityVC: SlidableVC {
     
 //    var activitiesVC: ActivitiesVC!
     var mapVC: MapVC!
+    var mapVCPrepared = false
     
     //constraint of holderViews
     var portraitTopBaseWidth: NSLayoutConstraint!
@@ -65,7 +66,7 @@ class NewActivityVC: SlidableVC {
         addBottomViews()
         addSegmentControl()
         
-        mapVC.labelToFill = locationTextLabel
+//        mapVC.labelToFill = locationTextLabel
         
         locationTextLabel.configure(viewToRelate: self.topBase)
         portraitTextLbl = locationTextLabel.bottomAnchor.constraint(equalTo: topBase.bottomAnchor, constant: -30)
@@ -148,8 +149,9 @@ class NewActivityVC: SlidableVC {
         bottomBase = HolderView()
         segmentControl = UISegmentedControl(items: ["local", "firebase"])
         
+        
 //        activitiesVC = ActivitiesVC()
-        mapVC = MapVC()
+//        mapVC = MapVC()
 
     }
     
@@ -386,7 +388,13 @@ class NewActivityVC: SlidableVC {
     }
     
     @objc func presentMapVC(_ sender: Any) {
-        self.present(mapVC, animated: true, completion: nil)
+        if (!mapVCPrepared) {
+            mapVC.prepare()
+            mapVCPrepared = true
+        } else {
+        mapVC.slideMapVC()
+        }
+//        mapVC.view.isHidden = false
     }
     
     @objc private func timePickerValuedChanged(sender: TimePicker) {

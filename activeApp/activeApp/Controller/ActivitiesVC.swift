@@ -78,9 +78,6 @@ class ActivitiesVC: SlidableVC {
                 }
                 self.localData = self.localData.sorted(by: { $0.timestamp > $1.timestamp })
                 self.tableView.reloadData()
-                for activity in self.localData {
-                    print(activity.timestamp)
-                }
             }
         }
     }

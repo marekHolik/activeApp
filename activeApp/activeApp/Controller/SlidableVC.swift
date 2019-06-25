@@ -80,6 +80,11 @@ class SlidableVC: UIViewController {
         self.view.isHidden = true
     }
     
+    func remove() {
+        self.view.removeFromSuperview()
+        removeFromParent()
+    }
+    
     func getRandomColor() -> UIColor{
         let randomRed:CGFloat = CGFloat(arc4random()) / CGFloat(UInt32.max)
         let randomGreen:CGFloat = CGFloat(arc4random()) / CGFloat(UInt32.max)
