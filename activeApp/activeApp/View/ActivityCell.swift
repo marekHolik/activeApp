@@ -26,7 +26,6 @@ class ActivityCell: UITableViewCell {
     
     func configureCell(viewToRelate view: Any, activity: Activity) {
         addBackground()
-//        addMap()
         
         addActivityLabel()
         addTimeLabel()
@@ -37,8 +36,6 @@ class ActivityCell: UITableViewCell {
         self.activityLabel.text = activity.name
         self.timeLabel.text = activity.lenght?.formatToTime()
         self.locationLabel.text = activity.locationName
-        let locationCoordinate = CLLocationCoordinate2D(latitude: activity.latitude!, longitude: activity.longitude!)
-        self.map.setRegion(MKCoordinateRegion(center: locationCoordinate, latitudinalMeters: 2000, longitudinalMeters: 2000), animated: false)
         
         let formatter = DateFormatter()
         formatter.dateFormat = "MMM d"
@@ -56,18 +53,6 @@ class ActivityCell: UITableViewCell {
         dateLabel.heightAnchor.constraint(equalToConstant: 20).isActive = true
         dateLabel.font = UIFont(name: "Montserrat-Light", size: 15)
         dateLabel.textColor = .white
-    }
-    
-    func addMap() {
-        map = MKMapView()
-        background.addSubview(map)
-        map.translatesAutoresizingMaskIntoConstraints = false
-        map.centerYAnchor.constraint(equalTo: background.centerYAnchor).isActive = true
-        map.trailingAnchor.constraint(equalTo: background.trailingAnchor, constant: -15).isActive = true
-        map.widthAnchor.constraint(equalToConstant: 80).isActive = true
-        map.heightAnchor.constraint(equalToConstant: 80).isActive = true
-        map.layer.cornerRadius = 15
-        map.isScrollEnabled = false
     }
     
     func addLocationLabel() {
