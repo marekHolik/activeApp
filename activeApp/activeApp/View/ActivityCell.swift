@@ -100,7 +100,7 @@ class ActivityCell: UITableViewCell {
         activityLabel.font = UIFont(name: "Montserrat-Regular", size: 25)
         activityLabel.textColor = .white
         activityLabel.translatesAutoresizingMaskIntoConstraints = false
-        activityLabel.trailingAnchor.constraint(equalTo: self.trailing, constant: -30).isActive = true
+        activityLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -30).isActive = true
         activityLabel.heightAnchor.constraint(equalToConstant: 30).isActive = true
         activityLabel.leadingAnchor.constraint(equalTo: background.leadingAnchor, constant: 15).isActive = true
         activityLabel.topAnchor.constraint(equalTo: background.topAnchor, constant: 10).isActive = true
