@@ -115,10 +115,7 @@ class MapVC: UIViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(true)
-        if (locationName == "" && searchTextField.text != "") {
-            locationName = searchTextField.text!
-        }
-        labelToFill.text = locationName
+
     }
     
     func prepare() {
@@ -248,6 +245,10 @@ class MapVC: UIViewController {
     
     @objc func dismissMapVC(_ sender: Any) {
         slide()
+        if (locationName == "" && searchTextField.text != "") {
+            locationName = searchTextField.text!
+        }
+        labelToFill.text = locationName
     }
     
     func addMapView() {

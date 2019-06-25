@@ -65,7 +65,6 @@ class NewActivityVC: SlidableVC {
         addBottomViews()
         addSegmentControl()
         
-//        mapVC.labelToFill = locationTextLabel
         
         locationTextLabel.configure(viewToRelate: self.topBase)
         portraitTextLbl = locationTextLabel.bottomAnchor.constraint(equalTo: topBase.bottomAnchor, constant: -30)
@@ -76,7 +75,6 @@ class NewActivityVC: SlidableVC {
         lenghtLabel.create(text: "lenght")
         portraitLenghtLbl = lenghtLabel.topAnchor.constraint(equalTo: bottomBase.topAnchor, constant: 0)
         landscapeLenghtLbl = lenghtLabel.topAnchor.constraint(equalTo: bottomBase.topAnchor, constant: ((pointWidth / 2) - 75))
-        
         
         
         //topBase's constraints
@@ -98,9 +96,7 @@ class NewActivityVC: SlidableVC {
             timePicker.activateLandscapeConstraints()
         }
     }
-    
 
-    
     func baseConstraintsAndMeasures() {
         //constraint of holderViews
         portraitTopBaseWidth = NSLayoutConstraint()
@@ -394,6 +390,9 @@ class NewActivityVC: SlidableVC {
             mapVC.slide()
         } else {
         mapVC.slide()
+        }
+        if (mapVC.labelToFill == nil) {
+            mapVC.labelToFill = locationTextLabel
         }
     }
     
