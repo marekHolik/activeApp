@@ -12,47 +12,48 @@ import MapKit
 
 class NewActivityVC: SlidableVC {
 
-    var trainingView: UIView!
-    var headlineLabel: HeadlineLabel!
-    var nameLabel: ActivityLabel!
-    var nameTextField: ActivityTextField!
-    var locationLabel: ActivityLabel!
-    var locationTextLabel: ActivityLabel!
-    var lenghtLabel: ActivityLabel!
-    var lenghtTextField: ActivityTextField!
-    var timePicker: TimePicker!
-    var storeLabel: ActivityLabel!
-    var createButton: ActivityButton!
-    var topBase: HolderView!
-    var bottomBase: HolderView!
-    var segmentControl: UISegmentedControl!
+    private var headlineLabel: HeadlineLabel!
+    private var nameLabel: ActivityLabel!
+    private var nameTextField: ActivityTextField!
+    private var locationLabel: ActivityLabel!
+    private var locationTextLabel: ActivityLabel!
+    private var lenghtLabel: ActivityLabel!
+    private var lenghtTextField: ActivityTextField!
+    private var timePicker: TimePicker!
+    private var storeLabel: ActivityLabel!
+    private var createButton: ActivityButton!
+    private var topBase: HolderView!
+    private var bottomBase: HolderView!
+    private var segmentControl: UISegmentedControl!
     
     var mapVC: MapVC!
     var mapVCPrepared = false
     
     //constraint of holderViews
-    var portraitTopBaseWidth: NSLayoutConstraint!
-    var portraitTopBaseHeight: NSLayoutConstraint!
-    var landscapeTopBaseWidth: NSLayoutConstraint!
-    var landscapeTopBaseHeight: NSLayoutConstraint!
+    private var portraitTopBaseWidth: NSLayoutConstraint!
+    private var portraitTopBaseHeight: NSLayoutConstraint!
+    private var landscapeTopBaseWidth: NSLayoutConstraint!
+    private var landscapeTopBaseHeight: NSLayoutConstraint!
 
-    var portraitBottomBaseWidth: NSLayoutConstraint!
-    var portraitBottomBaseHeight: NSLayoutConstraint!
-    var landscapeBottomBaseWidth: NSLayoutConstraint!
-    var landscapeBottomBaseHeight: NSLayoutConstraint!
+    private var portraitBottomBaseWidth: NSLayoutConstraint!
+    private var portraitBottomBaseHeight: NSLayoutConstraint!
+    private var landscapeBottomBaseWidth: NSLayoutConstraint!
+    private var landscapeBottomBaseHeight: NSLayoutConstraint!
     
     //constraints
-    var portraitTextLbl: NSLayoutConstraint!
-    var landscapeTextLbl: NSLayoutConstraint!
+    private var portraitTextLbl: NSLayoutConstraint!
+    private var landscapeTextLbl: NSLayoutConstraint!
     
-    var portraitLenghtLbl: NSLayoutConstraint!
-    var landscapeLenghtLbl: NSLayoutConstraint!
+    private var portraitLenghtLbl: NSLayoutConstraint!
+    private var landscapeLenghtLbl: NSLayoutConstraint!
     
     //measures
-    var pixelWidth = CGFloat()
-    var pixelHeight = CGFloat()
-    var pointWidth = CGFloat()
-    var pointHeight = CGFloat()
+    private var pixelWidth = CGFloat()
+    private var pixelHeight = CGFloat()
+    private var pointWidth = CGFloat()
+    private var pointHeight = CGFloat()
+    
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -76,75 +77,10 @@ class NewActivityVC: SlidableVC {
         portraitLenghtLbl = lenghtLabel.topAnchor.constraint(equalTo: bottomBase.topAnchor, constant: 0)
         landscapeLenghtLbl = lenghtLabel.topAnchor.constraint(equalTo: bottomBase.topAnchor, constant: ((pointWidth / 2) - 75))
         
-        
-        //topBase's constraints
-        if (self.view.frame.size.height > self.view.frame.size.width) {
-            portraitTextLbl.isActive = true
-            portraitLenghtLbl.isActive = true
-            portraitTopBaseWidth.isActive = true
-            portraitTopBaseHeight.isActive = true
-            portraitBottomBaseWidth.isActive = true
-            portraitBottomBaseHeight.isActive = true
-            timePicker.activatePortraitConstraints()
-        } else {
-            landscapeTextLbl.isActive = true
-            landscapeLenghtLbl.isActive = true
-            landscapeTopBaseWidth.isActive = true
-            landscapeTopBaseHeight.isActive = true
-            landscapeBottomBaseWidth.isActive = true
-            landscapeBottomBaseHeight.isActive = true
-            timePicker.activateLandscapeConstraints()
-        }
+        setConstraints()
     }
 
-    func baseConstraintsAndMeasures() {
-        //constraint of holderViews
-        portraitTopBaseWidth = NSLayoutConstraint()
-        portraitTopBaseHeight = NSLayoutConstraint()
-        landscapeTopBaseWidth = NSLayoutConstraint()
-        landscapeTopBaseHeight = NSLayoutConstraint()
-        
-        portraitBottomBaseWidth = NSLayoutConstraint()
-        portraitBottomBaseHeight = NSLayoutConstraint()
-        landscapeBottomBaseWidth = NSLayoutConstraint()
-        landscapeBottomBaseHeight = NSLayoutConstraint()
-        
-        //constraints
-        portraitTextLbl = NSLayoutConstraint()
-        landscapeTextLbl = NSLayoutConstraint()
-        
-        portraitLenghtLbl = NSLayoutConstraint()
-        landscapeLenghtLbl = NSLayoutConstraint()
-        
-        //measures
-        pixelWidth = CGFloat()
-        pixelHeight = CGFloat()
-        pointWidth = CGFloat()
-        pointHeight = CGFloat()
-        
-        pixelWidth = UIScreen.main.nativeBounds.width < UIScreen.main.nativeBounds.height ? UIScreen.main.nativeBounds.width : UIScreen.main.nativeBounds.height
-        pixelHeight = UIScreen.main.nativeBounds.height > UIScreen.main.nativeBounds.width ? UIScreen.main.nativeBounds.height : UIScreen.main.nativeBounds.width
-        pointWidth = pixelWidth / UIScreen.main.nativeScale
-        pointHeight = pixelHeight / UIScreen.main.nativeScale
-    }
     
-    func baseSetup() {
-        trainingView = UIView()
-        headlineLabel = HeadlineLabel()
-        nameLabel = ActivityLabel()
-        nameTextField = ActivityTextField()
-        locationLabel = ActivityLabel()
-        locationTextLabel = ActivityLabel()
-        lenghtLabel = ActivityLabel()
-        lenghtTextField = ActivityTextField()
-        timePicker = TimePicker()
-        storeLabel = ActivityLabel()
-        createButton = ActivityButton()
-        topBase = HolderView()
-        bottomBase = HolderView()
-        segmentControl = UISegmentedControl(items: ["local", "firebase"])
-
-    }
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
@@ -201,8 +137,153 @@ class NewActivityVC: SlidableVC {
         }
     }
     
-    private func addBaseViews() {
+    private func resetData() {
+        self.nameTextField.text = ""
+        self.lenghtTextField.text = ""
+        self.locationTextLabel.text = ""
+        let numberOfComponents = self.timePicker.numberOfComponents(in: self.timePicker)
+        var i = 0
+        while (i < numberOfComponents) {
+            self.timePicker.selectRow(0, inComponent: i, animated: true)
+            i += 1
+        }
+    }
+    
+    //objc methods
+    
+    @objc private  func hideKeyboard() {
+        view.endEditing(true)
+    }
+    
+    @objc private  func createNewActivity(_ handler: Bool) {
+        createButton.isEnabled = false
+        let geoPoint = mapVC.locationCoordinate
+        let name = nameTextField.text!
+        let lenght = timePicker.getTime()
+        let locationName = mapVC.locationName
+        
+        let time = NSDate().timeIntervalSince1970
+        let myTimeInterval = TimeInterval(time)
+        let timestamp = NSDate(timeIntervalSince1970: TimeInterval(myTimeInterval))
+        
+        nameTextField.text == "" ? nameRed() : nameBlue()
+        lenghtTextField.text == "" ? lenghtRed() : lenghtBlue()
+        locationTextLabel.text == "" ? locationRed() : locationBlue()
+        
+        if (nameTextField.text != "" && lenghtTextField.text != "" && mapVC.locationName != "") {
+            if (segmentControl.selectedSegmentIndex == 1) {
+                Firebase.createActivity(name: name, lenght: lenght, locationName: locationName!, geoPoint: geoPoint!, timestamp: timestamp as Date) { (complete) in
+                    if (complete) {
+                        self.resetData()
+                    } else {
+                        print("Connection with firebase went down")
+                    }
+                }
+            } else {
+                CoreData.createActivity(name: name, lenght: lenght, locationName: locationName!, geoPoint: geoPoint!, timestamp: timestamp as Date) { (complete) in
+                    if (complete) {
+                        self.resetData()
+                    } else {
+                        print("Something went wrong with coreData")
+                    }
+                }
+            }
+        }
+        self.createButton.isEnabled = true
+    }
+    
+    @objc private func presentMapVC(_ sender: Any) {
+        if (!mapVCPrepared) {
+            mapVC.prepare()
+            mapVCPrepared = true
+            mapVC.slide()
+        } else {
+            mapVC.slide()
+        }
+        if (mapVC.labelToFill == nil) {
+            mapVC.labelToFill = locationTextLabel
+        }
+    }
+    
+    @objc private func timePickerValuedChanged(sender: TimePicker) {
+        self.lenghtTextField.text = timePicker.getTime().formatToTime()
+    }
+    
+    //UX methods
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        view.endEditing(true)
+    }
+    
+    //constraints handling
+    
+    private func setConstraints() {
+        //topBase's constraints
+        if (self.view.frame.size.height > self.view.frame.size.width) {
+            portraitTextLbl.isActive = true
+            portraitLenghtLbl.isActive = true
+            portraitTopBaseWidth.isActive = true
+            portraitTopBaseHeight.isActive = true
+            portraitBottomBaseWidth.isActive = true
+            portraitBottomBaseHeight.isActive = true
+            timePicker.activatePortraitConstraints()
+        } else {
+            landscapeTextLbl.isActive = true
+            landscapeLenghtLbl.isActive = true
+            landscapeTopBaseWidth.isActive = true
+            landscapeTopBaseHeight.isActive = true
+            landscapeBottomBaseWidth.isActive = true
+            landscapeBottomBaseHeight.isActive = true
+            timePicker.activateLandscapeConstraints()
+        }
+    }
+    
+    private func baseConstraintsAndMeasures() {
+        //constraint of holderViews
+        portraitTopBaseWidth = NSLayoutConstraint()
+        portraitTopBaseHeight = NSLayoutConstraint()
+        landscapeTopBaseWidth = NSLayoutConstraint()
+        landscapeTopBaseHeight = NSLayoutConstraint()
+        
+        portraitBottomBaseWidth = NSLayoutConstraint()
+        portraitBottomBaseHeight = NSLayoutConstraint()
+        landscapeBottomBaseWidth = NSLayoutConstraint()
+        landscapeBottomBaseHeight = NSLayoutConstraint()
+        
+        //constraints
+        portraitTextLbl = NSLayoutConstraint()
+        landscapeTextLbl = NSLayoutConstraint()
+        
+        portraitLenghtLbl = NSLayoutConstraint()
+        landscapeLenghtLbl = NSLayoutConstraint()
+        
+        //measures
+        pixelWidth = CGFloat()
+        pixelHeight = CGFloat()
+        pointWidth = CGFloat()
+        pointHeight = CGFloat()
+        
+        pixelWidth = UIScreen.main.nativeBounds.width < UIScreen.main.nativeBounds.height ? UIScreen.main.nativeBounds.width : UIScreen.main.nativeBounds.height
+        pixelHeight = UIScreen.main.nativeBounds.height > UIScreen.main.nativeBounds.width ? UIScreen.main.nativeBounds.height : UIScreen.main.nativeBounds.width
+        pointWidth = pixelWidth / UIScreen.main.nativeScale
+        pointHeight = pixelHeight / UIScreen.main.nativeScale
+    }
+    
 
+    
+    //UI methods
+    
+    private func configureNavigationButton() {
+        self.topBase.addSubview(super.button)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.widthAnchor.constraint(equalToConstant: 30).isActive = true
+        button.heightAnchor.constraint(equalToConstant: 20).isActive = true
+        button.centerYAnchor.constraint(equalTo: headlineLabel.centerYAnchor).isActive = true
+        button.leadingAnchor.constraint(equalTo: topBase.leadingAnchor, constant: 30).isActive = true
+        button.addTarget(self, action: #selector(hideKeyboard), for: .touchUpInside)
+    }
+    
+    private func addBaseViews() {
         self.view.addSubview(topBase)
         topBase.translatesAutoresizingMaskIntoConstraints = false
         topBase.topAnchor.constraint(equalTo: self.view.topAnchor).isActive = true
@@ -240,7 +321,6 @@ class NewActivityVC: SlidableVC {
     }
     
     private func addTopViews() {
-        
         topBase.addSubview(locationTextLabel)
         locationTextLabel.createAsTextField()
         locationTextLabel.create(text: "")
@@ -269,25 +349,10 @@ class NewActivityVC: SlidableVC {
         headlineLabel.widthAnchor.constraint(equalToConstant: 250).isActive = true
         headlineLabel.create(text: "newActivity")
         
-        reconfigureNavigationButton()
-    }
-    
-    private func reconfigureNavigationButton() {
-        self.topBase.addSubview(super.button)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.widthAnchor.constraint(equalToConstant: 30).isActive = true
-        button.heightAnchor.constraint(equalToConstant: 20).isActive = true
-        button.centerYAnchor.constraint(equalTo: headlineLabel.centerYAnchor).isActive = true
-        button.leadingAnchor.constraint(equalTo: topBase.leadingAnchor, constant: 30).isActive = true
-        button.addTarget(self, action: #selector(hideKeyboard), for: .touchUpInside)
-    }
-    
-    @objc func hideKeyboard() {
-        view.endEditing(true)
+        configureNavigationButton()
     }
     
     private func addBottomViews() {
-        
         bottomBase.addSubview(lenghtLabel)
         
         bottomBase.addSubview(lenghtTextField)
@@ -304,53 +369,20 @@ class NewActivityVC: SlidableVC {
         createButton.addTarget(self, action: #selector(createNewActivity(_:)), for: .touchUpInside)
     }
     
-    @objc func createNewActivity(_ handler: Bool) {
-        createButton.isEnabled = false
-        let geoPoint = mapVC.locationCoordinate
-        let name = nameTextField.text!
-        let lenght = timePicker.getTime()
-        let locationName = mapVC.locationName
-        
-        let time = NSDate().timeIntervalSince1970
-        let myTimeInterval = TimeInterval(time)
-        let timestamp = NSDate(timeIntervalSince1970: TimeInterval(myTimeInterval))
-        
-        nameTextField.text == "" ? nameRed() : nameBlue()
-        lenghtTextField.text == "" ? lenghtRed() : lenghtBlue()
-        locationTextLabel.text == "" ? locationRed() : locationBlue()
-            
-        if (nameTextField.text != "" && lenghtTextField.text != "" && mapVC.locationName != "") {
-            if (segmentControl.selectedSegmentIndex == 1) {
-                Firebase.createActivity(name: name, lenght: lenght, locationName: locationName!, geoPoint: geoPoint!, timestamp: timestamp as Date) { (complete) in
-                    if (complete) {
-                        self.resetData()
-                    } else {
-                        print("Connection with firebase went down")
-                    }
-                }
-            } else {
-                CoreData.createActivity(name: name, lenght: lenght, locationName: locationName!, geoPoint: geoPoint!, timestamp: timestamp as Date) { (complete) in
-                    if (complete) {
-                        self.resetData()
-                    } else {
-                        print("Something went wrong with coreData")
-                    }
-                }
-            }
-        }
-        self.createButton.isEnabled = true
-    }
-    
-    func resetData() {
-        self.nameTextField.text = ""
-        self.lenghtTextField.text = ""
-        self.locationTextLabel.text = ""
-        let numberOfComponents = self.timePicker.numberOfComponents(in: self.timePicker)
-        var i = 0
-        while (i < numberOfComponents) {
-            self.timePicker.selectRow(0, inComponent: i, animated: true)
-            i += 1
-        }
+    private func baseSetup() {
+        headlineLabel = HeadlineLabel()
+        nameLabel = ActivityLabel()
+        nameTextField = ActivityTextField()
+        locationLabel = ActivityLabel()
+        locationTextLabel = ActivityLabel()
+        lenghtLabel = ActivityLabel()
+        lenghtTextField = ActivityTextField()
+        timePicker = TimePicker()
+        storeLabel = ActivityLabel()
+        createButton = ActivityButton()
+        topBase = HolderView()
+        bottomBase = HolderView()
+        segmentControl = UISegmentedControl(items: ["local", "firebase"])
     }
     
     func nameRed() {
@@ -382,28 +414,7 @@ class NewActivityVC: SlidableVC {
         lenghtLabel.blue()
         lenghtTextField.blue()
     }
-    
-    @objc func presentMapVC(_ sender: Any) {
-        if (!mapVCPrepared) {
-            mapVC.prepare()
-            mapVCPrepared = true
-            mapVC.slide()
-        } else {
-        mapVC.slide()
-        }
-        if (mapVC.labelToFill == nil) {
-            mapVC.labelToFill = locationTextLabel
-        }
-    }
-    
-    @objc private func timePickerValuedChanged(sender: TimePicker) {
-        self.lenghtTextField.text = timePicker.getTime().formatToTime()
-    }
-    
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        view.endEditing(true)
-    }
-    
+
 }
 
 extension NewActivityVC: UITextFieldDelegate, UIGestureRecognizerDelegate {

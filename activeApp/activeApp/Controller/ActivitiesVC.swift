@@ -20,6 +20,7 @@ class ActivitiesVC: SlidableVC {
     private var localData: [Activity]!
     private var firebaseData: [Activity]!
 
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         buttonSwitch = UIView()
@@ -40,12 +41,10 @@ class ActivitiesVC: SlidableVC {
         firebaseCollection = Firestore.firestore().collection(ACTIVITIES_REF)
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        print("View has just appeared")
-        super.viewWillAppear(animated)
-    }
+    
+    //fetching methods
 
-    func getActivities() -> [Activity] {
+    private func getActivities() -> [Activity] {
         var filteredData = [Activity]()
         if segmentControl.selectedSegmentIndex == 1 {
             for activity in localData {
@@ -81,8 +80,16 @@ class ActivitiesVC: SlidableVC {
             }
         }
     }
+
+    //objc methods
     
-    func addBackButton() {
+    @objc private func reloadTable() {
+        self.tableView.reloadData()
+    }
+    
+    //UI methods
+    
+    private func addBackButton() {
         self.view.addSubview(super.button)
         super.button.translatesAutoresizingMaskIntoConstraints = false
         super.button.heightAnchor.constraint(equalToConstant: 15).isActive = true
@@ -91,7 +98,7 @@ class ActivitiesVC: SlidableVC {
         super.button.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 10).isActive = true
     }
     
-    func addSegmentControl() {
+    private func addSegmentControl() {
         self.view.addSubview(segmentControl)
         
         segmentControl.translatesAutoresizingMaskIntoConstraints = false
@@ -108,11 +115,7 @@ class ActivitiesVC: SlidableVC {
         segmentControl.addTarget(self, action: #selector(reloadTable), for: .valueChanged)
     }
     
-    @objc func reloadTable() {
-        self.tableView.reloadData()
-    }
-    
-    func addTableView() {
+    private func addTableView() {
         view.addSubview(tableView)
         tableView.rowHeight = 120
         tableView.translatesAutoresizingMaskIntoConstraints = false

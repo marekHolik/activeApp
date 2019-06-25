@@ -44,11 +44,9 @@ class NavigationNC: UINavigationController {
         super.viewDidAppear(animated)
     }
     
-    func prepareMapVC() {
-        mapVC.slide()
-    }
+    //UI mathods
     
-    func configureAdditionalVC(controllers: [SlidableVC]) {
+    private func configureAdditionalVC(controllers: [SlidableVC]) {
         for controller in controllers {
             addChild(controller)
             slideControllers.append(controller)
@@ -56,19 +54,19 @@ class NavigationNC: UINavigationController {
         }
     }
     
-    func configureNavigationVC() {
+    private func configureNavigationVC() {
         navigationVC = NavigationVC()
         showViewController(controller: navigationVC)
         navigationVC.view.backgroundColor = #colorLiteral(red: 0.1019607843, green: 0.6862745098, blue: 1, alpha: 1)
     }
     
-    func configureStartingVC() {
+    private func configureStartingVC() {
         landingVC = NewActivityVC(deviceWidth: deviceWidth, slideConstant: slideConstant, name: "new activity")
         addChild(landingVC)
         self.view.addSubview(landingVC.view)
     }
     
-    func showViewController(controller: UIViewController) {
+    private func showViewController(controller: UIViewController) {
         addChild(controller)
         self.view.addSubview(controller.view)
     }

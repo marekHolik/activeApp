@@ -50,14 +50,16 @@ class NavigationVC: UIViewController {
         buttons[1].addTarget(self, action: #selector(reloadActivitiesVC), for: .touchUpInside)
     }
     
-    @objc func reloadNewActivityVC() {
+    @objc private func reloadNewActivityVC() {
         let controller = controllers[0] as! NewActivityVC
         controller.mapVC.remove()
         controller.mapVC.prepare()
+        controller.view.layoutIfNeeded()
     }
     
-    @objc func reloadActivitiesVC() {
+    @objc private func reloadActivitiesVC() {
         let controller = controllers[1] as! ActivitiesVC
         controller.fetchAllData()
+        controller.view.layoutIfNeeded()
     }
 }
