@@ -75,7 +75,7 @@ class ActivitiesVC: SlidingVC {
             if let error = error {
                 debugPrint("We have a problem \(error)")
             } else {
-                self.firebaseData = Activity.parseFirebase(snapshot: snapshot)
+                self.firebaseData = Firebase.parse(snapshot: snapshot)
                 for activity in self.firebaseData {
                     self.localData.append(activity)
                 }

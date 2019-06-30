@@ -29,6 +29,8 @@ class NewActivityVC: SlidingVC {
     var mapVC: MapVC!
     var mapVCPrepared = false
     
+    
+    
     //constraint of holderViews
     private var portraitTopBaseWidth: NSLayoutConstraint!
     private var portraitTopBaseHeight: NSLayoutConstraint!
@@ -52,7 +54,6 @@ class NewActivityVC: SlidingVC {
     private var pixelHeight = CGFloat()
     private var pointWidth = CGFloat()
     private var pointHeight = CGFloat()
-    
     
     
     override func viewDidLoad() {
@@ -192,7 +193,10 @@ class NewActivityVC: SlidingVC {
     
     @objc private func presentMapVC(_ sender: Any) {
         delegate.slideVC(controller: mapVC)
-        mapVC.delegate = delegate
+        if (mapVC.delegate == nil) {
+            mapVC.delegate = delegate
+        }
+        
         if (mapVC.labelToFill == nil) {
             mapVC.labelToFill = locationTextLabel
         }
@@ -262,7 +266,6 @@ class NewActivityVC: SlidingVC {
         pointHeight = pixelHeight / UIScreen.main.nativeScale
     }
     
-
     
     //UI methods
     
@@ -411,5 +414,4 @@ class NewActivityVC: SlidingVC {
 }
 
 extension NewActivityVC: UITextFieldDelegate, UIGestureRecognizerDelegate {
-    
 }

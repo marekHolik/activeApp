@@ -21,7 +21,7 @@ class MapVC: UIViewController {
     var labelToFill: ActivityLabel!
     var slided = false
     
-    var delegate: ControllerNC!
+    var delegate: ControllerNCDelegate!
     
     private var topLabel: UILabel!
     private var topView: UIView!

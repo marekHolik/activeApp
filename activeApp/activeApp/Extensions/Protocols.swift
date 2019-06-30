@@ -6,9 +6,9 @@
 //  Copyright © 2019 marek holik. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 protocol ControllerNCDelegate {
-    func slideVC(controller: SlidingVC)
+    func slideVC(controller: UIViewController)
     func dismissVC()
 }

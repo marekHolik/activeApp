@@ -17,17 +17,14 @@ class SlidingVC: UIViewController {
     var controllerNC: ControllerNC!
 
     var deviceWidth: CGFloat!
-    var delegate: ControllerNC!
+    var delegate: ControllerNCDelegate!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .red
         slidingConst = view.frame.size.width * 0.7
         configureButton()
-        
-        let swipe = UISwipeGestureRecognizer(target: self, action: #selector(slide))
-        swipe.direction = .right
-        view.addGestureRecognizer(swipe)
+        addSwipe()
     }
     
     init(controllerNC: ControllerNC, deviceWidth: CGFloat, name: String) {
@@ -41,6 +38,23 @@ class SlidingVC: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    //objc methods
+    
+    @objc func slide() {
+        delegate.dismissVC()
+        dismiss(animated: false, completion: nil)
+    }
+    
+    //UX methods
+    
+    func addSwipe() {
+        let swipe = UISwipeGestureRecognizer(target: self, action: #selector(slide))
+        swipe.direction = .right
+        view.addGestureRecognizer(swipe)
+    }
+    
+    //UI methods
+    
     func configureButton() {
         button = NavigationButton()
         view.addSubview(button)
@@ -49,9 +63,6 @@ class SlidingVC: UIViewController {
         button.controllerBehind = self
     }
     
-    @objc func slide() {
-        delegate.dismissVC()
-        dismiss(animated: false, completion: nil)
-    }
+
     
 }

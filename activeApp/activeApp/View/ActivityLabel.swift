@@ -14,7 +14,6 @@ class ActivityLabel: UILabel {
         self.textColor = #colorLiteral(red: 0.1019607843, green: 0.6862745098, blue: 1, alpha: 1)
         self.text = text
         self.font = UIFont(name: "Montserrat-Regular", size: 17)
-        
     }
     
     func red() {
@@ -44,11 +43,7 @@ class ActivityLabel: UILabel {
         create(text: text)
     }
     
-    
-    
     func createAsTextField() {
-        //        super.configureAsTop(viewToRelate: view)
-        //        create(text: "")
         self.layer.borderWidth = 1
         self.layer.borderColor = LIGHT_BLUE.cgColor
         self.layer.cornerRadius = 10

@@ -14,7 +14,6 @@ class HolderView: UIView {
         configureBase(viewToRelate: view)
         self.leadingAnchor.constraint(equalTo: (view.safeAreaLayoutGuide?.leadingAnchor)!).isActive = true
         self.topAnchor.constraint(equalTo: (view.safeAreaLayoutGuide?.topAnchor)!).isActive = true
-        
     }
     
     func configureRight(viewToRelate view: AnyObject) {
@@ -25,7 +24,6 @@ class HolderView: UIView {
     
     func configureBase(viewToRelate view: AnyObject) {
         translatesAutoresizingMaskIntoConstraints = false
-        
         removeConstraints(self.constraints)
         
         let superWidth = view.safeAreaLayoutGuide?.layoutFrame.width

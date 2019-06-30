@@ -29,24 +29,6 @@ class Activity {
         self.timestamp = timestamp
         self.storage = storage
     }
-    
-    class func parseFirebase(snapshot: QuerySnapshot?) -> [Activity] {
-        var activities = [Activity]()
-        
-        guard let snapshot = snapshot else { return activities }
-        for document in snapshot.documents {
-            let activityData = document.data()
-            let name = activityData[ACTIVITIES_NAME] as? String ?? "Anonymous"
-            let lenght = activityData[ACTIVITIES_LENGHT] as? Int ?? 13482
-            let locationName = activityData[ACTIVITIES_LOCATION_NAME] as? String ?? "Home"
-            let geoPoint = activityData[ACTIVITIES_COORDINATE] as? GeoPoint
-            let timestamp = activityData[ACTIVITIES_TIMESTAMP] as? Timestamp
-            let newActivity = Activity(name: name, lenght: lenght, locationName: locationName,
-                                       latitude: geoPoint!.latitude, longitude: geoPoint!.longitude, timestamp: (timestamp?.dateValue())!, storage: .firebase)
-            activities.append(newActivity)
-        }
-        return activities
-    }
 }
 
 enum Storage {

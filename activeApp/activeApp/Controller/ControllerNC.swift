@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ControllerNC: UINavigationController {
+class ControllerNC: UINavigationController, ControllerNCDelegate {
 
     var button: UIButton!
     
