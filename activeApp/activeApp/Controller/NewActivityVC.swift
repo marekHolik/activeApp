@@ -191,13 +191,8 @@ class NewActivityVC: SlidingVC {
     }
     
     @objc private func presentMapVC(_ sender: Any) {
-        if (!mapVCPrepared) {
-            mapVC.prepare()
-            mapVCPrepared = true
-            mapVC.slide()
-        } else {
-            mapVC.slide()
-        }
+        delegate.slideVC(controller: mapVC)
+        mapVC.delegate = delegate
         if (mapVC.labelToFill == nil) {
             mapVC.labelToFill = locationTextLabel
         }

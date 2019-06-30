@@ -15,9 +15,8 @@ class SlidingVC: UIViewController {
     var name: String!
     var slidingConst: CGFloat!
     var controllerNC: ControllerNC!
-    
+
     var deviceWidth: CGFloat!
-    
     var delegate: ControllerNC!
     
     override func viewDidLoad() {
@@ -25,6 +24,10 @@ class SlidingVC: UIViewController {
         view.backgroundColor = .red
         slidingConst = view.frame.size.width * 0.7
         configureButton()
+        
+        let swipe = UISwipeGestureRecognizer(target: self, action: #selector(slide))
+        swipe.direction = .right
+        view.addGestureRecognizer(swipe)
     }
     
     init(controllerNC: ControllerNC, deviceWidth: CGFloat, name: String) {

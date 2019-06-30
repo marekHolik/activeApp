@@ -38,9 +38,8 @@ class ControllerNC: UINavigationController {
         
         configureNavigationVC()
         pushViewController(navigationVC, animated: false)
+        pushViewController(newActivityVC, animated: false)
     }
-    
-    
     
     private func configureNavigationVC() {
         navigationVC = NavigationVC()
@@ -52,7 +51,7 @@ class ControllerNC: UINavigationController {
         newActivityVC = NewActivityVC(controllerNC: self, deviceWidth: deviceWidth, name: "new activity")
     }
     
-    func slideVC(controller: SlidingVC) {
+    func slideVC(controller: UIViewController) {
         pushViewController(controller, animated: true)
     }
     

@@ -21,6 +21,8 @@ class MapVC: UIViewController {
     var labelToFill: ActivityLabel!
     var slided = false
     
+    var delegate: ControllerNC!
+    
     private var topLabel: UILabel!
     private var topView: UIView!
     private var mapView: MKMapView!
@@ -68,7 +70,7 @@ class MapVC: UIViewController {
     }
     
     @objc private func dismissMapVC(_ sender: Any) {
-        slide()
+        delegate.dismissVC()
         if (locationName == "" && searchTextField.text != "") {
             locationName = searchTextField.text!
         }
