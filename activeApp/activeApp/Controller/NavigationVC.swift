@@ -8,14 +8,7 @@
 
 import UIKit
 
-class NavigationVC: UIViewController {
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
-    }
-    
+class NavigationVC: UIViewController {    
 
     func configureButtons(controllerNC: ControllerNC, viewControllers: [SlidingVC]) {
         var topMargin: CGFloat = 100

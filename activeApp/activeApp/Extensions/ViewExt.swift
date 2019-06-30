@@ -18,7 +18,6 @@ extension UIView {
         let height = self.heightAnchor.constraint(equalToConstant: 30)
         
         NSLayoutConstraint.activate([horizontalCenter, width, height])
-        //        self.contentMode = .scaleAspectFit
     }
     
     func configureAsTopView(viewToRelate view: AnyObject) {

@@ -22,7 +22,7 @@ class Firebase {
             ACTIVITIES_TIMESTAMP : timestamp
             ])
         { (error) in
-            if let error = error {
+            if error != nil {
                 completion(false)
             } else {
                 completion(true)
