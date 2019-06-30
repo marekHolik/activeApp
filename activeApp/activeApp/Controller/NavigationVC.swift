@@ -2,64 +2,35 @@
 //  NavigationVC.swift
 //  activeApp
 //
-//  Created by marek holik on 16/06/2019.
+//  Created by marek holik on 30/06/2019.
 //  Copyright © 2019 marek holik. All rights reserved.
 //
 
 import UIKit
 
 class NavigationVC: UIViewController {
-
-    var navigationNC: NavigationNC!
-    var controllers: [SlidableVC]!
-    var buttons: [NavigationButton]!
     
     override func viewDidLoad() {
-        let swipeLeft = UISwipeGestureRecognizer(target: self, action: #selector(hideNavigation))
-        swipeLeft.direction = .left
-        view.addGestureRecognizer(swipeLeft)
+        super.viewDidLoad()
+
+        // Do any additional setup after loading the view.
     }
     
-    @objc func hideNavigation() {
-        navigationNC.chosenVC.slide()
-    }
-    
-    func addButtons(navigationNC: NavigationNC, controllers: [SlidableVC]) {
-        var topAnchor = 120
-        buttons = [NavigationButton]()
-        self.navigationNC = navigationNC
-        self.controllers = controllers
-        let width = CGFloat(170)
-        let height = CGFloat(40)
-        
-        for controller in controllers {
+
+    func configureButtons(controllerNC: ControllerNC, viewControllers: [SlidingVC]) {
+        var topMargin: CGFloat = 100
+        for controller in viewControllers {
             let button = NavigationButton()
-            self.view.addSubview(button)
-            let deviceWidth = controller.deviceWidth!
-            let slideConstant = controller.slideConstant
-            button.configure(navigationNC: navigationNC, controller: controller, text: controller.name)
+            button.configure(controllerNC: controllerNC, controllerBehind: controller)
+            view.addSubview(button)
             button.translatesAutoresizingMaskIntoConstraints = false
-            button.widthAnchor.constraint(equalToConstant: width).isActive = true
-            button.heightAnchor.constraint(equalToConstant: height).isActive = true
-            button.topAnchor.constraint(equalTo: self.view.topAnchor, constant: CGFloat(topAnchor)).isActive = true
-            button.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: (deviceWidth * slideConstant! / 2) - (width / 2)).isActive = true
-            topAnchor += 50
-            buttons.append(button)
+            button.topAnchor.constraint(equalTo: view.topAnchor, constant: topMargin).isActive = true
+            button.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+            button.widthAnchor.constraint(equalToConstant: 200).isActive = true
+            button.heightAnchor.constraint(equalToConstant: 60).isActive = true
+            button.setTitle(controller.name, for: .normal)
+            topMargin += 70
         }
-        buttons[0].addTarget(self, action: #selector(reloadNewActivityVC), for: .touchUpInside)
-        buttons[1].addTarget(self, action: #selector(reloadActivitiesVC), for: .touchUpInside)
-    }
-    
-    @objc private func reloadNewActivityVC() {
-        let controller = controllers[0] as! NewActivityVC
-        controller.mapVC.remove()
-        controller.mapVC.prepare()
-        controller.view.layoutIfNeeded()
-    }
-    
-    @objc private func reloadActivitiesVC() {
-        let controller = controllers[1] as! ActivitiesVC
-        controller.fetchAllData()
-        controller.view.layoutIfNeeded()
+        
     }
 }

@@ -10,7 +10,7 @@ import UIKit
 import Firebase
 import MapKit
 
-class NewActivityVC: SlidableVC {
+class NewActivityVC: SlidingVC {
 
     private var headlineLabel: HeadlineLabel!
     private var nameLabel: ActivityLabel!
@@ -66,11 +66,9 @@ class NewActivityVC: SlidableVC {
         addBottomViews()
         addSegmentControl()
         
-        
         locationTextLabel.configure(viewToRelate: self.topBase)
         portraitTextLbl = locationTextLabel.bottomAnchor.constraint(equalTo: topBase.bottomAnchor, constant: -30)
         landscapeTextLbl = locationTextLabel.bottomAnchor.constraint(equalTo: topBase.bottomAnchor, constant: (75 - (pointWidth / 2)))
-        
         
         lenghtLabel.configure(viewToRelate: self.bottomBase)
         lenghtLabel.create(text: "lenght")

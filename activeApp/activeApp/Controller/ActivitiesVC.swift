@@ -10,7 +10,7 @@ import UIKit
 import MapKit
 import Firebase
 
-class ActivitiesVC: SlidableVC {
+class ActivitiesVC: SlidingVC {
 
     private var buttonSwitch: UIView!
     private var tableView: UITableView!
@@ -41,6 +41,10 @@ class ActivitiesVC: SlidableVC {
         firebaseCollection = Firestore.firestore().collection(ACTIVITIES_REF)
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        fetchAllData()
+    }
     
     //fetching methods
 
