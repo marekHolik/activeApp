@@ -26,7 +26,6 @@ class ActivityCell: UITableViewCell {
     
     func configureCell(viewToRelate view: Any, activity: Activity) {
         addBackground()
-        
         addActivityLabel()
         addTimeLabel()
         addLocationLabel()
@@ -40,7 +39,6 @@ class ActivityCell: UITableViewCell {
         let formatter = DateFormatter()
         formatter.dateFormat = "MMM d"
         self.dateLabel.text = formatter.string(from: activity.timestamp)
-        
     }
     
     func addDateLabel() {

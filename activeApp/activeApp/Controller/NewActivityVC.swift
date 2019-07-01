@@ -47,8 +47,6 @@ class NewActivityVC: SlidingVC {
     private var landscapeLenghtLbl: NSLayoutConstraint!
     
     //measures
-    private var pixelWidth = CGFloat()
-    private var pixelHeight = CGFloat()
     private var pointWidth = CGFloat()
     private var pointHeight = CGFloat()
     
@@ -229,7 +227,7 @@ class NewActivityVC: SlidingVC {
         landscapeBottomBaseWidth = NSLayoutConstraint()
         landscapeBottomBaseHeight = NSLayoutConstraint()
         
-        //constraints
+        //constraints for the first elements in a view
         portraitTextLbl = NSLayoutConstraint()
         landscapeTextLbl = NSLayoutConstraint()
         
@@ -237,8 +235,8 @@ class NewActivityVC: SlidingVC {
         landscapeLenghtLbl = NSLayoutConstraint()
         
         //measures
-        pixelWidth = CGFloat()
-        pixelHeight = CGFloat()
+        var pixelWidth = CGFloat()
+        var pixelHeight = CGFloat()
         pointWidth = CGFloat()
         pointHeight = CGFloat()
         
