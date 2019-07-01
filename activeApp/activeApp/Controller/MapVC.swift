@@ -149,8 +149,7 @@ class MapVC: UIViewController {
         let activeSearch = MKLocalSearch(request: searchRequest)
         
         activeSearch.start { (response, error) in
-            if let error = error {
-                debugPrint(error)
+            if error != nil {
                 UIApplication.shared.endIgnoringInteractionEvents()
             }
             if response != nil {
@@ -176,15 +175,6 @@ class MapVC: UIViewController {
     }
     
     //UX methods
-    
-    private func createAlert(title: String, message: String) {
-        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { (action) in
-            alert.dismiss(animated: true, completion: nil)
-        }))
-        self.present(alert, animated: true, completion: nil)
-        print("Alerting user!!!")
-    }
     
     private func addPressGesture() {
         let pressGesture = UILongPressGestureRecognizer(target: self, action: #selector(dropPin(_:)))
@@ -297,8 +287,6 @@ extension MapVC: MKMapViewDelegate {
     private func centerMapOnUserLocation() {
         let region = MKCoordinateRegion(center: mapView.userLocation.coordinate, latitudinalMeters: 1000, longitudinalMeters: 1000)
         mapView.setRegion(region, animated: true)
-        print(mapView.userLocation.coordinate)
-        print("Centering on user")
     }
 }
 

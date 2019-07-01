@@ -16,7 +16,7 @@ class CoreData {
     class func createActivity(name: String, lenght: Int, locationName: String, geoPoint: CLLocationCoordinate2D, timestamp: Date, completion: (_ finished: Bool) -> ()) {
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
         let managedContext = appDelegate.persistentContainer.viewContext
-        guard let userEntity = NSEntityDescription.entity(forEntityName: "CActivity", in: managedContext) else { print("returned");completion(false);return }
+        guard let userEntity = NSEntityDescription.entity(forEntityName: "CActivity", in: managedContext) else { completion(false);return }
     
         let activity = NSManagedObject(entity: userEntity, insertInto: managedContext) as! CActivity
         
@@ -31,7 +31,6 @@ class CoreData {
             try managedContext.save()
             completion(true)
         } catch {
-            debugPrint(error)
             completion(false)
         }
     }

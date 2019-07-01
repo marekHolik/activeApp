@@ -54,8 +54,6 @@ class TimePicker: UIPickerView {
             deviceHeight = view.frame.size.width
             deviceWidth = view.frame.size.height
         }
-        print(view.frame.size.width)
-        print(view.frame.size.height)
         setupConstraints()
     }
     
@@ -77,13 +75,11 @@ class TimePicker: UIPickerView {
     func activatePortraitConstraints() {
         NSLayoutConstraint.deactivate([constraint1L, constraint2L, constraint3L])
         NSLayoutConstraint.activate([constraint1P, constraint2P, constraint3P])
-        print("Portraint constraints activated")
     }
     
     func activateLandscapeConstraints() {
         NSLayoutConstraint.deactivate([constraint1P, constraint2P, constraint3P])
         NSLayoutConstraint.activate([constraint1L, constraint2L, constraint3L])
-        print("Landscape constraints activated")
     }
     
     func addLabels() {

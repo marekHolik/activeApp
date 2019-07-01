@@ -159,7 +159,7 @@ class NewActivityVC: SlidingVC {
                     if (complete) {
                         self.resetData()
                     } else {
-                        print("Connection with firebase went down")
+                        self.createAlert(title: "Oh no", message: "Connection with firebase went down")
                     }
                 }
             } else {
@@ -167,7 +167,7 @@ class NewActivityVC: SlidingVC {
                     if (complete) {
                         self.resetData()
                     } else {
-                        print("Something went wrong with coreData")
+                        self.createAlert(title: "Upps", message: "Something went wrong with coreData")
                     }
                 }
             }

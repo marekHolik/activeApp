@@ -24,8 +24,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.makeKeyAndVisible()
         window?.rootViewController = controllerNC
         
-        let db = Firestore.firestore()
-        
         return true
     }
 

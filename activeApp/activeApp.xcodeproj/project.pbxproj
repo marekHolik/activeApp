@@ -19,6 +19,7 @@
 		769BE7B92240DFFE009CD147 /* activeApp.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 769BE7B72240DFFE009CD147 /* activeApp.xcdatamodeld */; };
 		769BE7BB2240E001009CD147 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 769BE7BA2240E001009CD147 /* Assets.xcassets */; };
 		769BE7CE2240E3C8009CD147 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 769BE7CD2240E3C7009CD147 /* GoogleService-Info.plist */; };
+		76A14A4722C9F10B00CB52A7 /* ViewControllerExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76A14A4622C9F10B00CB52A7 /* ViewControllerExt.swift */; };
 		76B8167E224F636300424B20 /* MapVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76B8167D224F636300424B20 /* MapVC.swift */; };
 		76B81680224F643200424B20 /* DroppablePin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76B8167F224F643200424B20 /* DroppablePin.swift */; };
 		76B81683224F682300424B20 /* ActivitiesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76B81682224F682300424B20 /* ActivitiesVC.swift */; };
@@ -57,6 +58,7 @@
 		769BE7BA2240E001009CD147 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		769BE7BF2240E001009CD147 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		769BE7CD2240E3C7009CD147 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		76A14A4622C9F10B00CB52A7 /* ViewControllerExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerExt.swift; sourceTree = "<group>"; };
 		76B8167D224F636300424B20 /* MapVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapVC.swift; sourceTree = "<group>"; };
 		76B8167F224F643200424B20 /* DroppablePin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DroppablePin.swift; sourceTree = "<group>"; };
 		76B81682224F682300424B20 /* ActivitiesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivitiesVC.swift; sourceTree = "<group>"; };
@@ -181,6 +183,7 @@
 				EA61535B224128E800DA4A79 /* IntExt.swift */,
 				EA6153612241294900DA4A79 /* ColorExt.swift */,
 				7676A71022C8CD7E00EE08CF /* Protocols.swift */,
+				76A14A4622C9F10B00CB52A7 /* ViewControllerExt.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -346,6 +349,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				EACE27A42243CB83004FCD65 /* Activity.swift in Sources */,
+				76A14A4722C9F10B00CB52A7 /* ViewControllerExt.swift in Sources */,
 				EA6153562241280100DA4A79 /* TimePicker.swift in Sources */,
 				769BE7B92240DFFE009CD147 /* activeApp.xcdatamodeld in Sources */,
 				76B81680224F643200424B20 /* DroppablePin.swift in Sources */,

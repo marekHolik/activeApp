@@ -68,8 +68,8 @@ class ActivitiesVC: SlidingVC {
         localData = CoreData.fetch().reversed()
         
         firebaseCollection.order(by: ACTIVITIES_TIMESTAMP, descending: true).getDocuments { (snapshot, error) in
-            if let error = error {
-                debugPrint("We have a problem \(error)")
+            if error != nil {
+                self.createAlert(title: "Oh no", message: "Could no load data from firebase")
             } else {
                 self.firebaseData = Firebase.parse(snapshot: snapshot)
                 for activity in self.firebaseData {

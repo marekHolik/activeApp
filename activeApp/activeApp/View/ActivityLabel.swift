@@ -92,7 +92,7 @@ extension ActivityLabel {
         
         let newSize = text.boundingRect(with: CGSize(width: textWidth, height: CGFloat.greatestFiniteMagnitude),
                                         options: NSStringDrawingOptions.usesLineFragmentOrigin,
-                                        attributes: [NSAttributedString.Key.font: self.font], context: nil)
+                                        attributes: [NSAttributedString.Key.font: self.font as Any], context: nil)
         
         contentSize.height = ceil(newSize.size.height) + insetsHeight
         contentSize.width = ceil(newSize.size.width) + insetsWidth
