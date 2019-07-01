@@ -19,7 +19,6 @@ class MapVC: UIViewController {
     var locationName: String!
     
     var labelToFill: ActivityLabel!
-    var slided = false
     
     var delegate: ControllerNCDelegate!
     
@@ -188,24 +187,6 @@ class MapVC: UIViewController {
         let pressGesture = UILongPressGestureRecognizer(target: self, action: #selector(dropPin(_:)))
         pressGesture.delegate = self
         mapView.addGestureRecognizer(pressGesture)
-    }
-    
-    func prepare() {
-        parent?.view.addSubview(self.view)
-        view.frame.origin.x = view.frame.size.width
-    }
-    
-    func remove() {
-        view.removeFromSuperview()
-    }
-    
-    func slide() {
-        let distance = self.view.frame.size.width
-        UIView.animate(withDuration: 0.3, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: .curveEaseInOut, animations: {
-            self.view.frame.origin.x = self.view.frame.origin.x + (self.slided ? -distance : distance)
-        }, completion: nil)
-        slided = !slided
-        print("sliding mapVC!")
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {

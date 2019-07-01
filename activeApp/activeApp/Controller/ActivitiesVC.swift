@@ -12,7 +12,6 @@ import Firebase
 
 class ActivitiesVC: SlidingVC {
 
-    private var buttonSwitch: UIView!
     private var tableView: UITableView!
     private var segmentControl: UISegmentedControl!
     
@@ -23,21 +22,18 @@ class ActivitiesVC: SlidingVC {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        buttonSwitch = UIView()
-        tableView = UITableView()
-        segmentControl = UISegmentedControl(items: ["all", "local", "firebase"])
+
         localData = [Activity]()
         firebaseData = [Activity]()
         
         view.backgroundColor = .white
         addSegmentControl()
         addTableView()
-        
         addBackButton()
-        tableView.register(ActivityCell.self, forCellReuseIdentifier: "activityCell")
+        
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.separatorStyle = .none
+        
         firebaseCollection = Firestore.firestore().collection(ACTIVITIES_REF)
     }
     
@@ -103,6 +99,7 @@ class ActivitiesVC: SlidingVC {
     }
     
     private func addSegmentControl() {
+        segmentControl = UISegmentedControl(items: ["all", "local", "firebase"])
         self.view.addSubview(segmentControl)
         
         segmentControl.translatesAutoresizingMaskIntoConstraints = false
@@ -120,7 +117,9 @@ class ActivitiesVC: SlidingVC {
     }
     
     private func addTableView() {
+        tableView = UITableView()
         view.addSubview(tableView)
+        
         tableView.rowHeight = 120
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.topAnchor.constraint(equalTo: segmentControl.bottomAnchor, constant: 10).isActive = true
@@ -128,6 +127,9 @@ class ActivitiesVC: SlidingVC {
         tableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor).isActive = true
         tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor).isActive = true
         tableView.allowsSelection = false
+        
+        tableView.separatorStyle = .none
+        tableView.register(ActivityCell.self, forCellReuseIdentifier: "activityCell")
     }
 }
 

@@ -9,34 +9,21 @@
 import UIKit
 
 class ControllerNC: UINavigationController, ControllerNCDelegate {
-
-    var button: UIButton!
     
     var newActivityVC: NewActivityVC!
     var activitiesVC: ActivitiesVC!
     var slideControllers: [SlidingVC]!
     var navigationVC: NavigationVC!
-    var chosenVC: SlidingVC!
-    var deviceWidth: CGFloat!
-    var slideConstant: CGFloat!
-    var mapVC: MapVC!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationBar.isHidden = true
-        view.backgroundColor = #colorLiteral(red: 0.4, green: 0.8156862745, blue: 0.431372549, alpha: 1)
-        deviceWidth = self.view.frame.height > self.view.frame.width ? self.view.frame.width : self.view.frame.height
-        slideConstant = 0.8
         
         configureNewActivityVC()
-        
-        activitiesVC = ActivitiesVC(controllerNC: self, deviceWidth: deviceWidth, name: "activities")
+        activitiesVC = ActivitiesVC(controllerNC: self, name: "activities")
         slideControllers = [newActivityVC, activitiesVC]
-        
-        mapVC = MapVC()
-        newActivityVC.mapVC = mapVC
-        
         configureNavigationVC()
+        
         pushViewController(navigationVC, animated: false)
         pushViewController(newActivityVC, animated: false)
     }
@@ -48,7 +35,7 @@ class ControllerNC: UINavigationController, ControllerNCDelegate {
     }
     
     private func configureNewActivityVC() {
-        newActivityVC = NewActivityVC(controllerNC: self, deviceWidth: deviceWidth, name: "new activity")
+        newActivityVC = NewActivityVC(controllerNC: self, name: "new activity")
     }
     
     func slideVC(controller: UIViewController) {

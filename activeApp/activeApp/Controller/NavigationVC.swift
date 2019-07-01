@@ -24,6 +24,5 @@ class NavigationVC: UIViewController {
             button.setTitle(controller.name, for: .normal)
             topMargin += 70
         }
-        
     }
 }

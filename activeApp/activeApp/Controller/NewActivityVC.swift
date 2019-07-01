@@ -27,7 +27,6 @@ class NewActivityVC: SlidingVC {
     private var segmentControl: UISegmentedControl!
     
     var mapVC: MapVC!
-    var mapVCPrepared = false
     
     
     
@@ -67,14 +66,7 @@ class NewActivityVC: SlidingVC {
         addBottomViews()
         addSegmentControl()
         
-        locationTextLabel.configure(viewToRelate: self.topBase)
-        portraitTextLbl = locationTextLabel.bottomAnchor.constraint(equalTo: topBase.bottomAnchor, constant: -30)
-        landscapeTextLbl = locationTextLabel.bottomAnchor.constraint(equalTo: topBase.bottomAnchor, constant: (75 - (pointWidth / 2)))
-        
-        lenghtLabel.configure(viewToRelate: self.bottomBase)
-        lenghtLabel.create(text: "lenght")
-        portraitLenghtLbl = lenghtLabel.topAnchor.constraint(equalTo: bottomBase.topAnchor, constant: 0)
-        landscapeLenghtLbl = lenghtLabel.topAnchor.constraint(equalTo: bottomBase.topAnchor, constant: ((pointWidth / 2) - 75))
+        mapVC = MapVC()
         
         setConstraints()
     }
@@ -83,11 +75,6 @@ class NewActivityVC: SlidingVC {
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
-        
-        if (mapVC.view.frame.origin.x != 0) {
-            mapVC.remove()
-            mapVCPrepared = false
-        }
         
         if (UIDevice.current.orientation.isLandscape) {
             //topView's label
@@ -318,6 +305,11 @@ class NewActivityVC: SlidingVC {
     
     private func addTopViews() {
         topBase.addSubview(locationTextLabel)
+        
+        locationTextLabel.configure(viewToRelate: self.topBase)
+        portraitTextLbl = locationTextLabel.bottomAnchor.constraint(equalTo: topBase.bottomAnchor, constant: -30)
+        landscapeTextLbl = locationTextLabel.bottomAnchor.constraint(equalTo: topBase.bottomAnchor, constant: (75 - (pointWidth / 2)))
+        
         locationTextLabel.createAsTextField()
         locationTextLabel.create(text: "")
         locationTextLabel.padding = UIEdgeInsets(top: 0, left: 15, bottom: 0, right: 0)
@@ -350,6 +342,10 @@ class NewActivityVC: SlidingVC {
     
     private func addBottomViews() {
         bottomBase.addSubview(lenghtLabel)
+        lenghtLabel.configure(viewToRelate: self.bottomBase)
+        lenghtLabel.create(text: "lenght")
+        portraitLenghtLbl = lenghtLabel.topAnchor.constraint(equalTo: bottomBase.topAnchor, constant: 0)
+        landscapeLenghtLbl = lenghtLabel.topAnchor.constraint(equalTo: bottomBase.topAnchor, constant: ((pointWidth / 2) - 75))
         
         bottomBase.addSubview(lenghtTextField)
         lenghtTextField.configureFromTop(viewToRelate: bottomBase, itemToRelate: lenghtLabel, constant: 0)

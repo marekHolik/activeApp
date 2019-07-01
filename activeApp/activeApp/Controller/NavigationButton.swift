@@ -11,7 +11,7 @@ import UIKit
 class NavigationButton: UIButton {
     
     var controllerBehind: SlidingVC!
-    var delegate: ControllerNC!
+    var delegate: ControllerNCDelegate!
 
     func configure(controllerNC: ControllerNC, controllerBehind controller: SlidingVC) {
         controllerBehind = controller

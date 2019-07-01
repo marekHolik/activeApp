@@ -158,6 +158,7 @@
 		769BE7C72240E275009CD147 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				7630560022C0A10C00C23F25 /* Data.swift */,
 				EACE27A32243CB83004FCD65 /* Activity.swift */,
 			);
 			path = Model;
@@ -168,7 +169,6 @@
 			children = (
 				EA61535D2241291D00DA4A79 /* Firebase.swift */,
 				76C6E6B82250B888007D3E51 /* Constants.swift */,
-				7630560022C0A10C00C23F25 /* Data.swift */,
 				768DF71F22B39141007F94E0 /* CoreData.swift */,
 			);
 			path = Utilities;

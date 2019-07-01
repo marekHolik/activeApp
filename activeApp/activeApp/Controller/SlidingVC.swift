@@ -10,26 +10,18 @@ import UIKit
 
 class SlidingVC: UIViewController {
 
-    
     var button: NavigationButton!
     var name: String!
-    var slidingConst: CGFloat!
-    var controllerNC: ControllerNC!
-
-    var deviceWidth: CGFloat!
     var delegate: ControllerNCDelegate!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .red
-        slidingConst = view.frame.size.width * 0.7
         configureButton()
         addSwipe()
     }
     
-    init(controllerNC: ControllerNC, deviceWidth: CGFloat, name: String) {
+    init(controllerNC: ControllerNC, name: String) {
         super.init(nibName: nil, bundle: nil)
-        self.deviceWidth = deviceWidth
         self.delegate = controllerNC
         self.name = name
     }
@@ -62,7 +54,5 @@ class SlidingVC: UIViewController {
         button.addTarget(self, action: #selector(slide), for: .touchUpInside)
         button.controllerBehind = self
     }
-    
-
     
 }
