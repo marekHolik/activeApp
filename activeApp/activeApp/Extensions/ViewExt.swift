@@ -21,7 +21,6 @@ extension UIView {
         NSLayoutConstraint.activate([horizontalCenter, width, height])
     }
     
-    
     //configuring a view as a first element in a view, other views' constraints are related to this view
     
     func configureAsTopView(viewToRelate view: AnyObject) {

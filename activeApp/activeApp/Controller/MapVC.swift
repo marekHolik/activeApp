@@ -58,6 +58,10 @@ class MapVC: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
         
         searchBarOrigin = searchView.frame.origin.y
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         centerMapOnUserLocation()
     }
     
