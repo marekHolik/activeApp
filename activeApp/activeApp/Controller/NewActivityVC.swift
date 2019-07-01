@@ -28,8 +28,6 @@ class NewActivityVC: SlidingVC {
     
     var mapVC: MapVC!
     
-    
-    
     //constraint of holderViews
     private var portraitTopBaseWidth: NSLayoutConstraint!
     private var portraitTopBaseHeight: NSLayoutConstraint!
@@ -67,6 +65,7 @@ class NewActivityVC: SlidingVC {
         addSegmentControl()
         
         mapVC = MapVC()
+        mapVC.newActivityDelegate = self
         
         setConstraints()
     }
@@ -178,14 +177,10 @@ class NewActivityVC: SlidingVC {
         self.createButton.isEnabled = true
     }
     
-    @objc private func presentMapVC(_ sender: Any) {
+    @objc private func presentMapVC() {
         delegate.slideVC(controller: mapVC)
         if (mapVC.delegate == nil) {
             mapVC.delegate = delegate
-        }
-        
-        if (mapVC.labelToFill == nil) {
-            mapVC.labelToFill = locationTextLabel
         }
     }
     
@@ -315,7 +310,7 @@ class NewActivityVC: SlidingVC {
         locationTextLabel.padding = UIEdgeInsets(top: 0, left: 15, bottom: 0, right: 0)
         locationTextLabel.font = UIFont(name: "Montserrat-Regular", size: 20)
         
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(presentMapVC(_:)))
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(presentMapVC))
         tapGesture.numberOfTapsRequired = 1
         locationTextLabel.isUserInteractionEnabled = true
         locationTextLabel.addGestureRecognizer(tapGesture)
@@ -410,4 +405,10 @@ class NewActivityVC: SlidingVC {
 }
 
 extension NewActivityVC: UITextFieldDelegate, UIGestureRecognizerDelegate {
+}
+
+extension NewActivityVC: NewActivityVCDelegate {
+    func fillLabel(locationName: String) {
+        locationTextLabel.text = locationName
+    }
 }

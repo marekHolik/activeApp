@@ -12,3 +12,7 @@ protocol ControllerNCDelegate {
     func slideVC(controller: UIViewController)
     func dismissVC()
 }
+
+protocol NewActivityVCDelegate {
+    func fillLabel(locationName: String)
+}

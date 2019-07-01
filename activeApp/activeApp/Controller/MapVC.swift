@@ -18,9 +18,8 @@ class MapVC: UIViewController {
     var locationCoordinate: CLLocationCoordinate2D!
     var locationName: String!
     
-    var labelToFill: ActivityLabel!
-    
     var delegate: ControllerNCDelegate!
+    var newActivityDelegate: NewActivityVCDelegate!
     
     private var topLabel: UILabel!
     private var topView: UIView!
@@ -68,12 +67,12 @@ class MapVC: UIViewController {
         centerMapOnUserLocation()
     }
     
-    @objc private func dismissMapVC(_ sender: Any) {
+    @objc private func dismissMapVC() {
         delegate.dismissVC()
         if (locationName == "" && searchTextField.text != "") {
             locationName = searchTextField.text!
         }
-        labelToFill.text = locationName
+        newActivityDelegate.fillLabel(locationName: locationName)
     }
     
     @objc private func keyboardWillShow(notification: NSNotification) {
@@ -282,7 +281,7 @@ class MapVC: UIViewController {
         backButton.widthAnchor.constraint(equalToConstant: 15).isActive = true
         backButton.heightAnchor.constraint(equalToConstant: 25).isActive = true
         backButton.setImage(UIImage(named: "backArrow"), for: .normal)
-        backButton.addTarget(self, action: #selector(self.dismissMapVC(_:)), for: .touchUpInside)
+        backButton.addTarget(self, action: #selector(self.dismissMapVC), for: .touchUpInside)
     }
     
 }
