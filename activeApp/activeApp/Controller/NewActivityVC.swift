@@ -68,56 +68,15 @@ class NewActivityVC: SlidingVC {
         setConstraints()
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        resetConstraints()
+    }
     
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
-        
-        if (UIDevice.current.orientation.isLandscape) {
-            //topView's label
-            portraitTextLbl.isActive = false
-            landscapeTextLbl.isActive = true
-            //bottomView's label
-            portraitLenghtLbl.isActive = false
-            landscapeLenghtLbl.isActive = true
-            
-            //top Base's constraints
-            portraitTopBaseWidth.isActive = false
-            portraitTopBaseHeight.isActive = false
-            landscapeTopBaseWidth.isActive = true
-            landscapeTopBaseHeight.isActive = true
-            
-            //bottomBase's constraints
-            portraitBottomBaseWidth.isActive = false
-            portraitBottomBaseHeight.isActive = false
-            landscapeBottomBaseWidth.isActive = true
-            landscapeBottomBaseHeight.isActive = true
-            
-            timePicker.activateLandscapeConstraints()
-            
-        } else {
-            //topView's label
-            landscapeTextLbl.isActive = false
-            portraitTextLbl.isActive = true
-            
-            //bottomView's label
-            landscapeLenghtLbl.isActive = false
-            portraitLenghtLbl.isActive = true
-            
-            //topBase's constraints
-            landscapeTopBaseWidth.isActive = false
-            landscapeTopBaseHeight.isActive = false
-            portraitTopBaseWidth.isActive = true
-            portraitTopBaseHeight.isActive = true
-
-            //bottomBase's constraints
-            landscapeBottomBaseWidth.isActive = false
-            landscapeBottomBaseHeight.isActive = false
-            portraitBottomBaseWidth.isActive = true
-            portraitBottomBaseHeight.isActive = true
-            
-            timePicker.activatePortraitConstraints()
-        }
+        resetConstraints()
     }
     
     private func resetData() {
@@ -193,6 +152,54 @@ class NewActivityVC: SlidingVC {
     }
     
     //constraints handling
+    
+    private func resetConstraints() {
+        if (UIDevice.current.orientation.isLandscape) {
+            //topView's label
+            portraitTextLbl.isActive = false
+            landscapeTextLbl.isActive = true
+            //bottomView's label
+            portraitLenghtLbl.isActive = false
+            landscapeLenghtLbl.isActive = true
+            
+            //top Base's constraints
+            portraitTopBaseWidth.isActive = false
+            portraitTopBaseHeight.isActive = false
+            landscapeTopBaseWidth.isActive = true
+            landscapeTopBaseHeight.isActive = true
+            
+            //bottomBase's constraints
+            portraitBottomBaseWidth.isActive = false
+            portraitBottomBaseHeight.isActive = false
+            landscapeBottomBaseWidth.isActive = true
+            landscapeBottomBaseHeight.isActive = true
+            
+            timePicker.activateLandscapeConstraints()
+            
+        } else {
+            //topView's label
+            landscapeTextLbl.isActive = false
+            portraitTextLbl.isActive = true
+            
+            //bottomView's label
+            landscapeLenghtLbl.isActive = false
+            portraitLenghtLbl.isActive = true
+            
+            //topBase's constraints
+            landscapeTopBaseWidth.isActive = false
+            landscapeTopBaseHeight.isActive = false
+            portraitTopBaseWidth.isActive = true
+            portraitTopBaseHeight.isActive = true
+            
+            //bottomBase's constraints
+            landscapeBottomBaseWidth.isActive = false
+            landscapeBottomBaseHeight.isActive = false
+            portraitBottomBaseWidth.isActive = true
+            portraitBottomBaseHeight.isActive = true
+            
+            timePicker.activatePortraitConstraints()
+        }
+    }
     
     private func setConstraints() {
         //topBase's constraints
